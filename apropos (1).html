@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="À propos de STPM — Société Travaux Polyvalents Marocains. Une expertise solide et éprouvée en travaux routiers, signalisation et sécurité routière au Maroc." />
+  <title>À Propos — STPM | Travaux Routiers, Signalisation & Sécurité</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       RESET & TOKENS
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --asphalt:       #141414;
+      --asphalt-mid:   #1E1E1E;
+      --asphalt-card:  #242424;
+      --yellow:        #F5A623;
+      --yellow-dark:   #C8841A;
+      --yellow-glow:   rgba(245,166,35,0.18);
+      --yellow-border: rgba(245,166,35,0.25);
+      --white:         #FFFFFF;
+      --off-white:     #EFEFEF;
+      --steel:         #8B8B8B;
+      --navy:          #0F1C2E;
+      --navy-mid:      #162335;
+      --text-body:     #CCCCCC;
+      --text-muted:    #777777;
+      --border-faint:  rgba(255,255,255,0.07);
+
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--asphalt);
+      color: var(--text-body);
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+    ul  { list-style: none; }
+
+    /* ============================================================
+       TYPOGRAPHY HELPERS
+    ============================================================ */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1rem;
+    }
+    .tag::before {
+      content: '';
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--yellow);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 520px;
+    }
+
+    .accent { color: var(--yellow); }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 5%;
+    }
+
+    section { padding: 96px 0; }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.8rem;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.26s var(--ease);
+    }
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--asphalt);
+    }
+    .btn-primary:hover {
+      background: var(--yellow-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(245,166,35,0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .reveal.d1 { transition-delay: 0.10s; }
+    .reveal.d2 { transition-delay: 0.20s; }
+    .reveal.d3 { transition-delay: 0.30s; }
+    .reveal.d4 { transition-delay: 0.40s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      height: 74px;
+      background: rgba(14, 27, 45, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--yellow-border);
+      transition: box-shadow 0.3s;
+    }
+    .nav.scrolled {
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+
+    .nav__inner {
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ── Logo ── */
+    .nav__logo {
+      height: 50px;
+      display: flex;
+      align-items: center;
+    }
+    .nav__logo img {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+      /* Le logo est sur fond noir — il s'intègre naturellement au fond navy de la nav */
+    }
+
+    /* ── Links ── */
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.2rem;
+    }
+
+    .nav__link {
+      font-size: 0.77rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px; left: 0; right: 0;
+      height: 1.5px;
+      background: var(--yellow);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s var(--ease);
+    }
+    .nav__link:hover,
+    .nav__link.active { color: var(--white); }
+    .nav__link:hover::after,
+    .nav__link.active::after { transform: scaleX(1); }
+
+    .nav__cta {
+      background: var(--yellow);
+      color: var(--asphalt) !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 3px;
+      font-size: 0.77rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .nav__cta:hover {
+      background: var(--yellow-dark);
+      transform: translateY(-1px);
+    }
+    .nav__cta::after { display: none !important; }
+
+    /* ── Burger ── */
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .nav__burger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .nav__burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav__burger.open span:nth-child(2) { opacity: 0; }
+    .nav__burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ── Mobile drawer ── */
+    .nav__drawer {
+      display: none;
+      position: fixed;
+      top: 74px; left: 0; right: 0; bottom: 0;
+      background: var(--navy);
+      z-index: 899;
+      flex-direction: column;
+      padding: 2.5rem 5%;
+      gap: 0.3rem;
+    }
+    .nav__drawer.open { display: flex; }
+    .nav__drawer .nav__link {
+      font-size: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-faint);
+      color: var(--off-white);
+    }
+    .nav__drawer .nav__cta {
+      margin-top: 1.5rem;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 3px;
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 74px;
+      overflow: hidden;
+    }
+
+    /* ── Background video / image ── */
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    /*
+    ┌──────────────────────────────────────────────────────────────┐
+    │  EMPLACEMENT MÉDIA — HERO BACKGROUND                         │
+    │  Type     : Vidéo MP4 (préféré) ou GIF grande résolution     │
+    │  Contenu  : Vue aérienne ou latérale d'une machine de        │
+    │             marquage routier Airless / thermoplastique        │
+    │             traçant des lignes jaunes/blanches sur une        │
+    │             autoroute. Nuit ou crépuscule recommandé pour     │
+    │             l'ambiance. Durée : 10–20 sec, loop infini.       │
+    │  Remplacer : src="assets/hero-machine-marquage.mp4"          │
+    └──────────────────────────────────────────────────────────────┘
+    */
+    .hero__video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.35;
+    }
+
+    /* Fallback image si la vidéo n'est pas disponible */
+    .hero__bg-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.35;
+      /*
+        EMPLACEMENT IMAGE FALLBACK HERO :
+        Photo HD d'une autoroute marocaine en travaux de marquage.
+        Remplacer src="assets/hero-autoroute.jpg"
+      */
+    }
+
+    /* Dégradé de lisibilité sur le fond */
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(14,27,46,0.92) 45%, rgba(14,27,46,0.45) 100%),
+        linear-gradient(to top,   rgba(14,27,46,0.8)  0%,  transparent 50%);
+      z-index: 1;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1.4rem;
+    }
+    .hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 30px; height: 2px;
+      background: var(--yellow);
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 0.95;
+      color: var(--white);
+      letter-spacing: 0.01em;
+      margin-bottom: 1.5rem;
+    }
+    .hero__title .line-yellow { color: var(--yellow); display: block; }
+
+    .hero__sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.75;
+      max-width: 500px;
+      margin-bottom: 2.8rem;
+    }
+
+    .hero__ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Stats bar ── */
+    .hero__stats {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      background: rgba(10,10,10,0.75);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--yellow-border);
+    }
+    .hero__stats-inner {
+      display: flex;
+      justify-content: space-between;
+    }
+    .stat {
+      flex: 1;
+      padding: 1.6rem 0;
+      text-align: center;
+      border-right: 1px solid var(--border-faint);
+    }
+    .stat:last-child { border-right: none; }
+    .stat__num {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .stat__label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.3rem;
+    }
+
+    /* ── Road-line animation at bottom of hero ── */
+    .hero__road {
+      position: absolute;
+      bottom: 76px; left: 0; right: 0;
+      height: 4px;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .hero__road-dashes {
+      display: flex;
+      gap: 0;
+      animation: dashMove 3s linear infinite;
+    }
+    .hero__road-dash {
+      width: 60px; height: 4px;
+      background: var(--yellow);
+      margin-right: 36px;
+      opacity: 0.5;
+      flex-shrink: 0;
+      border-radius: 2px;
+    }
+    @keyframes dashMove {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-96px); }
+    }
+
+    /* ============================================================
+       SERVICES PREVIEW (section 2)
+    ============================================================ */
+    .services-preview {
+      background: var(--asphalt-mid);
+      border-top: 1px solid var(--border-faint);
+      border-bottom: 1px solid var(--border-faint);
+    }
+
+    .services-preview__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Services grid : 4 cartes */
+    .services-preview__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5px;
+      background: var(--border-faint);
+      border: 1.5px solid var(--border-faint);
+    }
+
+    .srv-card {
+      background: var(--asphalt-card);
+      padding: 2.2rem 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.28s var(--ease);
+      cursor: default;
+    }
+    .srv-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--yellow);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s var(--ease);
+    }
+    .srv-card:hover { background: #2A2A2A; }
+    .srv-card:hover::after { transform: scaleX(1); }
+
+    /* Thumbnail image pour chaque carte service */
+    .srv-card__thumb {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+      background: var(--asphalt-mid);
+    }
+    /*
+    ┌──────────────────────────────────────────────────────────────┐
+    │  EMPLACEMENTS IMAGES — 4 CARTES SERVICES                     │
+    │                                                              │
+    │  Carte 1 — Signalisation Horizontale                         │
+    │  Type    : Photo statique HD                                 │
+    │  Contenu : Gros plan de lignes jaunes/blanches fraîchement   │
+    │            tracées sur bitume noir. Perspective de route.    │
+    │  Fichier : assets/srv-horizontal.jpg                         │
+    │                                                              │
+    │  Carte 2 — Signalisation Verticale                           │
+    │  Type    : Photo statique HD                                 │
+    │  Contenu : Technicien posant un panneau de signalisation      │
+    │            sur poteau, bord de route nationale.              │
+    │  Fichier : assets/srv-verticale.jpg                          │
+    │                                                              │
+    │  Carte 3 — Dispositifs de Sécurité                           │
+    │  Type    : Photo statique HD                                 │
+    │  Contenu : Glissière de sécurité métallique (GS2) posée      │
+    │            sur une voie express ou autoroute.                │
+    │  Fichier : assets/srv-glissiere.jpg                          │
+    │                                                              │
+    │  Carte 4 — Travaux Routiers                                  │
+    │  Type    : Photo statique HD                                 │
+    │  Contenu : Finisseur (machine d'enrobé) en action sur        │
+    │            chantier de terrassement / réfection routière.    │
+    │  Fichier : assets/srv-travaux.jpg                            │
+    └──────────────────────────────────────────────────────────────┘
+    */
+
+    .srv-card__icon {
+      width: 48px; height: 48px;
+      background: var(--navy);
+      border: 1px solid var(--yellow-border);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .srv-card__title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+
+    .srv-card__text {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .srv-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-top: 1.2rem;
+      transition: gap 0.2s;
+    }
+    .srv-card__link:hover { gap: 0.8rem; }
+
+    /* ============================================================
+       PROJET PHARE (section 3)
+    ============================================================ */
+    .flagship {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flagship__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 520px;
+    }
+
+    /* Panneau image gauche */
+    .flagship__visual {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+    }
+
+    /*
+    ┌──────────────────────────────────────────────────────────────┐
+    │  EMPLACEMENT MÉDIA — PROJET PHARE (section gauche)           │
+    │  Type    : GIF animé ou photo panoramique HD                 │
+    │  Contenu : Vue drone / aérienne d'une route nationale ou     │
+    │            voie express après travaux de marquage complets.  │
+    │            Lignes bien visibles, paysage marocain.           │
+    │  Fichier : assets/projet-phare.gif  (ou .jpg pour statique)  │
+    └──────────────────────────────────────────────────────────────┘
+    */
+    .flagship__img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s var(--ease);
+    }
+    .flagship__visual:hover .flagship__img {
+      transform: scale(1.04);
+    }
+
+    /* Badge projet */
+    .flagship__badge {
+      position: absolute;
+      top: 1.5rem; left: 1.5rem;
+      background: var(--yellow);
+      color: var(--asphalt);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+    }
+
+    /* Panneau texte droite */
+    .flagship__content {
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .flagship__metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+
+    .flagship__metric {
+      padding: 1.2rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-faint);
+      border-radius: 3px;
+    }
+    .flagship__metric-val {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--yellow);
+    }
+    .flagship__metric-label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.2rem;
+    }
+
+    /* ============================================================
+       DOMAINES D'EXCELLENCE (section 4 — bandeau foncé)
+    ============================================================ */
+    .excellence {
+      background: var(--asphalt);
+      border-top: 1px solid var(--border-faint);
+    }
+
+    .excellence__header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .excellence__header .section-sub {
+      margin: 0 auto;
+    }
+
+    .excellence__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-faint);
+      border: 1px solid var(--border-faint);
+    }
+
+    .exc-card {
+      background: var(--asphalt-mid);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.28s;
+    }
+    .exc-card:hover { background: var(--asphalt-card); }
+
+    /* Image thumbnail chaque domaine */
+    .exc-card__img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 2px;
+      margin-bottom: 1.6rem;
+      background: #1A1A1A;
+    }
+    /*
+    ┌──────────────────────────────────────────────────────────────┐
+    │  EMPLACEMENTS IMAGES — 3 DOMAINES D'EXCELLENCE               │
+    │                                                              │
+    │  Carte A — Routes Nationales & Voies Express                 │
+    │  Type    : Photo HD                                          │
+    │  Contenu : Section d'autoroute marocaine avec marquage       │
+    │            horizontal impeccable, vue perspective fuyante.   │
+    │  Fichier : assets/exc-autoroute.jpg                          │
+    │                                                              │
+    │  Carte B — Parkings & Zones Industrielles                    │
+    │  Type    : Photo HD ou GIF animé                             │
+    │  Contenu : Marquage de places de parking (lignes bleues/     │
+    │            blanches, flèches, numérotation), vue aérienne.   │
+    │  Fichier : assets/exc-parking.jpg (ou .gif)                  │
+    │                                                              │
+    │  Carte C — Aéroports                                         │
+    │  Type    : Photo HD                                          │
+    │  Contenu : Piste d'aéroport avec marquage (seuil de piste,  │
+    │            axe de piste, zones de toucher). Vue depuis le    │
+    │            tablier ou aérienne.                              │
+    │  Fichier : assets/exc-aeroport.jpg                           │
+    └──────────────────────────────────────────────────────────────┘
+    */
+
+    .exc-card__label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 0.5rem;
+    }
+
+    .exc-card__title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .exc-card__text {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       PROCESSUS (section 5 — timeline horizontale)
+    ============================================================ */
+    .process {
+      background: var(--navy);
+    }
+
+    .process__header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .process__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    /* Ligne de connexion entre étapes */
+    .process__steps::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: calc(12.5% + 12px);
+      right: calc(12.5% + 12px);
+      height: 2px;
+      background: var(--yellow-border);
+      z-index: 0;
+    }
+
+    .step {
+      padding: 0 1.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step__dot {
+      width: 48px; height: 48px;
+      background: var(--navy-mid);
+      border: 2px solid var(--yellow);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--yellow);
+      margin: 0 auto 1.5rem;
+    }
+
+    .step__title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .step__text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       ENGAGEMENTS (section 6 — bande chiffre + texte)
+    ============================================================ */
+    .engagements {
+      background: var(--asphalt-mid);
+      border-top: 1px solid var(--border-faint);
+    }
+
+    .engagements__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .engage-list { margin-top: 2rem; }
+
+    .engage-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-faint);
+    }
+    .engage-item:last-child { border-bottom: none; }
+
+    .engage-item__icon {
+      width: 40px; height: 40px;
+      background: var(--yellow-glow);
+      border: 1px solid var(--yellow-border);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .engage-item__text h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .engage-item__text p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Panneau image droite — engagements */
+    .engagements__visual {
+      position: relative;
+    }
+
+    /*
+    ┌──────────────────────────────────────────────────────────────┐
+    │  EMPLACEMENT MÉDIA — SECTION ENGAGEMENTS                     │
+    │  Type    : GIF animé (idéal) ou photo HD                     │
+    │  Contenu : Machine de marquage routier thermoplastique       │
+    │            (ex. Nanjing Roadshine) en pleine action,         │
+    │            traçant une ligne continue sur bitume.            │
+    │            Plan serré sur la buse d'application.             │
+    │  Fichier : assets/machine-marquage.gif (ou .jpg)             │
+    └──────────────────────────────────────────────────────────────┘
+    */
+    .engagements__img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 3px;
+      background: var(--asphalt-card);
+    }
+
+    /* Badge superposé */
+    .engagements__badge {
+      position: absolute;
+      bottom: -1rem; left: -1rem;
+      background: var(--yellow);
+      color: var(--asphalt);
+      padding: 1.2rem 1.5rem;
+      border-radius: 3px;
+    }
+    .engagements__badge-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .engagements__badge-txt {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* ============================================================
+       PARTENAIRES (section 7)
+    ============================================================ */
+    .partners {
+      background: var(--asphalt);
+      padding: 60px 0;
+      border-top: 1px solid var(--border-faint);
+    }
+
+    .partners__title {
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .partners__track {
+      display: flex;
+      gap: 4rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /*
+    ┌──────────────────────────────────────────────────────────────┐
+    │  EMPLACEMENTS — LOGOS PARTENAIRES / CLIENTS                  │
+    │  Type    : Images PNG fond transparent (hauteur ~40px)       │
+    │  Contenu : Logos des maîtres d'ouvrage et partenaires        │
+    │            (Direction des Routes, ADM, ONDA, collectivités). │
+    │  Fichiers: assets/partner-1.png, partner-2.png, ...          │
+    └──────────────────────────────────────────────────────────────┘
+    */
+    .partner-logo {
+      height: 40px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.4;
+      transition: opacity 0.25s;
+    }
+    .partner-logo:hover { opacity: 0.85; }
+
+    /* Placeholder si pas encore de logo client */
+    .partner-placeholder {
+      height: 40px;
+      min-width: 120px;
+      background: var(--border-faint);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       CTA STRIP (avant footer)
+    ============================================================ */
+    .cta-strip {
+      background: var(--yellow);
+      padding: 64px 0;
+    }
+
+    .cta-strip__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .cta-strip h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 900;
+      color: var(--asphalt);
+      line-height: 1.1;
+    }
+
+    .cta-strip p {
+      font-size: 0.9rem;
+      color: rgba(20,20,20,0.7);
+      margin-top: 0.4rem;
+    }
+
+    .btn-dark {
+      background: var(--asphalt);
+      color: var(--yellow);
+      padding: 0.95rem 2rem;
+      border-radius: 3px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s;
+      white-space: nowrap;
+    }
+    .btn-dark:hover {
+      background: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: #0A0A0A;
+      border-top: 1px solid var(--border-faint);
+      padding: 64px 0 28px;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer__logo-wrap img {
+      height: 50px;
+      object-fit: contain;
+      margin-bottom: 1.2rem;
+    }
+
+    .footer__desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer__social {
+      display: flex;
+      gap: 0.7rem;
+    }
+    .footer__social a {
+      width: 34px; height: 34px;
+      background: var(--asphalt-card);
+      border: 1px solid var(--border-faint);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .footer__social a:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+
+    .footer__col-head {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1.3rem;
+    }
+
+    .footer__links li { margin-bottom: 0.55rem; }
+    .footer__links a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .footer__links a:hover { color: var(--white); }
+
+    .footer__contact-item {
+      display: flex;
+      gap: 0.7rem;
+      margin-bottom: 0.65rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .footer__contact-item .ico { color: var(--yellow); flex-shrink: 0; font-size: 0.9rem; }
+
+    .footer__bottom {
+      border-top: 1px solid var(--border-faint);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer__bottom p { font-size: 0.73rem; color: var(--text-muted); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .services-preview__grid { grid-template-columns: repeat(2, 1fr); }
+      .excellence__grid       { grid-template-columns: repeat(2, 1fr); }
+      .flagship__content      { padding: 2.5rem; }
+      .footer__grid           { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav__links   { display: none; }
+      .nav__burger  { display: flex; }
+
+      section { padding: 65px 0; }
+
+      .hero__title { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+
+      .hero__stats-inner {
+        flex-wrap: wrap;
+      }
+      .stat {
+        flex: 0 0 50%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-faint);
+      }
+      .stat:nth-child(odd) { border-right: 1px solid var(--border-faint); }
+      .stat:nth-last-child(-n+2) { border-bottom: none; }
+
+      .services-preview__grid { grid-template-columns: 1fr; }
+      .flagship__grid         { grid-template-columns: 1fr; }
+      .flagship__visual       { min-height: 280px; }
+      .flagship__content      { padding: 2rem 0; }
+      .flagship__metrics      { grid-template-columns: 1fr 1fr; }
+      .excellence__grid       { grid-template-columns: 1fr; }
+      .process__steps         { grid-template-columns: 1fr 1fr; }
+      .process__steps::before { display: none; }
+      .engagements__inner     { grid-template-columns: 1fr; gap: 2.5rem; }
+      .engagements__badge     { bottom: 0.5rem; left: 0.5rem; }
+      .cta-strip__inner       { flex-direction: column; text-align: center; }
+      .footer__grid           { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      .hero__road-dashes { animation: none; }
+    }
+
+    /* ============================================================
+       PAGE À PROPOS — STYLES SPÉCIFIQUES
+    ============================================================ */
+    .ap-hero {
+      padding: 160px 0 70px;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--yellow-border);
+    }
+    .ap-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, transparent 0 38px, var(--yellow) 38px 78px);
+      opacity: 0.04;
+      pointer-events: none;
+    }
+    .ap-hero__inner { position: relative; z-index: 1; max-width: 760px; }
+    .ap-hero h1 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--white); line-height: 1.05;
+      margin: 0.6rem 0 1rem;
+    }
+    .ap-hero p { color: var(--text-body); font-size: 1rem; line-height: 1.7; max-width: 580px; }
+
+    /* Histoire / intro */
+    .ap-story { padding: 90px 0; background: var(--asphalt); }
+    .ap-story__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .ap-story__img-wrap {
+      position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 4/3;
+      border: 1px solid var(--border-faint);
+    }
+    .ap-story__img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .ap-story__text h2 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(1.7rem, 3.2vw, 2.3rem); color: var(--white); margin: 0.5rem 0 1.2rem; line-height: 1.15;
+    }
+    .ap-story__text p { color: var(--text-body); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; }
+
+    /* Timeline */
+    .ap-timeline { padding: 80px 0; background: var(--navy); border-top: 1px solid var(--yellow-border); border-bottom: 1px solid var(--yellow-border); }
+    .ap-timeline__header { text-align: center; max-width: 600px; margin: 0 auto 3.5rem; }
+    .ap-timeline__header h2 {
+      font-family: var(--font-display); font-weight: 800; font-size: clamp(1.7rem, 3.2vw, 2.3rem); color: var(--white); margin-top: 0.5rem;
+    }
+    .ap-timeline__track {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; position: relative;
+    }
+    .ap-timeline__track::before {
+      content: ''; position: absolute; top: 22px; left: 6%; right: 6%; height: 2px;
+      background: var(--yellow-border);
+    }
+    .ap-tl-item { text-align: center; position: relative; }
+    .ap-tl-item__dot {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--asphalt); border: 2px solid var(--yellow);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem; position: relative; z-index: 1;
+      font-family: var(--font-display); font-weight: 800; color: var(--yellow); font-size: 0.95rem;
+    }
+    .ap-tl-item h4 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--white); margin-bottom: 0.4rem; }
+    .ap-tl-item p { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; }
+
+    /* Valeurs */
+    .ap-values { padding: 90px 0; background: var(--asphalt); }
+    .ap-values__header { max-width: 600px; margin-bottom: 3rem; }
+    .ap-values__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.3rem; }
+    .ap-value-card {
+      background: var(--asphalt-card); border: 1px solid var(--border-faint); border-radius: 10px;
+      padding: 1.8rem 1.5rem; transition: border-color 0.2s, transform 0.2s;
+    }
+    .ap-value-card:hover { border-color: var(--yellow-border); transform: translateY(-3px); }
+    .ap-value-card .ico {
+      width: 46px; height: 46px; border-radius: 9px; background: var(--yellow-glow); color: var(--yellow);
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.1rem;
+    }
+    .ap-value-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--white); margin-bottom: 0.5rem; }
+    .ap-value-card p { color: var(--text-muted); font-size: 0.84rem; line-height: 1.6; }
+
+    /* Engagement qualité/sécurité */
+    .ap-quality { padding: 90px 0; background: var(--navy); border-top: 1px solid var(--yellow-border); }
+    .ap-quality__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .ap-quality__text h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.7rem, 3.2vw, 2.3rem); color: var(--white); margin: 0.5rem 0 1.2rem; line-height: 1.15; }
+    .ap-quality__text p { color: var(--text-body); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.6rem; }
+    .ap-quality__list { display: flex; flex-direction: column; gap: 0.9rem; }
+    .ap-quality__list li { display: flex; gap: 0.8rem; align-items: flex-start; color: var(--text-body); font-size: 0.9rem; line-height: 1.5; }
+    .ap-quality__list .check {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--yellow); color: var(--asphalt); font-size: 0.75rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; margin-top: 0.1rem;
+    }
+    .ap-quality__badges { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .ap-badge-card {
+      background: var(--asphalt-card); border: 1px solid var(--border-faint); border-radius: 10px;
+      padding: 1.6rem; text-align: center;
+    }
+    .ap-badge-card .ico { font-size: 1.8rem; margin-bottom: 0.7rem; }
+    .ap-badge-card h4 { font-family: var(--font-display); font-weight: 700; color: var(--white); font-size: 0.95rem; margin-bottom: 0.3rem; }
+    .ap-badge-card p { color: var(--text-muted); font-size: 0.78rem; }
+
+    @media (max-width: 900px) {
+      .ap-story__grid, .ap-quality__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .ap-timeline__track { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+      .ap-timeline__track::before { display: none; }
+      .ap-values__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .ap-hero { padding: 130px 0 50px; }
+      .ap-values__grid { grid-template-columns: 1fr; }
+      .ap-quality__badges { grid-template-columns: 1fr; }
+    }
+  </style>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="STPM – Accueil">
+      <img src="logo.png" alt="STPM" />
+    </a>
+    <ul class="nav__links" role="list">
+      <li><a href="index.html"    class="nav__link">Accueil</a></li>
+      <li><a href="services.html" class="nav__link">Services</a></li>
+      <li><a href="projets.html"  class="nav__link">Références</a></li>
+      <li><a href="apropos.html"  class="nav__link active">À Propos</a></li>
+      <li><a href="contact.html"  class="nav__cta">Nous contacter</a></li>
+    </ul>
+    <button class="nav__burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav__drawer" id="navDrawer" role="dialog" aria-label="Menu principal">
+  <a href="index.html"    class="nav__link">Accueil</a>
+  <a href="services.html" class="nav__link">Services</a>
+  <a href="projets.html"  class="nav__link">Références</a>
+  <a href="apropos.html"  class="nav__link active">À Propos</a>
+  <a href="contact.html"  class="nav__cta">Nous contacter →</a>
+</div>
+
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<header class="ap-hero">
+  <div class="container ap-hero__inner reveal">
+    <div class="tag">À Propos de STPM</div>
+    <h1>L'expertise terrain,<br>la rigueur d'une équipe engagée.</h1>
+    <p>
+      STPM accompagne les acteurs publics et privés du Maroc dans la sécurisation
+      de leurs infrastructures routières, avec une expertise reconnue et consolidée
+      au fil des années dans le domaine des travaux routiers et de la sécurité.
+    </p>
+  </div>
+</header>
+
+
+<!-- ============================================================
+     NOTRE HISTOIRE
+============================================================ -->
+<section class="ap-story">
+  <div class="container ap-story__grid">
+    <div class="ap-story__img-wrap reveal">
+      <!-- 🖼️ PHOTO : équipe STPM sur chantier, ou dirigeant en réunion technique, format professionnel -->
+      <img src="assets/srv-travaux.jpg" alt="Équipe STPM sur chantier" loading="lazy" />
+    </div>
+    <div class="ap-story__text reveal d2">
+      <div class="tag">Notre histoire</div>
+      <h2>Née sur le terrain,<br>grandie par l'exigence.</h2>
+      <p>
+        STPM — Société Travaux Polyvalents Marocains — est née d'une conviction simple :
+        la sécurité routière ne tolère pas l'approximation. L'activité de marquage
+        routier s'est progressivement élargie à l'ensemble de la chaîne de signalisation
+        et de sécurité, au rythme des besoins du terrain et des exigences des maîtres
+        d'ouvrage.
+      </p>
+      <p>
+        Aujourd'hui, STPM intervient sur des chantiers à fort enjeu — routes nationales,
+        parkings de grande capacité, plateformes aéroportuaires — avec une rigueur
+        technique éprouvée et un parc machines renouvelé pour répondre aux cadences
+        les plus exigeantes.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TIMELINE
+============================================================ -->
+<section class="ap-timeline">
+  <div class="container">
+    <div class="ap-timeline__header reveal">
+      <div class="tag" style="justify-content:center;">Notre parcours</div>
+      <h2>Deux décennies d'évolution continue</h2>
+    </div>
+
+    <div class="ap-timeline__track">
+      <div class="ap-tl-item reveal">
+        <div class="ap-tl-item__dot">01</div>
+        <h4>Fondation</h4>
+        <p>Lancement de l'activité de marquage routier horizontal au Maroc.</p>
+      </div>
+      <div class="ap-tl-item reveal d1">
+        <div class="ap-tl-item__dot">02</div>
+        <h4>Diversification</h4>
+        <p>Extension vers la signalisation verticale et les dispositifs de sécurité.</p>
+      </div>
+      <div class="ap-tl-item reveal d2">
+        <div class="ap-tl-item__dot">03</div>
+        <h4>Montée en puissance</h4>
+        <p>Acquisition d'un parc machines automotrices pour les grands axes routiers.</p>
+      </div>
+      <div class="ap-tl-item reveal d3">
+        <div class="ap-tl-item__dot">04</div>
+        <h4>Aujourd'hui</h4>
+        <p>Qualification Secteur X — intervention sur routes nationales, parkings et aéroports.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     NOS VALEURS
+============================================================ -->
+<section class="ap-values">
+  <div class="container">
+    <div class="ap-values__header reveal">
+      <div class="tag">Nos valeurs</div>
+      <h2 style="font-family: var(--font-display); font-weight: 800; font-size: clamp(1.7rem, 3.2vw, 2.3rem); color: var(--white); margin-top: 0.5rem;">
+        Ce qui guide chacun de nos chantiers
+      </h2>
+    </div>
+
+    <div class="ap-values__grid">
+      <div class="ap-value-card reveal">
+        <div class="ico">🛡️</div>
+        <h3>Sécurité d'abord</h3>
+        <p>Chaque intervention est pensée pour protéger les usagers de la route et nos équipes sur le terrain.</p>
+      </div>
+      <div class="ap-value-card reveal d1">
+        <div class="ico">📐</div>
+        <h3>Rigueur technique</h3>
+        <p>Respect strict des normes marocaines et internationales sur l'ensemble de nos prestations.</p>
+      </div>
+      <div class="ap-value-card reveal d2">
+        <div class="ico">⏱️</div>
+        <h3>Fiabilité</h3>
+        <p>Des délais tenus et une communication transparente, du devis à la réception des travaux.</p>
+      </div>
+      <div class="ap-value-card reveal d3">
+        <div class="ico">🇲🇦</div>
+        <h3>Ancrage national</h3>
+        <p>Une connaissance fine du territoire marocain et de ses spécificités locales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ENGAGEMENT QUALITÉ & SÉCURITÉ
+============================================================ -->
+<section class="ap-quality">
+  <div class="container ap-quality__grid">
+    <div class="ap-quality__text reveal">
+      <div class="tag">Qualité &amp; sécurité</div>
+      <h2>Un engagement qui ne se négocie pas.</h2>
+      <p>
+        La conformité aux normes n'est pas une formalité chez STPM — c'est la base de
+        chaque décision technique, du choix des matériaux à la formation de nos équipes.
+      </p>
+      <ul class="ap-quality__list">
+        <li><span class="check">✓</span> Travaux exécutés selon les normes marocaines NM et instructions ICTAVRU</li>
+        <li><span class="check">✓</span> Dispositifs de retenue conformes à la norme européenne EN 1317</li>
+        <li><span class="check">✓</span> Équipes formées aux procédures de sécurité chantier (HSE)</li>
+        <li><span class="check">✓</span> Signalisation temporaire de chantier conforme en toutes circonstances</li>
+        <li><span class="check">✓</span> Contrôle qualité systématique avant réception des travaux</li>
+      </ul>
+    </div>
+
+    <div class="ap-quality__badges reveal d2">
+      <div class="ap-badge-card">
+        <div class="ico">🏆</div>
+        <h4>Qualification Secteur X</h4>
+        <p>Sécurité routière &amp; signalisation — Marchés publics Maroc</p>
+      </div>
+      <div class="ap-badge-card">
+        <div class="ico">📋</div>
+        <h4>Normes NM</h4>
+        <p>Conformité marocaine</p>
+      </div>
+      <div class="ap-badge-card">
+        <div class="ico">🛡️</div>
+        <h4>EN 1317</h4>
+        <p>Dispositifs de retenue</p>
+      </div>
+      <div class="ap-badge-card">
+        <div class="ico">✈️</div>
+        <h4>Normes OACI</h4>
+        <p>Marquage aéroportuaire</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CTA FINAL
+============================================================ -->
+<section style="padding: 80px 0; background: var(--asphalt); text-align: center;">
+  <div class="container reveal">
+    <h2 style="font-family: var(--font-display); font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--white); margin-bottom: 1rem;">
+      Faisons connaissance autour<br>de votre projet.
+    </h2>
+    <p style="color: var(--text-muted); max-width: 480px; margin: 0 auto 2rem;">
+      Notre équipe technique est à votre écoute pour étudier vos besoins.
+    </p>
+    <a href="contact.html" class="btn btn-primary">Nous contacter →</a>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__logo-wrap">
+        <img src="logo.png" alt="STPM" />
+        <p class="footer__desc">
+          Société Travaux Polyvalents Marocains — spécialiste en travaux routiers,
+          signalisation horizontale &amp; verticale et sécurité routière — une expertise reconnue et consolidée.
+        </p>
+        <div class="footer__social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="WhatsApp">✉</a>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer__col-head">Navigation</p>
+        <ul class="footer__links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="services.html">Nos services</a></li>
+          <li><a href="projets.html">Références &amp; projets</a></li>
+          <li><a href="apropos.html">À propos</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer__col-head">Services</p>
+        <ul class="footer__links">
+          <li><a href="services.html#horizontal">Signalisation horizontale</a></li>
+          <li><a href="services.html#verticale">Signalisation verticale</a></li>
+          <li><a href="services.html#securite">Dispositifs de sécurité</a></li>
+          <li><a href="services.html#travaux">Travaux routiers</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer__col-head">Contact</p>
+        <div class="footer__contact-item">
+          <span class="ico">📍</span>
+          <span>Lot Riad N° 2023, Errachidia<br>Maroc</span>
+        </div>
+        <div class="footer__contact-item">
+          <span class="ico">📞</span>
+          <span>+212 6 71 51 14 98</span>
+        </div>
+        <div class="footer__contact-item">
+          <span class="ico">✉</span>
+          <span>stpmarocains@gmail.com</span>
+        </div>
+        <div class="footer__contact-item">
+          <span class="ico">🕐</span>
+          <span>Lun – Ven : 08h00 – 17h30</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2026 STPM — Société Travaux Polyvalents Marocains. Tous droits réservés.</p>
+      <p>Meknès, Maroc — <a href="mailto:stpmarocains@gmail.com" style="color:var(--yellow)">stpmarocains@gmail.com</a></p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  const burger = document.getElementById('burgerBtn');
+  const drawer = document.getElementById('navDrawer');
+  burger.addEventListener('click', () => {
+    const isOpen = drawer.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>

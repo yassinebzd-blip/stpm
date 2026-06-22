@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="STPM Services — Signalisation horizontale, signalisation verticale, glissières de sécurité et travaux routiers au Maroc." />
+  <title>Nos Services — STPM Travaux Routiers & Signalisation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       TOKENS (identiques à index.html)
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --asphalt:       #141414;
+      --asphalt-mid:   #1E1E1E;
+      --asphalt-card:  #242424;
+      --yellow:        #F5A623;
+      --yellow-dark:   #C8841A;
+      --yellow-glow:   rgba(245,166,35,0.15);
+      --yellow-border: rgba(245,166,35,0.25);
+      --white:         #FFFFFF;
+      --off-white:     #EFEFEF;
+      --steel:         #8B8B8B;
+      --navy:          #0F1C2E;
+      --navy-mid:      #162335;
+      --text-body:     #CCCCCC;
+      --text-muted:    #777777;
+      --border-faint:  rgba(255,255,255,0.07);
+
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--asphalt);
+      color: var(--text-body);
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+    ul  { list-style: none; }
+
+    /* ── Shared helpers ── */
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--yellow); margin-bottom: 1rem;
+    }
+    .tag::before { content:''; display:block; width:26px; height:2px; background:var(--yellow); }
+
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.1; color: var(--white); margin-bottom: 1rem;
+    }
+    .section-sub { font-size: 0.93rem; color: var(--text-muted); line-height: 1.75; max-width: 540px; }
+    .accent { color: var(--yellow); }
+
+    .container { width:100%; max-width:1200px; margin:0 auto; padding:0 5%; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.09em;
+      text-transform: uppercase; padding: 0.85rem 1.8rem; border-radius: 3px;
+      border: none; cursor: pointer; transition: all 0.26s var(--ease);
+    }
+    .btn-primary { background: var(--yellow); color: var(--asphalt); }
+    .btn-primary:hover { background: var(--yellow-dark); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(245,166,35,0.35); }
+    .btn-outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.2); }
+    .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.65s var(--ease), transform 0.65s var(--ease); }
+    .reveal.d1 { transition-delay:.1s; } .reveal.d2 { transition-delay:.2s; }
+    .reveal.d3 { transition-delay:.3s; } .reveal.d4 { transition-delay:.4s; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ============================================================
+       NAVIGATION (identique index.html)
+    ============================================================ */
+    .nav {
+      position: fixed; top:0; left:0; right:0; z-index:900; height:74px;
+      background: rgba(14,27,45,0.96); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--yellow-border);
+      transition: box-shadow 0.3s;
+    }
+    .nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+    .nav__inner { height:74px; display:flex; align-items:center; justify-content:space-between; }
+    .nav__logo img { height:50px; width:auto; object-fit:contain; }
+    .nav__links { display:flex; align-items:center; gap:2.2rem; }
+    .nav__link {
+      font-size:0.77rem; font-weight:500; letter-spacing:0.1em;
+      text-transform:uppercase; color:rgba(255,255,255,0.6);
+      position:relative; transition:color 0.2s;
+    }
+    .nav__link::after {
+      content:''; position:absolute; bottom:-5px; left:0; right:0;
+      height:1.5px; background:var(--yellow);
+      transform:scaleX(0); transform-origin:left; transition:transform 0.25s var(--ease);
+    }
+    .nav__link:hover, .nav__link.active { color:var(--white); }
+    .nav__link:hover::after, .nav__link.active::after { transform:scaleX(1); }
+    .nav__cta {
+      background:var(--yellow); color:var(--asphalt) !important; padding:0.55rem 1.4rem;
+      border-radius:3px; font-size:0.77rem; font-weight:700; letter-spacing:0.09em;
+      text-transform:uppercase; transition:all 0.2s;
+    }
+    .nav__cta:hover { background:var(--yellow-dark); transform:translateY(-1px); }
+    .nav__cta::after { display:none !important; }
+    .nav__burger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; background:none; border:none; }
+    .nav__burger span { display:block; width:24px; height:2px; background:var(--white); border-radius:2px; transition:all 0.25s; }
+    .nav__burger.open span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .nav__burger.open span:nth-child(2) { opacity:0; }
+    .nav__burger.open span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+    .nav__drawer {
+      display:none; position:fixed; top:74px; left:0; right:0; bottom:0;
+      background:var(--navy); z-index:899; flex-direction:column; padding:2.5rem 5%; gap:0.3rem;
+    }
+    .nav__drawer.open { display:flex; }
+    .nav__drawer .nav__link { font-size:1rem; padding:1rem 0; border-bottom:1px solid var(--border-faint); color:var(--off-white); }
+    .nav__drawer .nav__cta { margin-top:1.5rem; text-align:center; padding:1rem; border-radius:3px; }
+
+    /* ============================================================
+       PAGE HERO — SERVICES
+    ============================================================ */
+    .page-hero {
+      padding: 160px 0 80px;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--yellow-border);
+    }
+
+    /* Motif graphique fond — grille de route stylisée */
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border-faint) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-faint) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.5;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0; height: 5px;
+      background: repeating-linear-gradient(
+        90deg, var(--yellow) 0, var(--yellow) 50px,
+        transparent 50px, transparent 100px
+      );
+      opacity: 0.4;
+    }
+
+    /*
+    ┌──────────────────────────────────────────────────────────────┐
+    │  EMPLACEMENT IMAGE — PAGE HERO SERVICES (optionnel)          │
+    │  Type    : Photo semi-transparente en arrière-plan           │
+    │  Contenu : Vue panoramique de chantier routier en activité   │
+    │            (plusieurs machines travaillant ensemble).         │
+    │  Utiliser comme background-image du .page-hero si souhaité.  │
+    │  Ajouter : background-image: url('assets/hero-services.jpg') │
+    │            dans .page-hero après avoir fourni le fichier.    │
+    └──────────────────────────────────────────────────────────────┘
+    */
+
+    .page-hero__content { position: relative; z-index: 1; }
+
+    .page-hero__breadcrumb {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; color: var(--text-muted);
+      margin-bottom: 1.5rem; letter-spacing: 0.05em;
+    }
+    .page-hero__breadcrumb a { color: var(--yellow); transition: opacity 0.2s; }
+    .page-hero__breadcrumb a:hover { opacity: 0.75; }
+    .page-hero__breadcrumb span { color: var(--text-muted); }
+
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900; line-height: 0.95;
+      color: var(--white); margin-bottom: 1.2rem;
+    }
+
+    .page-hero__sub {
+      font-size: 1rem; color: rgba(255,255,255,0.6);
+      line-height: 1.75; max-width: 560px; margin-bottom: 2rem;
+    }
+
+    /* ── Ancres rapides ── */
+    .srv-anchors {
+      display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2rem;
+    }
+    .srv-anchor {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 2px;
+      padding: 0.45rem 1rem; transition: all 0.22s;
+    }
+    .srv-anchor:hover { color: var(--yellow); border-color: var(--yellow); }
+
+    /* ============================================================
+       SERVICE SECTION LAYOUT (alternance gauche/droite)
+    ============================================================ */
+    .srv-section {
+      padding: 90px 0;
+      border-bottom: 1px solid var(--border-faint);
+    }
+    .srv-section:nth-child(odd)  { background: var(--asphalt); }
+    .srv-section:nth-child(even) { background: var(--asphalt-mid); }
+
+    .srv-section__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    /* Inversion direction pour sections paires */
+    .srv-section--reversed .srv-section__inner {
+      direction: rtl;
+    }
+    .srv-section--reversed .srv-section__inner > * {
+      direction: ltr;
+    }
+
+    /* ── Visuel / Média ── */
+    .srv-section__media {
+      position: relative;
+    }
+
+    .srv-section__img-wrap {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .srv-section__img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background: var(--asphalt-card);
+      transition: transform 0.55s var(--ease);
+    }
+    .srv-section__img-wrap:hover .srv-section__img {
+      transform: scale(1.04);
+    }
+
+    /* Étiquette sur l'image */
+    .srv-section__img-label {
+      position: absolute;
+      bottom: 1rem; left: 1rem;
+      background: rgba(14,27,46,0.9);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--yellow-border);
+      border-radius: 3px;
+      padding: 0.5rem 1rem;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.08em;
+    }
+
+    /* Pastille chiffre clé */
+    .srv-section__kpi {
+      position: absolute;
+      top: -1.2rem; right: -1.2rem;
+      width: 88px; height: 88px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+    }
+    .srv-section__kpi-val {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 900; color: var(--asphalt); line-height: 1;
+    }
+    .srv-section__kpi-label {
+      font-size: 0.58rem; font-weight: 700; color: rgba(20,20,20,0.7);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.1rem;
+    }
+
+    /* Placeholder image (si pas encore de photo) */
+    .img-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--asphalt-card) 0%, var(--navy) 100%);
+      border-radius: 4px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.8rem;
+      border: 1px dashed rgba(245,166,35,0.2);
+    }
+    .img-placeholder__icon { font-size: 2.5rem; opacity: 0.4; }
+    .img-placeholder__text {
+      font-size: 0.75rem; color: var(--text-muted);
+      text-align: center; max-width: 220px; line-height: 1.5;
+    }
+
+    /* ── Contenu texte ── */
+    .srv-section__content { }
+
+    .srv-section__number {
+      font-family: var(--font-display);
+      font-size: 5rem; font-weight: 900;
+      color: rgba(245,166,35,0.08);
+      line-height: 1; margin-bottom: -1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .srv-section__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 800; line-height: 1.1;
+      color: var(--white); margin-bottom: 1.2rem;
+    }
+
+    .srv-section__text {
+      font-size: 0.9rem; color: var(--text-body);
+      line-height: 1.78; margin-bottom: 1.8rem;
+    }
+
+    /* Liste des prestations */
+    .srv-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1.8rem;
+    }
+    .srv-feature {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.82rem; color: var(--text-body); line-height: 1.45;
+    }
+    .srv-feature::before {
+      content: '✓'; color: var(--yellow); font-weight: 700;
+      font-size: 0.85rem; flex-shrink: 0; margin-top: 0.05rem;
+    }
+
+    /* Specs techniques (tableau compact) */
+    .srv-specs {
+      background: var(--navy);
+      border: 1px solid var(--yellow-border);
+      border-radius: 3px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.8rem;
+    }
+    .srv-specs__title {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--yellow);
+      margin-bottom: 0.9rem;
+    }
+    .srv-specs__row {
+      display: flex; justify-content: space-between;
+      font-size: 0.8rem; padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border-faint);
+    }
+    .srv-specs__row:last-child { border-bottom: none; }
+    .srv-specs__key { color: var(--text-muted); }
+    .srv-specs__val { color: var(--white); font-weight: 500; }
+
+    /* ============================================================
+       GALERIE SUPPLÉMENTAIRE interne à chaque service
+    ============================================================ */
+    .srv-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    .srv-gallery__item {
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 2px;
+      background: var(--asphalt-card);
+    }
+    /*
+    ┌──────────────────────────────────────────────────────────────┐
+    │  EMPLACEMENTS — GALERIES PHOTOS PAR SERVICE                  │
+    │  Chaque service dispose d'une galerie de 3 photos            │
+    │  montrant différentes phases / types de travaux.             │
+    │  Format recommandé : JPG 800×600 min, ratio 4:3             │
+    └──────────────────────────────────────────────────────────────┘
+    */
+
+    /* ============================================================
+       SERVICE 1 — SIGNALISATION HORIZONTALE
+       (ancre : #horizontal)
+    ============================================================ */
+    /* ── Voir .srv-section générique ci-dessus ── */
+
+    /* ============================================================
+       SECTION : TYPES DE PRODUITS (tableau comparatif)
+    ============================================================ */
+    .products-compare {
+      background: var(--navy);
+      padding: 90px 0;
+      border-bottom: 1px solid var(--border-faint);
+    }
+
+    .products-compare__header {
+      text-align: center; margin-bottom: 3rem;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-faint);
+      border: 1px solid var(--border-faint);
+    }
+
+    .compare-card {
+      background: var(--navy-mid);
+      padding: 2rem 1.8rem;
+      position: relative;
+    }
+    .compare-card.featured {
+      background: rgba(245,166,35,0.08);
+      border-top: 3px solid var(--yellow);
+    }
+    .compare-card.featured .compare-badge {
+      display: inline-block;
+    }
+    .compare-badge {
+      display: none;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; background: var(--yellow); color: var(--asphalt);
+      padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 0.8rem;
+    }
+    .compare-card__title {
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
+      color: var(--white); margin-bottom: 0.5rem;
+    }
+    .compare-card__sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.2rem; }
+    .compare-card__features li {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.8rem; color: var(--text-body); padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border-faint);
+    }
+    .compare-card__features li:last-child { border-bottom: none; }
+    .compare-card__features li::before { content: '→'; color: var(--yellow); font-size: 0.75rem; }
+
+    /* ============================================================
+       CTA strip intermédiaire
+    ============================================================ */
+    .mid-cta {
+      background: var(--yellow);
+      padding: 50px 0;
+    }
+    .mid-cta__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .mid-cta h3 {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 900; color: var(--asphalt); line-height: 1.1;
+    }
+    .mid-cta p { font-size: 0.88rem; color: rgba(20,20,20,0.65); margin-top: 0.3rem; }
+    .btn-dark {
+      background: var(--asphalt); color: var(--yellow);
+      padding: 0.9rem 1.8rem; border-radius: 3px;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.25s; white-space: nowrap;
+    }
+    .btn-dark:hover { background: #000; transform: translateY(-2px); }
+
+    /* ============================================================
+       FOOTER (identique index.html — copie allégée)
+    ============================================================ */
+    .footer {
+      background: #0A0A0A; border-top: 1px solid var(--border-faint); padding: 64px 0 28px;
+    }
+    .footer__grid {
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer__logo-wrap img { height:50px; object-fit:contain; margin-bottom:1.2rem; }
+    .footer__desc { font-size:0.82rem; color:var(--text-muted); line-height:1.75; margin-bottom:1.5rem; }
+    .footer__social { display:flex; gap:0.7rem; }
+    .footer__social a {
+      width:34px; height:34px; background:var(--asphalt-card); border:1px solid var(--border-faint);
+      border-radius:4px; display:flex; align-items:center; justify-content:center;
+      font-size:0.85rem; color:var(--text-muted); transition:all 0.2s;
+    }
+    .footer__social a:hover { border-color:var(--yellow); color:var(--yellow); }
+    .footer__col-head { font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--yellow); margin-bottom:1.3rem; }
+    .footer__links li { margin-bottom:0.55rem; }
+    .footer__links a { font-size:0.82rem; color:var(--text-muted); transition:color 0.2s; }
+    .footer__links a:hover { color:var(--white); }
+    .footer__contact-item { display:flex; gap:0.7rem; margin-bottom:0.65rem; font-size:0.82rem; color:var(--text-muted); line-height:1.5; }
+    .footer__contact-item .ico { color:var(--yellow); flex-shrink:0; }
+    .footer__bottom { border-top:1px solid var(--border-faint); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+    .footer__bottom p { font-size:0.73rem; color:var(--text-muted); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .srv-section__inner { gap: 3rem; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .footer__grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .nav__links  { display: none; }
+      .nav__burger { display: flex; }
+      .srv-section { padding: 60px 0; }
+      .srv-section__inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .srv-section--reversed .srv-section__inner { direction: ltr; }
+      .srv-section__kpi { top: -0.8rem; right: -0.8rem; width: 70px; height: 70px; }
+      .srv-features { grid-template-columns: 1fr; }
+      .srv-gallery  { grid-template-columns: 1fr 1fr; }
+      .mid-cta__inner { flex-direction: column; text-align: center; }
+      .footer__grid { grid-template-columns: 1fr; }
+      .page-hero  { padding: 130px 0 60px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="logo.jpg" alt="STPM — Société Travaux Polyvalents Marocains" />
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html"    class="nav__link">Accueil</a></li>
+      <li><a href="services.html" class="nav__link active">Services</a></li>
+      <li><a href="projets.html"  class="nav__link">Références</a></li>
+      <li><a href="apropos.html"  class="nav__link">À Propos</a></li>
+      <li><a href="contact.html"  class="nav__cta">Nous contacter</a></li>
+    </ul>
+    <button class="nav__burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav__drawer" id="navDrawer">
+  <a href="index.html"    class="nav__link">Accueil</a>
+  <a href="services.html" class="nav__link active">Services</a>
+  <a href="projets.html"  class="nav__link">Références</a>
+  <a href="apropos.html"  class="nav__link">À Propos</a>
+  <a href="contact.html"  class="nav__cta">Nous contacter →</a>
+</div>
+
+
+<!-- ============================================================
+     PAGE HERO — SERVICES
+============================================================ -->
+<header class="page-hero">
+  <div class="container page-hero__content">
+
+    <nav class="page-hero__breadcrumb" aria-label="Fil d'Ariane">
+      <a href="index.html">Accueil</a>
+      <span>›</span>
+      <span style="color:var(--white)">Nos Services</span>
+    </nav>
+
+    <div class="tag reveal">Ce que nous faisons</div>
+    <h1 class="reveal d1">
+      Nos<br>
+      <span class="accent">Services</span>
+    </h1>
+    <p class="page-hero__sub reveal d2">
+      De la signalisation horizontale aux glissières de sécurité, en passant par les travaux 
+      de voirie — STPM couvre l'intégralité des besoins de vos infrastructures routières,
+      avec des équipes qualifiées et des équipements de pointe.
+    </p>
+
+    <!-- Ancres rapides vers chaque service -->
+    <div class="srv-anchors reveal d3">
+      <a href="#horizontal" class="srv-anchor">↓ Signalisation Horizontale</a>
+      <a href="#verticale"  class="srv-anchor">↓ Signalisation Verticale</a>
+      <a href="#securite"   class="srv-anchor">↓ Dispositifs de Sécurité</a>
+      <a href="#travaux"    class="srv-anchor">↓ Travaux Routiers</a>
+    </div>
+
+  </div>
+</header>
+
+
+<!-- ============================================================
+     SERVICE 1 — SIGNALISATION HORIZONTALE
+============================================================ -->
+<section class="srv-section" id="horizontal">
+  <div class="container">
+    <div class="srv-section__inner">
+
+      <!-- Média gauche -->
+      <div class="srv-section__media reveal">
+        <div class="srv-section__img-wrap">
+          <!--
+            EMPLACEMENT MÉDIA — SERVICE 1 : SIGNALISATION HORIZONTALE
+            ────────────────────────────────────────────────────────
+            Type    : GIF animé (FORTEMENT RECOMMANDÉ)
+            Contenu : Machine de marquage Airless / thermoplastique
+                      en action, traçant une ligne jaune ou blanche
+                      continue sur bitume noir. Vue latérale, plan
+                      large ou plan serré sur la buse d'application.
+                      Fumée / vapeur thermoplastique visible.
+            Fichier : assets/gif-marquage-horizontal.gif
+                      (fallback : assets/img-marquage-horizontal.jpg)
+            ────────────────────────────────────────────────────────
+          -->
+          <img
+            class="srv-section__img"
+            src="assets/gif-marquage-horizontal.gif"
+            alt="Machine de marquage routier horizontal en action"
+            loading="lazy"
+            onerror="this.src='assets/img-marquage-horizontal.jpg'"
+          />
+          <div class="srv-section__img-label">
+            Machines automotrices — application à froid &amp; à chaud
+          </div>
+        </div>
+        <div class="srv-section__kpi">
+          <div class="srv-section__kpi-val">6–30km</div>
+          <div class="srv-section__kpi-label">par jour selon machine</div>
+        </div>
+      </div>
+
+      <!-- Contenu texte droite -->
+      <div class="srv-section__content reveal d2">
+        <div class="srv-section__number">01</div>
+        <div class="tag">Service 01</div>
+        <h2 class="srv-section__title">
+          Signalisation<br>
+          <span class="accent">Horizontale</span>
+        </h2>
+        <p class="srv-section__text">
+          Le marquage routier horizontal est la première ligne de sécurité sur toute infrastructure routière.
+          STPM maîtrise l'ensemble des techniques d'application — peinture à froid et 
+          peinture à chaud thermoplastique — avec incorporation automatique de billes de 
+          verre rétroréfléchissantes, garantissant une visibilité optimale de jour comme 
+          de nuit, sur routes nationales, autoroutes et voies urbaines.
+        </p>
+
+        <!-- Prestations -->
+        <div class="srv-features">
+          <div class="srv-feature">Lignes axiales continues</div>
+          <div class="srv-feature">Lignes axiales discontinues</div>
+          <div class="srv-feature">Lignes de rive</div>
+          <div class="srv-feature">Passages piétons</div>
+          <div class="srv-feature">Flèches de direction</div>
+          <div class="srv-feature">Îlots &amp; zébras</div>
+          <div class="srv-feature">Stop &amp; cédez-le-passage</div>
+          <div class="srv-feature">Marquages spéciaux</div>
+        </div>
+
+        <!-- Deux familles de peinture : froid / chaud -->
+        <div class="srv-specs">
+          <div class="srv-specs__title">Peinture à froid (application à température ambiante)</div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Produits</span>
+            <span class="srv-specs__val">Peinture acrylique en phase aqueuse ou solvantée</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Coloris</span>
+            <span class="srv-specs__val">Blanc, jaune, bleu (zones réservées), rouge (zones interdites)</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Séchage</span>
+            <span class="srv-specs__val">15 à 30 minutes</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Usage type</span>
+            <span class="srv-specs__val">Voiries urbaines, marquages temporaires, renouvellement fréquent</span>
+          </div>
+        </div>
+
+        <div class="srv-specs" style="margin-top:1rem;">
+          <div class="srv-specs__title">Peinture à chaud — Thermoplastique (≈200°C)</div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Produits</span>
+            <span class="srv-specs__val">Thermoplastique extrudé ou pulvérisé, résine époxy bi-composant</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Coloris</span>
+            <span class="srv-specs__val">Blanc, jaune, rouge, bleu — sur demande spécifique</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Rétroréflexion</span>
+            <span class="srv-specs__val">Classe R2 — Billes de verre EN 1436</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Épaisseur d'application</span>
+            <span class="srv-specs__val">1,5 mm à 3,5 mm selon produit</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Usage type</span>
+            <span class="srv-specs__val">Routes nationales, autoroutes, aéroports — haute durabilité</span>
+          </div>
+        </div>
+
+        <!-- Parc machines dédié -->
+        <div class="srv-specs" style="margin-top:1rem;">
+          <div class="srv-specs__title">Parc machines de marquage — 2 unités</div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Machine 1</span>
+            <span class="srv-specs__val">Grande capacité — rendement jusqu'à 30 km/jour en ligne droite</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Machine 2</span>
+            <span class="srv-specs__val">Format compact — précision en zone urbaine, carrefours &amp; passages piétons</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Rendement journalier global</span>
+            <span class="srv-specs__val">De 6 à 30 km/jour selon le type de tracé et le produit appliqué</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Normes</span>
+            <span class="srv-specs__val">NM 03.3.019 — ICTAVRU — EN 1436</span>
+          </div>
+        </div>
+
+        <a href="contact.html" class="btn btn-primary">Demander un devis →</a>
+      </div>
+
+    </div><!-- /inner -->
+
+    <!-- Galerie secondaire -->
+    <div class="srv-gallery" style="margin-top:3rem;">
+      <!--
+        EMPLACEMENTS GALERIE — SIGNALISATION HORIZONTALE (3 photos)
+        Photo 1 : Gros plan ligne jaune sur bitume (nuit, reflet)
+        Photo 2 : Passage piéton fraîchement peint — ville
+        Photo 3 : Vue aérienne de marquage d'autoroute complet
+        Fichiers : assets/h-gal-1.jpg, h-gal-2.jpg, h-gal-3.jpg
+      -->
+      <img class="srv-gallery__item" src="assets/h-gal-1.jpg" alt="Ligne de marquage routier" loading="lazy" />
+      <img class="srv-gallery__item" src="assets/h-gal-2.jpg" alt="Passage piéton marqué" loading="lazy" />
+      <img class="srv-gallery__item" src="assets/h-gal-3.jpg" alt="Marquage autoroute vue aérienne" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     COMPARATIF PRODUITS DE MARQUAGE
+============================================================ -->
+<section class="products-compare">
+  <div class="container">
+    <div class="products-compare__header">
+      <div class="tag reveal" style="justify-content:center;">Matériaux de marquage</div>
+      <h2 class="section-title reveal d1" style="text-align:center;">
+        Le bon produit pour chaque usage
+      </h2>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card reveal">
+        <h3 class="compare-card__title">Peinture Routière Acrylique</h3>
+        <p class="compare-card__sub">Solution économique pour voiries urbaines &amp; secondaires</p>
+        <ul class="compare-card__features">
+          <li>Application à froid par pulvérisation</li>
+          <li>Séchage rapide (15–30 min)</li>
+          <li>Idéal pour marquages fréquemment renouvelés</li>
+          <li>Durabilité : 1 à 3 ans selon trafic</li>
+          <li>Coloris : blanc, jaune, bleu</li>
+        </ul>
+      </div>
+
+      <div class="compare-card featured reveal d1">
+        <span class="compare-badge">Le plus utilisé</span>
+        <h3 class="compare-card__title">Thermoplastique à Chaud</h3>
+        <p class="compare-card__sub">Standard sur routes nationales, voies express &amp; aéroports</p>
+        <ul class="compare-card__features">
+          <li>Application à 200°C par machine automotrice</li>
+          <li>Billes de verre incorporées en surface</li>
+          <li>Haute rétroréflexion nocturne (classe R2)</li>
+          <li>Durabilité : 4 à 7 ans selon trafic</li>
+          <li>Conforme EN 1436 &amp; normes OACI aviation</li>
+        </ul>
+      </div>
+
+      <div class="compare-card reveal d2">
+        <h3 class="compare-card__title">Résine Époxy Bi-composant</h3>
+        <p class="compare-card__sub">Performance maximale pour zones industrielles &amp; parkings</p>
+        <ul class="compare-card__features">
+          <li>Adhérence exceptionnelle sur béton et enrobé</li>
+          <li>Résistance aux hydrocarbures et produits chimiques</li>
+          <li>Anti-dérapant — SRT &gt; 0,5</li>
+          <li>Durabilité : 5 à 10 ans en parking</li>
+          <li>Épaisseur : jusqu'à 5 mm avec granulats</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SERVICE 2 — SIGNALISATION VERTICALE
+============================================================ -->
+<section class="srv-section srv-section--reversed" id="verticale">
+  <div class="container">
+    <div class="srv-section__inner">
+
+      <!-- Média (apparaît à droite grâce à --reversed) -->
+      <div class="srv-section__media reveal">
+        <div class="srv-section__img-wrap">
+          <!--
+            EMPLACEMENT MÉDIA — SERVICE 2 : SIGNALISATION VERTICALE
+            ────────────────────────────────────────────────────────
+            Type    : Photo statique HD (ou GIF si disponible)
+            Contenu : Technicien STPM en train de poser / fixer
+                      un panneau de signalisation sur poteau
+                      métallique, bord de route nationale.
+                      Équipements de sécurité (gilet, casque) visibles.
+            Fichier : assets/img-signalisation-verticale.jpg
+            ────────────────────────────────────────────────────────
+          -->
+          <img
+            class="srv-section__img"
+            src="assets/img-signalisation-verticale.jpg"
+            alt="Pose de panneau de signalisation verticale"
+            loading="lazy"
+          />
+          <div class="srv-section__img-label">
+            Pose de panneaux rétroréfléchissants — classe B
+          </div>
+        </div>
+        <div class="srv-section__kpi">
+          <div class="srv-section__kpi-val">340+</div>
+          <div class="srv-section__kpi-label">panneaux posés</div>
+        </div>
+      </div>
+
+      <!-- Contenu texte -->
+      <div class="srv-section__content reveal d2">
+        <div class="srv-section__number">02</div>
+        <div class="tag">Service 02</div>
+        <h2 class="srv-section__title">
+          Signalisation<br>
+          <span class="accent">Verticale</span>
+        </h2>
+        <p class="srv-section__text">
+          La signalisation verticale encadre le comportement des usagers à chaque carrefour, 
+          virage et point sensible du réseau routier. STPM assure la fourniture, la fabrication 
+          en atelier propre, le transport et la mise en œuvre de l'ensemble des équipements 
+          de signalisation verticale — du simple panneau de danger aux portiques directionnels 
+          sur voie express. Nos équipements sont rétroréfléchissants de classe A et B, 
+          conformes aux normes marocaines et à la Convention de Vienne.
+        </p>
+
+        <div class="srv-features">
+          <div class="srv-feature">Panneaux de danger (A)</div>
+          <div class="srv-feature">Panneaux de prescription (B)</div>
+          <div class="srv-feature">Panneaux d'indication (C)</div>
+          <div class="srv-feature">Panneaux directionnels (D)</div>
+          <div class="srv-feature">Balises J10 / K5c</div>
+          <div class="srv-feature">Délinéateurs</div>
+          <div class="srv-feature">Panneaux à message variable</div>
+          <div class="srv-feature">Portiques &amp; potences</div>
+        </div>
+
+        <div class="srv-specs">
+          <div class="srv-specs__title">Caractéristiques des fournitures</div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Rétroréflexion panneaux</span>
+            <span class="srv-specs__val">Classe A (EN 12899-1) &amp; Classe B haute intensité</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Matière fonds de panneaux</span>
+            <span class="srv-specs__val">Aluminium extrudé 2 mm — anticorrosion</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Poteaux support</span>
+            <span class="srv-specs__val">Acier galvanisé Ø 60 ou 76 mm</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Durée de vie garantie</span>
+            <span class="srv-specs__val">10 ans minimum (rétroréflexion) EN 12899-1</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Fabrication</span>
+            <span class="srv-specs__val">Atelier propre STPM — traçabilité totale</span>
+          </div>
+        </div>
+
+        <a href="contact.html" class="btn btn-primary">Demander un devis →</a>
+      </div>
+
+    </div>
+
+    <!-- Galerie secondaire -->
+    <div class="srv-gallery" style="margin-top:3rem;">
+      <!--
+        EMPLACEMENTS GALERIE — SIGNALISATION VERTICALE (3 photos)
+        Photo 1 : Série de panneaux sur route rurale (contexte marocain)
+        Photo 2 : Portique directionnel sur voie express
+        Photo 3 : Atelier de fabrication des panneaux STPM
+        Fichiers : assets/v-gal-1.jpg, v-gal-2.jpg, v-gal-3.jpg
+      -->
+      <img class="srv-gallery__item" src="assets/v-gal-1.jpg" alt="Panneaux de signalisation route rurale" loading="lazy" />
+      <img class="srv-gallery__item" src="assets/v-gal-2.jpg" alt="Portique directionnel voie express" loading="lazy" />
+      <img class="srv-gallery__item" src="assets/v-gal-3.jpg" alt="Atelier fabrication panneaux STPM" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SERVICE 3 — DISPOSITIFS DE SÉCURITÉ
+============================================================ -->
+<section class="srv-section" id="securite">
+  <div class="container">
+    <div class="srv-section__inner">
+
+      <!-- Média gauche -->
+      <div class="srv-section__media reveal">
+        <div class="srv-section__img-wrap">
+          <!--
+            EMPLACEMENT MÉDIA — SERVICE 3 : DISPOSITIFS DE SÉCURITÉ
+            ────────────────────────────────────────────────────────
+            Type    : GIF animé (idéal) ou Photo statique HD
+            Contenu : Chantier de pose de glissières de sécurité
+                      métalliques (GS2 galvanisées) ou en béton (BN4/GBA)
+                      sur autoroute ou voie express marocaine.
+                      Grue ou engin de levage visible si possible.
+            Fichier : assets/gif-glissiere-pose.gif
+                      (fallback : assets/img-glissiere.jpg)
+            ────────────────────────────────────────────────────────
+          -->
+          <img
+            class="srv-section__img"
+            src="assets/gif-glissiere-pose.gif"
+            alt="Pose de glissières de sécurité sur autoroute"
+            loading="lazy"
+            onerror="this.src='assets/img-glissiere.jpg'"
+          />
+          <div class="srv-section__img-label">
+            Glissières GS2 galvanisées — pose mécanisée
+          </div>
+        </div>
+        <div class="srv-section__kpi">
+          <div class="srv-section__kpi-val">2km</div>
+          <div class="srv-section__kpi-label">par jour</div>
+        </div>
+      </div>
+
+      <!-- Contenu texte droite -->
+      <div class="srv-section__content reveal d2">
+        <div class="srv-section__number">03</div>
+        <div class="tag">Service 03</div>
+        <h2 class="srv-section__title">
+          Dispositifs de<br>
+          <span class="accent">Sécurité Routière</span>
+        </h2>
+        <p class="srv-section__text">
+          Les dispositifs de retenue constituent la dernière barrière entre un véhicule 
+          en perte de contrôle et les conséquences les plus graves. STPM maîtrise 
+          l'ensemble de la gamme des équipements de sécurité passive : glissières 
+          métalliques, barrières en béton, garde-corps piétons, atténuateurs de choc 
+          et ralentisseurs — toujours dimensionnés selon la vitesse de référence et 
+          le niveau de retenue requis par les normes EN 1317.
+        </p>
+
+        <div class="srv-features">
+          <div class="srv-feature">Glissières GS2 (métal galvanisé)</div>
+          <div class="srv-feature">Barrières béton BN4 / GBA</div>
+          <div class="srv-feature">Garde-corps piétons</div>
+          <div class="srv-feature">Atténuateurs de choc</div>
+          <div class="srv-feature">Ralentisseurs &amp; coussins</div>
+          <div class="srv-feature">Îlots directionnels</div>
+          <div class="srv-feature">Balisage de chantier</div>
+          <div class="srv-feature">Yeux de chat &amp; capteurs</div>
+        </div>
+
+        <div class="srv-specs">
+          <div class="srv-specs__title">Niveaux de retenue disponibles</div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">N1 / N2</span>
+            <span class="srv-specs__val">Routes rurales &amp; voiries secondaires</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">H1</span>
+            <span class="srv-specs__val">Routes nationales &amp; voies express (standard)</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">H2 / H4b</span>
+            <span class="srv-specs__val">Autoroutes, ponts &amp; zones à risque élevé</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Norme de référence</span>
+            <span class="srv-specs__val">EN 1317 — Instructions techniques DRCR</span>
+          </div>
+        </div>
+
+        <!-- Capacité opérationnelle -->
+        <div class="srv-specs" style="margin-top:1rem;">
+          <div class="srv-specs__title">Capacité opérationnelle — 2 équipes de pose</div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Équipe 1</span>
+            <span class="srv-specs__val">Pose glissières métalliques — terrain ouvert &amp; rectiligne</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Équipe 2</span>
+            <span class="srv-specs__val">Pose en zone contrainte — virages, ouvrages d'art, accès urbains</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Rendement journalier</span>
+            <span class="srv-specs__val">Jusqu'à 2 km/jour selon configuration du terrain</span>
+          </div>
+        </div>
+
+        <a href="contact.html" class="btn btn-primary">Demander un devis →</a>
+      </div>
+
+    </div>
+
+    <!-- Galerie secondaire -->
+    <div class="srv-gallery" style="margin-top:3rem;">
+      <!--
+        EMPLACEMENTS GALERIE — DISPOSITIFS DE SÉCURITÉ (3 photos)
+        Photo 1 : Glissière métallique GS2 sur virage de route nationale
+        Photo 2 : Barrière béton BN4 en séparateur de voies sur autoroute
+        Photo 3 : Atténuateur de choc (crashcushion) en tête de barrière
+        Fichiers : assets/s-gal-1.jpg, s-gal-2.jpg, s-gal-3.jpg
+      -->
+      <img class="srv-gallery__item" src="assets/s-gal-1.jpg" alt="Glissière GS2 virage route nationale" loading="lazy" />
+      <img class="srv-gallery__item" src="assets/s-gal-2.jpg" alt="Barrière béton BN4 autoroute" loading="lazy" />
+      <img class="srv-gallery__item" src="assets/s-gal-3.jpg" alt="Atténuateur de choc tête de barrière" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CTA INTERMÉDIAIRE
+============================================================ -->
+<div class="mid-cta">
+  <div class="container mid-cta__inner">
+    <div>
+      <h3>Besoin d'un devis pour vos travaux de signalisation ?</h3>
+      <p>Réponse garantie sous 24 heures — intervention sur tout le territoire marocain.</p>
+    </div>
+    <a href="contact.html" class="btn-dark">Contactez-nous →</a>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     SERVICE 4 — TRAVAUX ROUTIERS
+============================================================ -->
+<section class="srv-section srv-section--reversed" id="travaux">
+  <div class="container">
+    <div class="srv-section__inner">
+
+      <!-- Média (droite grâce à --reversed) -->
+      <div class="srv-section__media reveal">
+        <div class="srv-section__img-wrap">
+          <!--
+            EMPLACEMENT MÉDIA — SERVICE 4 : TRAVAUX ROUTIERS
+            ────────────────────────────────────────────────────────
+            Type    : Photo HD (ou GIF si disponible)
+            Contenu : Finisseur (machine à enrobé bitumineux / asphalteuse)
+                      en cours de travail sur un chantier de réfection
+                      ou d'aménagement routier. Rouleau compacteur visible
+                      en arrière-plan si possible.
+            Fichier : assets/img-finisseur-travaux.jpg
+                      (ou assets/gif-finisseur.gif pour animation)
+            ────────────────────────────────────────────────────────
+          -->
+          <img
+            class="srv-section__img"
+            src="assets/img-finisseur-travaux.jpg"
+            alt="Machine finisseur — travaux de réfection routière"
+            loading="lazy"
+          />
+          <div class="srv-section__img-label">
+            Pose d'enrobé bitumineux — réfection de chaussée
+          </div>
+        </div>
+        <div class="srv-section__kpi">
+          <div class="srv-section__kpi-val">100%</div>
+          <div class="srv-section__kpi-label">aux normes</div>
+        </div>
+      </div>
+
+      <!-- Contenu texte -->
+      <div class="srv-section__content reveal d2">
+        <div class="srv-section__number">04</div>
+        <div class="tag">Service 04</div>
+        <h2 class="srv-section__title">
+          Travaux<br>
+          <span class="accent">Routiers</span>
+        </h2>
+        <p class="srv-section__text">
+          En complément de ses activités de signalisation, STPM réalise des travaux 
+          d'aménagement et de réhabilitation routière : terrassement, construction 
+          de couches de fondation et de roulement, réfection d'accotements et 
+          traitement de points noirs. Nos équipes pilotent les chantiers de bout 
+          en bout, de l'étude géotechnique à la réception des travaux, en conformité 
+          avec les spécifications techniques du Ministère de l'Équipement et des 
+          prescriptions du Laboratoire Public d'Essais et d'Études (LPEE).
+        </p>
+
+        <div class="srv-features">
+          <div class="srv-feature">Terrassement &amp; déblais</div>
+          <div class="srv-feature">Couche de fondation (GNT)</div>
+          <div class="srv-feature">Couche de base (GB)</div>
+          <div class="srv-feature">Couche de roulement (BB)</div>
+          <div class="srv-feature">Réfection d'accotements</div>
+          <div class="srv-feature">Traitement de points noirs</div>
+          <div class="srv-feature">Aménagement de carrefours</div>
+          <div class="srv-feature">Assainissement &amp; drainage</div>
+        </div>
+
+        <div class="srv-specs">
+          <div class="srv-specs__title">Capacités d'intervention</div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Qualification</span>
+            <span class="srv-specs__val">Secteur X — Sécurité routière, Signalisation &amp; Travaux routiers</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Matériel propre</span>
+            <span class="srv-specs__val">Finisseur, cylindres, niveleuse, compacteurs</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Enrobés</span>
+            <span class="srv-specs__val">BB 0/10, BB 0/14, BBTM, béton bitumineux drainant</span>
+          </div>
+          <div class="srv-specs__row">
+            <span class="srv-specs__key">Contrôle qualité</span>
+            <span class="srv-specs__val">Carottages, mesures de compacité, tests LPEE</span>
+          </div>
+        </div>
+
+        <a href="contact.html" class="btn btn-primary">Demander un devis →</a>
+      </div>
+
+    </div>
+
+    <!-- Galerie secondaire -->
+    <div class="srv-gallery" style="margin-top:3rem;">
+      <!--
+        EMPLACEMENTS GALERIE — TRAVAUX ROUTIERS (3 photos)
+        Photo 1 : Opération de terrassement, pelle mécanique
+        Photo 2 : Compactage de la couche de fondation (rouleau)
+        Photo 3 : Mise en oeuvre de l'enrobé — finisseur en action
+        Fichiers : assets/t-gal-1.jpg, t-gal-2.jpg, t-gal-3.jpg
+      -->
+      <img class="srv-gallery__item" src="assets/t-gal-1.jpg" alt="Terrassement pelle mécanique" loading="lazy" />
+      <img class="srv-gallery__item" src="assets/t-gal-2.jpg" alt="Compactage couche de fondation" loading="lazy" />
+      <img class="srv-gallery__item" src="assets/t-gal-3.jpg" alt="Finisseur mise en oeuvre enrobé" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CTA FINAL
+============================================================ -->
+<div class="mid-cta">
+  <div class="container mid-cta__inner">
+    <div>
+      <h3>Un projet ? Parlons-en.</h3>
+      <p>Étude, devis et planning — sans engagement, sous 24 h.</p>
+    </div>
+    <a href="contact.html" class="btn-dark">Demander un devis gratuit →</a>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__logo-wrap">
+        <img src="logo.jpg" alt="STPM" />
+        <p class="footer__desc">
+          Société Travaux Polyvalents Marocains — spécialiste en travaux routiers,
+          signalisation et sécurité routière.
+        </p>
+        <div class="footer__social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="WhatsApp">✉</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__col-head">Navigation</p>
+        <ul class="footer__links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="services.html">Nos services</a></li>
+          <li><a href="projets.html">Références</a></li>
+          <li><a href="apropos.html">À propos</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-head">Services</p>
+        <ul class="footer__links">
+          <li><a href="#horizontal">Signalisation horizontale</a></li>
+          <li><a href="#verticale">Signalisation verticale</a></li>
+          <li><a href="#securite">Dispositifs de sécurité</a></li>
+          <li><a href="#travaux">Travaux routiers</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-head">Contact</p>
+        <div class="footer__contact-item">
+          <span class="ico">📍</span><span>Lot Riad N° 2023, Errachidia, Maroc</span>
+        </div>
+        <div class="footer__contact-item">
+          <span class="ico">📞</span><span>+212 6 71 51 14 98</span>
+        </div>
+        <div class="footer__contact-item">
+          <span class="ico">✉</span><span>stpmarocains@gmail.com</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 STPM — Société Travaux Polyvalents Marocains. Tous droits réservés.</p>
+      <p><a href="contact.html" style="color:var(--yellow)">stpmarocains@gmail.com</a></p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+  // ── Nav scroll ──────────────────────────────────────────────
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // ── Burger ──────────────────────────────────────────────────
+  const burger = document.getElementById('burgerBtn');
+  const drawer = document.getElementById('navDrawer');
+  burger.addEventListener('click', () => {
+    const isOpen = drawer.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ── Scroll reveal ────────────────────────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Smooth scroll pour ancres ────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 80;
+        window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
