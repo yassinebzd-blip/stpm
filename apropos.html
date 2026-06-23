@@ -53,14 +53,7 @@
       overflow-x: hidden;
     }
 
-    /* ── تحسين واقعية الصور العادية لتبدو مدمجة وبأبعاد حقيقية ── */
-    img { 
-      max-width: 100%; 
-      display: block; 
-      object-fit: cover;
-      filter: saturate(1.05) contrast(1.02); /* لمسة واقعية تبرز الألوان العادية */
-    }
-    
+    img { max-width: 100%; display: block; }
     a   { text-decoration: none; color: inherit; }
     ul  { list-style: none; }
 
@@ -154,7 +147,7 @@
     }
 
     /* ============================================================
-       SCROLL REVEAL (Style Claude)
+       SCROLL REVEAL
     ============================================================ */
     .reveal {
       opacity: 0;
@@ -175,7 +168,7 @@
       top: 0; left: 0; right: 0;
       z-index: 900;
       height: 74px;
-      background: rgba(17, 17, 17, 0.85); /* رجعناها متناسقة مع الهوية السوداء */
+      background: rgba(14, 27, 45, 0.96);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--yellow-border);
@@ -192,6 +185,7 @@
       justify-content: space-between;
     }
 
+    /* ── Logo ── */
     .nav__logo {
       height: 64px;
       display: flex;
@@ -203,6 +197,7 @@
       object-fit: contain;
     }
 
+    /* ── Links ── */
     .nav__links {
       display: flex;
       align-items: center;
@@ -250,6 +245,7 @@
     }
     .nav__cta::after { display: none !important; }
 
+    /* ── Burger ── */
     .nav__burger {
       display: none;
       flex-direction: column;
@@ -270,6 +266,7 @@
     .nav__burger.open span:nth-child(2) { opacity: 0; }
     .nav__burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
+    /* ── Mobile drawer ── */
     .nav__drawer {
       display: none;
       position: fixed;
@@ -295,7 +292,7 @@
     }
 
     /* ============================================================
-       HERO (معالجة الخلفيات لتبدو واقعية وعميقة)
+       HERO
     ============================================================ */
     .hero {
       position: relative;
@@ -307,30 +304,35 @@
       overflow: hidden;
     }
 
+    /* ── Background video / image ── */
     .hero__bg {
       position: absolute;
       inset: 0;
       z-index: 0;
-      background-color: var(--black);
     }
 
-    /* جعل الفيديوهات أو الصور في الخلفية تندمج وكأنها مأخوذة من الميدان حقيقة */
-    .hero__video, .hero__bg-img {
-      width: 100%; 
-      height: 100%;
+    .hero__video {
+      width: 100%; height: 100%;
       object-fit: cover;
       object-position: center;
-      opacity: 0.38; /* تعزيز الإضاءة قليلاً للواقعية */
-      filter: grayscale(15%) contrast(1.05); /* لمسة سينمائية واقعية تليق بـ الأشغال العمومية */
+      opacity: 0.35;
     }
 
-    /* تدرج احترافي ومزدوج يمنع ظهور حواف حادة للصورة ويظهرها كخلفية حية */
+    /* Fallback image si la vidéo n'est pas disponible */
+    .hero__bg-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.35;
+    }
+
+    /* Dégradé de lisibilité sur le fond */
     .hero__overlay {
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to right, rgba(17,17,17,0.94) 40%, rgba(17,17,17,0.5) 100%),
-        linear-gradient(to top,   rgba(17,17,17,0.85) 0%,  transparent 60%);
+        linear-gradient(to right, rgba(14,27,46,0.92) 45%, rgba(14,27,46,0.45) 100%),
+        linear-gradient(to top,   rgba(14,27,46,0.8)  0%,  transparent 50%);
       z-index: 1;
     }
 
@@ -382,13 +384,13 @@
       flex-wrap: wrap;
     }
 
+    /* ── Stats bar ── */
     .hero__stats {
       position: absolute;
       bottom: 0; left: 0; right: 0;
       z-index: 2;
-      background: rgba(17,17,17,0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.75);
+      backdrop-filter: blur(8px);
       border-top: 1px solid var(--yellow-border);
     }
     .hero__stats-inner {
@@ -494,7 +496,6 @@
       });
     });
 
-    // سكريبت الحركة المتزن (أسلوب Claude الذي تفضله)
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
