@@ -1,1721 +1,337 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Contactez STPMa — Société Travaux Polyvalents Marocains. Devis travaux routiers, signalisation et sécurité routière au Maroc." />
-  <title>Contact — STPMa | Travaux Routiers, Signalisation & Sécurité</title>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ============================================================
-       RESET & TOKENS
-    ============================================================ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      /* ── CAT / STPMa palette officielle ── */
-      --black:         #111111;
-      --black-mid:     #1A1A1A;
-      --black-card:    #222222;
-      --black-hover:   #2A2A2A;
-      --yellow:        #FFCD00;
-      --yellow-dark:   #E0B400;
-      --yellow-light:  #FFD740;
-      --yellow-glow:   rgba(255,205,0,0.15);
-      --yellow-border: rgba(255,205,0,0.28);
-      --white:         #FFFFFF;
-      --off-white:     #F5F5F5;
-      --grey-mid:      #A6A6A6;
-      --grey-dark:     #333333;
-      --text-body:     #D0D0D0;
-      --text-muted:    #A6A6A6;
-      --border-faint:  rgba(255,255,255,0.07);
-      /* ── aliases compatibilité (sans bleu) ── */
-      --asphalt:       #111111;
-      --asphalt-mid:   #1A1A1A;
-      --asphalt-card:  #222222;
-
-      --font-display: 'Barlow Condensed', sans-serif;
-      --font-body:    'Inter', sans-serif;
-      --ease:         cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--asphalt);
-      color: var(--text-body);
-      overflow-x: hidden;
-    }
-
-    img { max-width: 100%; display: block; }
-    a   { text-decoration: none; color: inherit; }
-    ul  { list-style: none; }
-
-    /* ============================================================
-       TYPOGRAPHY HELPERS
-    ============================================================ */
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 1rem;
-    }
-    .tag::before {
-      content: '';
-      display: block;
-      width: 26px;
-      height: 2px;
-      background: var(--yellow);
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 800;
-      line-height: 1.1;
-      color: var(--white);
-      margin-bottom: 1rem;
-    }
-
-    .section-sub {
-      font-size: 0.93rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      max-width: 520px;
-    }
-
-    .accent { color: var(--yellow); }
-
-    /* ============================================================
-       LAYOUT
-    ============================================================ */
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 5%;
-    }
-
-    section { padding: 96px 0; }
-
-    /* ============================================================
-       BUTTONS
-    ============================================================ */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      padding: 0.85rem 1.8rem;
-      border-radius: 3px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.26s var(--ease);
-    }
-    .btn-primary {
-      background: var(--yellow);
-      color: var(--asphalt);
-    }
-    .btn-primary:hover {
-      background: var(--yellow-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(245,166,35,0.35);
-    }
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      border: 1.5px solid rgba(255,255,255,0.2);
-    }
-    .btn-outline:hover {
-      border-color: var(--yellow);
-      color: var(--yellow);
-    }
-
-    /* ============================================================
-       SCROLL REVEAL
-    ============================================================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-    }
-    .reveal.d1 { transition-delay: 0.10s; }
-    .reveal.d2 { transition-delay: 0.20s; }
-    .reveal.d3 { transition-delay: 0.30s; }
-    .reveal.d4 { transition-delay: 0.40s; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ============================================================
-       NAVIGATION
-    ============================================================ */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 900;
-      height: 74px;
-      background: rgba(14, 27, 45, 0.96);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--yellow-border);
-      transition: box-shadow 0.3s;
-    }
-    .nav.scrolled {
-      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
-    }
-
-    .nav__inner {
-      height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    /* ── Logo ── */
-    .nav__logo {
-      height: 64px;
-      display: flex;
-      align-items: center;
-    }
-    .nav__logo img {
-      height: 64px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    /* ── Links ── */
-    .nav__links {
-      display: flex;
-      align-items: center;
-      gap: 2.2rem;
-    }
-
-    .nav__link {
-      font-size: 0.77rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      position: relative;
-      transition: color 0.2s;
-    }
-    .nav__link::after {
-      content: '';
-      position: absolute;
-      bottom: -5px; left: 0; right: 0;
-      height: 1.5px;
-      background: var(--yellow);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.25s var(--ease);
-    }
-    .nav__link:hover,
-    .nav__link.active { color: var(--white); }
-    .nav__link:hover::after,
-    .nav__link.active::after { transform: scaleX(1); }
-
-    .nav__cta {
-      background: var(--yellow);
-      color: var(--asphalt) !important;
-      padding: 0.55rem 1.4rem;
-      border-radius: 3px;
-      font-size: 0.77rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      transition: all 0.2s;
-    }
-    .nav__cta:hover {
-      background: var(--yellow-dark);
-      transform: translateY(-1px);
-    }
-    .nav__cta::after { display: none !important; }
-
-    /* ── Burger ── */
-    .nav__burger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 6px;
-      background: none;
-      border: none;
-    }
-    .nav__burger span {
-      display: block;
-      width: 24px; height: 2px;
-      background: var(--white);
-      border-radius: 2px;
-      transition: all 0.25s;
-    }
-    .nav__burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .nav__burger.open span:nth-child(2) { opacity: 0; }
-    .nav__burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-    /* ── Mobile drawer ── */
-    .nav__drawer {
-      display: none;
-      position: fixed;
-      top: 74px; left: 0; right: 0; bottom: 0;
-      background: var(--black);
-      z-index: 899;
-      flex-direction: column;
-      padding: 2.5rem 5%;
-      gap: 0.3rem;
-    }
-    .nav__drawer.open { display: flex; }
-    .nav__drawer .nav__link {
-      font-size: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border-faint);
-      color: var(--off-white);
-    }
-    .nav__drawer .nav__cta {
-      margin-top: 1.5rem;
-      text-align: center;
-      padding: 1rem;
-      border-radius: 3px;
-    }
-
-    /* ============================================================
-       HERO
-    ============================================================ */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 74px;
-      overflow: hidden;
-    }
-
-    /* ── Background video / image ── */
-    .hero__bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENT MÉDIA — HERO BACKGROUND                         │
-    │  Type     : Vidéo MP4 (préféré) ou GIF grande résolution     │
-    │  Contenu  : Vue aérienne ou latérale d'une machine de        │
-    │             marquage routier Airless / thermoplastique        │
-    │             traçant des lignes jaunes/blanches sur une        │
-    │             autoroute. Nuit ou crépuscule recommandé pour     │
-    │             l'ambiance. Durée : 10–20 sec, loop infini.       │
-    │  Remplacer : src="assets/hero-machine-marquage.mp4"          │
-    └──────────────────────────────────────────────────────────────┘
-    */
-    .hero__video {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
-      opacity: 0.35;
-    }
-
-    /* Fallback image si la vidéo n'est pas disponible */
-    .hero__bg-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
-      opacity: 0.35;
-      /*
-        EMPLACEMENT IMAGE FALLBACK HERO :
-        Photo HD d'une autoroute marocaine en travaux de marquage.
-        Remplacer src="assets/hero-autoroute.jpg"
-      */
-    }
-
-    /* Dégradé de lisibilité sur le fond */
-    .hero__overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to right, rgba(14,27,46,0.92) 45%, rgba(14,27,46,0.45) 100%),
-        linear-gradient(to top,   rgba(14,27,46,0.8)  0%,  transparent 50%);
-      z-index: 1;
-    }
-
-    .hero__content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero__eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 1.4rem;
-    }
-    .hero__eyebrow::before {
-      content: '';
-      display: block;
-      width: 30px; height: 2px;
-      background: var(--yellow);
-    }
-
-    .hero__title {
-      font-family: var(--font-display);
-      font-size: clamp(3.2rem, 7vw, 6rem);
-      font-weight: 900;
-      line-height: 0.95;
-      color: var(--white);
-      letter-spacing: 0.01em;
-      margin-bottom: 1.5rem;
-    }
-    .hero__title .line-yellow { color: var(--yellow); display: block; }
-
-    .hero__sub {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.75;
-      max-width: 500px;
-      margin-bottom: 2.8rem;
-    }
-
-    .hero__ctas {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    /* ── Stats bar ── */
-    .hero__stats {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      z-index: 2;
-      background: rgba(10,10,10,0.75);
-      backdrop-filter: blur(8px);
-      border-top: 1px solid var(--yellow-border);
-    }
-    .hero__stats-inner {
-      display: flex;
-      justify-content: space-between;
-    }
-    .stat {
-      flex: 1;
-      padding: 1.6rem 0;
-      text-align: center;
-      border-right: 1px solid var(--border-faint);
-    }
-    .stat:last-child { border-right: none; }
-    .stat__num {
-      font-family: var(--font-display);
-      font-size: 2.6rem;
-      font-weight: 900;
-      color: var(--yellow);
-      line-height: 1;
-    }
-    .stat__label {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      margin-top: 0.3rem;
-    }
-
-    /* ── Road-line animation at bottom of hero ── */
-    .hero__road {
-      position: absolute;
-      bottom: 76px; left: 0; right: 0;
-      height: 4px;
-      overflow: hidden;
-      z-index: 2;
-    }
-    .hero__road-dashes {
-      display: flex;
-      gap: 0;
-      animation: dashMove 3s linear infinite;
-    }
-    .hero__road-dash {
-      width: 60px; height: 4px;
-      background: var(--yellow);
-      margin-right: 36px;
-      opacity: 0.5;
-      flex-shrink: 0;
-      border-radius: 2px;
-    }
-    @keyframes dashMove {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-96px); }
-    }
-
-    /* ============================================================
-       SERVICES PREVIEW (section 2)
-    ============================================================ */
-    .services-preview {
-      background: var(--asphalt-mid);
-      border-top: 1px solid var(--border-faint);
-      border-bottom: 1px solid var(--border-faint);
-    }
-
-    .services-preview__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 2rem;
-      margin-bottom: 3.5rem;
-      flex-wrap: wrap;
-    }
-
-    /* Services grid : 4 cartes */
-    .services-preview__grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5px;
-      background: var(--border-faint);
-      border: 1.5px solid var(--border-faint);
-    }
-
-    .srv-card {
-      background: var(--asphalt-card);
-      padding: 2.2rem 1.8rem;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.28s var(--ease);
-      cursor: default;
-    }
-    .srv-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--yellow);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.35s var(--ease);
-    }
-    .srv-card:hover { background: #2A2A2A; }
-    .srv-card:hover::after { transform: scaleX(1); }
-
-    /* Thumbnail image pour chaque carte service */
-    .srv-card__thumb {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 2px;
-      margin-bottom: 1.5rem;
-      background: var(--asphalt-mid);
-    }
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENTS IMAGES — 4 CARTES SERVICES                     │
-    │                                                              │
-    │  Carte 1 — Signalisation Horizontale                         │
-    │  Type    : Photo statique HD                                 │
-    │  Contenu : Gros plan de lignes jaunes/blanches fraîchement   │
-    │            tracées sur bitume noir. Perspective de route.    │
-    │  Fichier : assets/srv-horizontal.jpg                         │
-    │                                                              │
-    │  Carte 2 — Signalisation Verticale                           │
-    │  Type    : Photo statique HD                                 │
-    │  Contenu : Technicien posant un panneau de signalisation      │
-    │            sur poteau, bord de route nationale.              │
-    │  Fichier : assets/srv-verticale.jpg                          │
-    │                                                              │
-    │  Carte 3 — Dispositifs de Sécurité                           │
-    │  Type    : Photo statique HD                                 │
-    │  Contenu : Glissière de sécurité métallique (GS2) posée      │
-    │            sur une voie express ou autoroute.                │
-    │  Fichier : assets/srv-glissiere.jpg                          │
-    │                                                              │
-    │  Carte 4 — Travaux Routiers                                  │
-    │  Type    : Photo statique HD                                 │
-    │  Contenu : Finisseur (machine d'enrobé) en action sur        │
-    │            chantier de terrassement / réfection routière.    │
-    │  Fichier : assets/srv-travaux.jpg                            │
-    └──────────────────────────────────────────────────────────────┘
-    */
-
-    .srv-card__icon {
-      width: 48px; height: 48px;
-      background: var(--black);
-      border: 1px solid var(--yellow-border);
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .srv-card__title {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.6rem;
-    }
-
-    .srv-card__text {
-      font-size: 0.83rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    .srv-card__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-top: 1.2rem;
-      transition: gap 0.2s;
-    }
-    .srv-card__link:hover { gap: 0.8rem; }
-
-    /* ============================================================
-       PROJET PHARE (section 3)
-    ============================================================ */
-    .flagship {
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .flagship__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      min-height: 520px;
-    }
-
-    /* Panneau image gauche */
-    .flagship__visual {
-      position: relative;
-      overflow: hidden;
-      min-height: 420px;
-    }
-
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENT MÉDIA — PROJET PHARE (section gauche)           │
-    │  Type    : GIF animé ou photo panoramique HD                 │
-    │  Contenu : Vue drone / aérienne d'une route nationale ou     │
-    │            voie express après travaux de marquage complets.  │
-    │            Lignes bien visibles, paysage marocain.           │
-    │  Fichier : assets/projet-phare.gif  (ou .jpg pour statique)  │
-    └──────────────────────────────────────────────────────────────┘
-    */
-    .flagship__img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
-      transition: transform 0.6s var(--ease);
-    }
-    .flagship__visual:hover .flagship__img {
-      transform: scale(1.04);
-    }
-
-    /* Badge projet */
-    .flagship__badge {
-      position: absolute;
-      top: 1.5rem; left: 1.5rem;
-      background: var(--yellow);
-      color: var(--asphalt);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.8rem;
-      border-radius: 2px;
-    }
-
-    /* Panneau texte droite */
-    .flagship__content {
-      padding: 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .flagship__metrics {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-      margin-top: 2.5rem;
-    }
-
-    .flagship__metric {
-      padding: 1.2rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border-faint);
-      border-radius: 3px;
-    }
-    .flagship__metric-val {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--yellow);
-    }
-    .flagship__metric-label {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-top: 0.2rem;
-    }
-
-    /* ============================================================
-       DOMAINES D'EXCELLENCE (section 4 — bandeau foncé)
-    ============================================================ */
-    .excellence {
-      background: var(--asphalt);
-      border-top: 1px solid var(--border-faint);
-    }
-
-    .excellence__header {
-      text-align: center;
-      margin-bottom: 3.5rem;
-    }
-    .excellence__header .section-sub {
-      margin: 0 auto;
-    }
-
-    .excellence__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border-faint);
-      border: 1px solid var(--border-faint);
-    }
-
-    .exc-card {
-      background: var(--asphalt-mid);
-      padding: 2.5rem 2rem;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.28s;
-    }
-    .exc-card:hover { background: var(--asphalt-card); }
-
-    /* Image thumbnail chaque domaine */
-    .exc-card__img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 2px;
-      margin-bottom: 1.6rem;
-      background: #1A1A1A;
-    }
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENTS IMAGES — 3 DOMAINES D'EXCELLENCE               │
-    │                                                              │
-    │  Carte A — Routes Nationales & Voies Express                 │
-    │  Type    : Photo HD                                          │
-    │  Contenu : Section d'autoroute marocaine avec marquage       │
-    │            horizontal impeccable, vue perspective fuyante.   │
-    │  Fichier : assets/exc-autoroute.jpg                          │
-    │                                                              │
-    │  Carte B — Parkings & Zones Industrielles                    │
-    │  Type    : Photo HD ou GIF animé                             │
-    │  Contenu : Marquage de places de parking (lignes bleues/     │
-    │            blanches, flèches, numérotation), vue aérienne.   │
-    │  Fichier : assets/exc-parking.jpg (ou .gif)                  │
-    │                                                              │
-    │  Carte C — Aéroports                                         │
-    │  Type    : Photo HD                                          │
-    │  Contenu : Piste d'aéroport avec marquage (seuil de piste,  │
-    │            axe de piste, zones de toucher). Vue depuis le    │
-    │            tablier ou aérienne.                              │
-    │  Fichier : assets/exc-aeroport.jpg                           │
-    └──────────────────────────────────────────────────────────────┘
-    */
-
-    .exc-card__label {
-      font-size: 0.67rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 0.5rem;
-    }
-
-    .exc-card__title {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.8rem;
-    }
-
-    .exc-card__text {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* ============================================================
-       PROCESSUS (section 5 — timeline horizontale)
-    ============================================================ */
-    .process {
-      background: var(--black);
-    }
-
-    .process__header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .process__steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      position: relative;
-    }
-    /* Ligne de connexion entre étapes */
-    .process__steps::before {
-      content: '';
-      position: absolute;
-      top: 24px;
-      left: calc(12.5% + 12px);
-      right: calc(12.5% + 12px);
-      height: 2px;
-      background: var(--yellow-border);
-      z-index: 0;
-    }
-
-    .step {
-      padding: 0 1.5rem;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step__dot {
-      width: 48px; height: 48px;
-      background: var(--black-mid);
-      border: 2px solid var(--yellow);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--yellow);
-      margin: 0 auto 1.5rem;
-    }
-
-    .step__title {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.02em;
-    }
-
-    .step__text {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ============================================================
-       ENGAGEMENTS (section 6 — bande chiffre + texte)
-    ============================================================ */
-    .engagements {
-      background: var(--asphalt-mid);
-      border-top: 1px solid var(--border-faint);
-    }
-
-    .engagements__inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .engage-list { margin-top: 2rem; }
-
-    .engage-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border-faint);
-    }
-    .engage-item:last-child { border-bottom: none; }
-
-    .engage-item__icon {
-      width: 40px; height: 40px;
-      background: var(--yellow-glow);
-      border: 1px solid var(--yellow-border);
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .engage-item__text h4 {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.2rem;
-    }
-    .engage-item__text p {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* Panneau image droite — engagements */
-    .engagements__visual {
-      position: relative;
-    }
-
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENT MÉDIA — SECTION ENGAGEMENTS                     │
-    │  Type    : GIF animé (idéal) ou photo HD                     │
-    │  Contenu : Machine de marquage routier thermoplastique       │
-    │            (ex. Nanjing Roadshine) en pleine action,         │
-    │            traçant une ligne continue sur bitume.            │
-    │            Plan serré sur la buse d'application.             │
-    │  Fichier : assets/machine-marquage.gif (ou .jpg)             │
-    └──────────────────────────────────────────────────────────────┘
-    */
-    .engagements__img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      border-radius: 3px;
-      background: var(--asphalt-card);
-    }
-
-    /* Badge superposé */
-    .engagements__badge {
-      position: absolute;
-      bottom: -1rem; left: -1rem;
-      background: var(--yellow);
-      color: var(--asphalt);
-      padding: 1.2rem 1.5rem;
-      border-radius: 3px;
-    }
-    .engagements__badge-num {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 900;
-      line-height: 1;
-    }
-    .engagements__badge-txt {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 0.2rem;
-    }
-
-    /* ============================================================
-       PARTENAIRES (section 7)
-    ============================================================ */
-    .partners {
-      background: var(--asphalt);
-      padding: 60px 0;
-      border-top: 1px solid var(--border-faint);
-    }
-
-    .partners__title {
-      text-align: center;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-    }
-
-    .partners__track {
-      display: flex;
-      gap: 4rem;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENTS — LOGOS PARTENAIRES / CLIENTS                  │
-    │  Type    : Images PNG fond transparent (hauteur ~40px)       │
-    │  Contenu : Logos des maîtres d'ouvrage et partenaires        │
-    │            (Direction des Routes, ADM, ONDA, collectivités). │
-    │  Fichiers: assets/partner-1.png, partner-2.png, ...          │
-    └──────────────────────────────────────────────────────────────┘
-    */
-    .partner-logo {
-      height: 40px;
-      object-fit: contain;
-      filter: brightness(0) invert(1);
-      opacity: 0.4;
-      transition: opacity 0.25s;
-    }
-    .partner-logo:hover { opacity: 0.85; }
-
-    /* Placeholder si pas encore de logo client */
-    .partner-placeholder {
-      height: 40px;
-      min-width: 120px;
-      background: var(--border-faint);
-      border-radius: 3px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* ============================================================
-       CTA STRIP (avant footer)
-    ============================================================ */
-    .cta-strip {
-      background: var(--yellow);
-      padding: 64px 0;
-    }
-
-    .cta-strip__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .cta-strip h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      font-weight: 900;
-      color: var(--asphalt);
-      line-height: 1.1;
-    }
-
-    .cta-strip p {
-      font-size: 0.9rem;
-      color: rgba(20,20,20,0.7);
-      margin-top: 0.4rem;
-    }
-
-    .btn-dark {
-      background: var(--asphalt);
-      color: var(--yellow);
-      padding: 0.95rem 2rem;
-      border-radius: 3px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.25s;
-      white-space: nowrap;
-    }
-    .btn-dark:hover {
-      background: #000;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    }
-
-    /* ============================================================
-       FOOTER
-    ============================================================ */
-    .footer {
-      background: #0A0A0A;
-      border-top: 1px solid var(--border-faint);
-      padding: 64px 0 28px;
-    }
-
-    .footer__grid {
-      display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    .footer__logo-wrap img {
-      height: 50px;
-      object-fit: contain;
-      margin-bottom: 1.2rem;
-    }
-
-    .footer__desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-bottom: 1.5rem;
-    }
-
-    .footer__social {
-      display: flex;
-      gap: 0.7rem;
-    }
-    .footer__social a {
-      width: 34px; height: 34px;
-      background: var(--asphalt-card);
-      border: 1px solid var(--border-faint);
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      transition: all 0.2s;
-    }
-    .footer__social a:hover {
-      border-color: var(--yellow);
-      color: var(--yellow);
-    }
-
-    .footer__col-head {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 1.3rem;
-    }
-
-    .footer__links li { margin-bottom: 0.55rem; }
-    .footer__links a {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      transition: color 0.2s;
-    }
-    .footer__links a:hover { color: var(--white); }
-
-    .footer__contact-item {
-      display: flex;
-      gap: 0.7rem;
-      margin-bottom: 0.65rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    .footer__contact-item .ico { color: var(--yellow); flex-shrink: 0; font-size: 0.9rem; }
-
-    .footer__bottom {
-      border-top: 1px solid var(--border-faint);
-      padding-top: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .footer__bottom p { font-size: 0.73rem; color: var(--text-muted); }
-
-    /* ============================================================
-       RESPONSIVE
-    ============================================================ */
-    @media (max-width: 1024px) {
-      .services-preview__grid { grid-template-columns: repeat(2, 1fr); }
-      .excellence__grid       { grid-template-columns: repeat(2, 1fr); }
-      .flagship__content      { padding: 2.5rem; }
-      .footer__grid           { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    }
-
-    @media (max-width: 768px) {
-      .nav__links   { display: none; }
-      .nav__burger  { display: flex; }
-
-      section { padding: 65px 0; }
-
-      .hero__title { font-size: clamp(2.4rem, 10vw, 3.5rem); }
-
-      .hero__stats-inner {
-        flex-wrap: wrap;
-      }
-      .stat {
-        flex: 0 0 50%;
-        border-right: none;
-        border-bottom: 1px solid var(--border-faint);
-      }
-      .stat:nth-child(odd) { border-right: 1px solid var(--border-faint); }
-      .stat:nth-last-child(-n+2) { border-bottom: none; }
-
-      .services-preview__grid { grid-template-columns: 1fr; }
-      .flagship__grid         { grid-template-columns: 1fr; }
-      .flagship__visual       { min-height: 280px; }
-      .flagship__content      { padding: 2rem 0; }
-      .flagship__metrics      { grid-template-columns: 1fr 1fr; }
-      .excellence__grid       { grid-template-columns: 1fr; }
-      .process__steps         { grid-template-columns: 1fr 1fr; }
-      .process__steps::before { display: none; }
-      .engagements__inner     { grid-template-columns: 1fr; gap: 2.5rem; }
-      .engagements__badge     { bottom: 0.5rem; left: 0.5rem; }
-      .cta-strip__inner       { flex-direction: column; text-align: center; }
-      .footer__grid           { grid-template-columns: 1fr; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; }
-      .hero__road-dashes { animation: none; }
-    }
-
-    /* ============================================================
-       PAGE CONTACT — STYLES SPÉCIFIQUES
-    ============================================================ */
-    .contact-hero {
-      padding: 160px 0 60px;
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-      border-bottom: 1px solid var(--yellow-border);
-    }
-    .contact-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        repeating-linear-gradient(90deg, transparent 0 38px, var(--yellow) 38px 78px);
-      opacity: 0.04;
-      pointer-events: none;
-    }
-    .contact-hero__inner { position: relative; z-index: 1; max-width: 720px; }
-    .contact-hero h1 {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      color: var(--white);
-      line-height: 1.05;
-      margin: 0.6rem 0 1rem;
-    }
-    .contact-hero p {
-      color: var(--text-body);
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 540px;
-    }
-
-    .contact-main {
-      padding: 80px 0 100px;
-      background: var(--asphalt);
-    }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 3.5rem;
-      align-items: start;
-    }
-
-    /* ── Form card ── */
-    .contact-form-card {
-      background: var(--asphalt-card);
-      border: 1px solid var(--border-faint);
-      border-radius: 10px;
-      padding: 2.4rem;
-    }
-    .contact-form-card h2 {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: var(--white);
-      margin-bottom: 0.4rem;
-    }
-    .contact-form-card > p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--steel);
-      margin-bottom: 0.5rem;
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      background: var(--asphalt);
-      border: 1px solid var(--border-faint);
-      border-radius: 6px;
-      padding: 0.85rem 1rem;
-      font-family: var(--font-body);
-      font-size: 0.92rem;
-      color: var(--white);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-group textarea { resize: vertical; min-height: 120px; }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--yellow);
-      box-shadow: 0 0 0 3px var(--yellow-glow);
-    }
-    .form-group input::placeholder,
-    .form-group textarea::placeholder { color: #555; }
-
-    .form-submit {
-      width: 100%;
-      margin-top: 0.4rem;
-      justify-content: center;
-      font-size: 0.85rem;
-      padding: 1rem 1.5rem;
-    }
-
-    .form-note {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 1rem;
-      text-align: center;
-    }
-
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 2.5rem 1rem;
-    }
-    .form-success.show { display: block; }
-    .form-success .icon {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: var(--yellow-glow);
-      border: 1.5px solid var(--yellow);
-      color: var(--yellow);
-      font-size: 1.6rem;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1.2rem;
-    }
-    .form-success h3 {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-    }
-    .form-success p { color: var(--text-muted); font-size: 0.9rem; }
-
-    /* ── Info column ── */
-    .contact-info-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
-    .contact-info-card {
-      display: flex; gap: 1rem; align-items: flex-start;
-      background: var(--asphalt-card);
-      border: 1px solid var(--border-faint);
-      border-radius: 8px;
-      padding: 1.3rem 1.4rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .contact-info-card:hover { border-color: var(--yellow-border); transform: translateX(-2px); }
-    .contact-info-card .ico {
-      width: 42px; height: 42px; flex-shrink: 0;
-      border-radius: 8px;
-      background: var(--yellow-glow);
-      color: var(--yellow);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.15rem;
-    }
-    .contact-info-card h4 {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--steel);
-      margin-bottom: 0.3rem;
-    }
-    .contact-info-card p, .contact-info-card a {
-      color: var(--white);
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-    .contact-info-card a:hover { color: var(--yellow); }
-
-    .contact-map {
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--border-faint);
-      height: 280px;
-      position: relative;
-    }
-    .contact-map iframe {
-      width: 100%; height: 100%; border: 0; filter: grayscale(0.3) contrast(1.05);
-    }
-    .contact-map__label {
-      position: absolute; top: 0.8rem; left: 0.8rem;
-      background: rgba(15,28,46,0.92);
-      border: 1px solid var(--yellow-border);
-      color: var(--yellow);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.4rem 0.8rem;
-      border-radius: 5px;
-    }
-
-    /* ── Urgence banner ── */
-    .urgence-banner {
-      margin-top: 2rem;
-      background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dark) 100%);
-      border-radius: 8px;
-      padding: 1.3rem 1.5rem;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .urgence-banner .ico { font-size: 1.6rem; }
-    .urgence-banner h4 { font-family: var(--font-display); font-weight: 800; color: var(--asphalt); font-size: 1.05rem; }
-    .urgence-banner p { color: rgba(20,20,20,0.75); font-size: 0.85rem; }
-    .urgence-banner a { color: var(--asphalt); text-decoration: underline; font-weight: 600; }
-
-    @media (max-width: 900px) {
-      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .form-row { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
-      .contact-hero { padding: 130px 0 50px; }
-      .contact-form-card { padding: 1.6rem; }
-    }
-
-    /* ============================================================
-       MOT DU DIRECTEUR
-    ============================================================ */
-    .mot-dir {
-      padding: 100px 0;
-      background: var(--black-mid);
-      border-top: 1px solid var(--yellow-border);
-      border-bottom: 1px solid var(--yellow-border);
-      position: relative;
-      overflow: hidden;
-    }
-    .mot-dir::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        135deg,
-        transparent 0, transparent 40px,
-        rgba(255,205,0,0.03) 40px, rgba(255,205,0,0.03) 42px
-      );
-      pointer-events: none;
-    }
-    .mot-dir__inner {
-      display: grid;
-      grid-template-columns: 1.4fr 0.6fr;
-      gap: 4rem;
-      align-items: center;
-      position: relative; z-index: 1;
-    }
-    .mot-dir__guillemet {
-      font-family: Georgia, serif;
-      font-size: 6rem;
-      color: var(--yellow);
-      line-height: 0.6;
-      margin-bottom: 1.5rem;
-      opacity: 0.85;
-    }
-    .mot-dir__text {
-      font-size: 1rem;
-      line-height: 1.85;
-      color: var(--text-body);
-      font-style: italic;
-      border: none;
-      padding: 0;
-      margin: 0 0 2rem;
-    }
-    .mot-dir__text strong { color: var(--yellow); font-style: normal; font-weight: 600; }
-    .mot-dir__sig { display: flex; flex-direction: column; gap: 0.4rem; }
-    .mot-dir__sig-line {
-      width: 48px; height: 2px;
-      background: var(--yellow);
-      margin-bottom: 0.5rem;
-    }
-    .mot-dir__sig-name {
-      font-family: var(--font-display);
-      font-weight: 800; font-size: 1.15rem;
-      color: var(--white); letter-spacing: 0.06em;
-    }
-    .mot-dir__sig-title {
-      font-size: 0.8rem; color: var(--grey-mid);
-      text-transform: uppercase; letter-spacing: 0.1em;
-    }
-
-    /* Visuel droite */
-    .mot-dir__visual {
-      display: flex; flex-direction: column; align-items: center; gap: 2rem;
-    }
-    .mot-dir__logo-bg {
-      width: 200px; height: 200px;
-      background: var(--black-card);
-      border: 2px solid var(--yellow-border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      padding: 1.5rem;
-      box-shadow: 0 0 60px var(--yellow-glow);
-    }
-    .mot-dir__logo-img { width: 100%; height: 100%; object-fit: contain; }
-    .mot-dir__values {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; width: 100%;
-    }
-    .mot-dir__val {
-      background: var(--black-card);
-      border: 1px solid var(--border-faint);
-      border-radius: 6px;
-      padding: 0.7rem 1rem;
-      font-size: 0.82rem; font-weight: 600;
-      color: var(--white);
-      display: flex; align-items: center; gap: 0.5rem;
-      transition: border-color 0.2s;
-    }
-    .mot-dir__val:hover { border-color: var(--yellow-border); color: var(--yellow); }
-    .mot-dir__val-icon { font-size: 1rem; }
-
-    /* Logo nav — plus grand */
-    .nav__logo img {
-      height: 64px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    /* Hero logo watermark en background */
-    .hero__logo-watermark {
-      position: absolute;
-      right: -80px; top: 50%;
-      transform: translateY(-50%);
-      width: 55vw; max-width: 700px;
-      opacity: 0.06;
-      pointer-events: none;
-      filter: grayscale(1) brightness(2);
-      z-index: 1;
-    }
-
-    @media (max-width: 900px) {
-      .mot-dir__inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .mot-dir__visual { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-      .mot-dir__logo-bg { width: 140px; height: 140px; }
-    }
-    @media (max-width: 600px) {
-      .mot-dir { padding: 70px 0; }
-      .mot-dir__guillemet { font-size: 4rem; }
-      .mot-dir__text { font-size: 0.92rem; }
-    }
-
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Contactez STPMa — Société Travaux Polyvalents Marocains. Demande de devis travaux routiers, signalisation, glissières de sécurité. Errachidia, Maroc."/>
+<title>Contact — STPMa | Travaux Routiers & Signalisation Maroc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#111111;color:#D0D0D0;overflow-x:hidden;line-height:1.6}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+input,select,textarea{font-family:inherit}
+:root{
+  --y:#FFCD00;--y2:#E0B400;--y-glow:rgba(255,205,0,.14);--y-border:rgba(255,205,0,.25);
+  --black:#111111;--black2:#171717;--black3:#222222;--black4:#2A2A2A;
+  --white:#FFFFFF;--g1:#F5F5F5;--g2:#A6A6A6;--g3:#555555;
+  --font-d:'Barlow Condensed',sans-serif;--ease:cubic-bezier(.4,0,.2,1);
+}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--y)}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 5%}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.vis{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.tag{font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--y);display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem}
+.tag::before{content:'';display:block;width:28px;height:2px;background:var(--y);flex-shrink:0}
+
+/* ═══ NAV ═══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:80px;display:flex;align-items:center;background:rgba(17,17,17,.97);border-bottom:1px solid var(--y-border);backdrop-filter:blur(12px)}
+.nav__inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1200px;margin:0 auto;padding:0 5%}
+.nav__logo img{height:68px;width:auto;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,205,0,.25))}
+.nav__links{display:flex;align-items:center;gap:2.5rem}
+.nav__link{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);position:relative;transition:color .2s}
+.nav__link::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1.5px;background:var(--y);transform:scaleX(0);transition:transform .25s}
+.nav__link:hover,.nav__link.active{color:var(--white)}.nav__link:hover::after,.nav__link.active::after{transform:scaleX(1)}
+.nav__cta{background:var(--y);color:var(--black);padding:.55rem 1.4rem;border-radius:2px;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
+.nav__cta:hover{background:var(--y2)}
+.burger{display:none;flex-direction:column;gap:5px;padding:4px}
+.burger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.drawer{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;background:var(--black);z-index:999;flex-direction:column;padding:2rem 5%;gap:.5rem;overflow-y:auto}
+.drawer.open{display:flex}
+.drawer .nav__link{font-size:1.1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.06);color:var(--g1)}
+.drawer .nav__cta{margin-top:1.5rem;text-align:center;padding:1rem}
+
+/* ═══ PAGE HERO ═══ */
+.ph{padding:140px 0 70px;background:var(--black2);border-bottom:3px solid var(--y);position:relative;overflow:hidden}
+.ph__wm{position:absolute;right:-3%;top:50%;transform:translateY(-50%);width:45vw;max-width:600px;opacity:.05;filter:grayscale(1) brightness(4);pointer-events:none}
+.ph__inner{position:relative;z-index:1;max-width:700px}
+.ph h1{font-family:var(--font-d);font-size:clamp(2.8rem,6vw,4.5rem);font-weight:900;color:var(--white);line-height:.95;margin:.5rem 0 1.2rem}
+.ph h1 span{color:var(--y)}
+.ph p{font-size:1rem;color:var(--g2);line-height:1.75;max-width:560px}
+
+/* ═══ MAIN CONTACT ═══ */
+.contact-main{padding:80px 0 100px;background:var(--black)}
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:start}
+
+/* ═══ FORMULAIRE ═══ */
+.form-card{background:var(--black2);border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:2.4rem}
+.form-card h2{font-family:var(--font-d);font-weight:700;font-size:1.5rem;color:var(--white);margin-bottom:.4rem}
+.form-card>p{color:var(--g2);font-size:.88rem;margin-bottom:2rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--g2);margin-bottom:.5rem}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;background:var(--black3);border:1px solid rgba(255,255,255,.08);
+  border-radius:3px;padding:.85rem 1rem;font-size:.9rem;color:var(--white);
+  transition:border-color .2s,box-shadow .2s;outline:none
+}
+.form-group select option{background:var(--black3);color:var(--white)}
+.form-group textarea{resize:vertical;min-height:130px}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{border-color:var(--y);box-shadow:0 0 0 3px var(--y-glow)}
+.form-group input::placeholder,
+.form-group textarea::placeholder{color:var(--g3)}
+.btn-submit{width:100%;margin-top:.5rem;background:var(--y);color:var(--black);border:none;
+  padding:1rem;border-radius:3px;font-family:var(--font-d);font-size:1.1rem;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:all .25s;
+  display:flex;align-items:center;justify-content:center;gap:.5rem}
+.btn-submit:hover{background:var(--y2);transform:translateY(-2px);box-shadow:0 8px 24px var(--y-glow)}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.form-note{font-size:.75rem;color:var(--g3);text-align:center;margin-top:.9rem}
+/* Honeypot */
+.hp{display:none!important}
+/* Success */
+.form-success{display:none;text-align:center;padding:3rem 1rem}
+.form-success.show{display:block}
+.form-success__icon{width:64px;height:64px;border-radius:50%;background:var(--y-glow);
+  border:2px solid var(--y);color:var(--y);font-size:1.8rem;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem}
+.form-success h3{font-family:var(--font-d);font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:.5rem}
+.form-success p{color:var(--g2);font-size:.9rem}
+
+/* ═══ INFOS CONTACT ═══ */
+.info-cards{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2rem}
+.info-card{display:flex;gap:1rem;align-items:flex-start;
+  background:var(--black2);border:1px solid rgba(255,255,255,.07);
+  border-radius:4px;padding:1.3rem 1.4rem;
+  transition:border-color .2s,transform .2s}
+.info-card:hover{border-color:var(--y-border);transform:translateX(3px)}
+.info-card__ico{width:44px;height:44px;flex-shrink:0;border-radius:6px;
+  background:var(--y-glow);border:1px solid var(--y-border);
+  color:var(--y);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.info-card__label{font-size:.68rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--g2);margin-bottom:.3rem}
+.info-card__val{color:var(--white);font-size:.95rem;line-height:1.5}
+.info-card__val a{color:var(--white);transition:color .2s}
+.info-card__val a:hover{color:var(--y)}
+
+/* Carte Google Maps */
+.map-wrap{border-radius:4px;overflow:hidden;height:260px;
+  border:1px solid rgba(255,255,255,.07);position:relative;margin-bottom:1.5rem}
+.map-wrap iframe{width:100%;height:100%;border:0;filter:grayscale(.2) contrast(1.05)}
+.map-label{position:absolute;top:.8rem;left:.8rem;
+  background:rgba(17,17,17,.92);border:1px solid var(--y-border);
+  color:var(--y);font-size:.7rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:.35rem .75rem;border-radius:3px}
+
+/* Urgence banner */
+.urgence{background:var(--y);border-radius:4px;padding:1.2rem 1.4rem;
+  display:flex;align-items:center;gap:1rem}
+.urgence__ico{font-size:1.5rem;flex-shrink:0}
+.urgence h4{font-family:var(--font-d);font-weight:800;font-size:1rem;color:var(--black)}
+.urgence p{font-size:.82rem;color:rgba(0,0,0,.65);margin-top:.15rem}
+.urgence a{color:var(--black);font-weight:700;text-decoration:underline}
+
+/* ═══ FOOTER ═══ */
+.footer{background:#0A0A0A;border-top:1px solid rgba(255,205,0,.12);padding:70px 0 30px}
+.footer__grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer__logo img{height:56px;object-fit:contain;margin-bottom:1rem}
+.footer__desc{font-size:.83rem;color:var(--g3);line-height:1.7}
+.footer__col-title{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--y);margin-bottom:1.2rem}
+.footer__links li{margin-bottom:.6rem}
+.footer__links a{font-size:.83rem;color:var(--g3);transition:color .2s}.footer__links a:hover{color:var(--y)}
+.footer__ci{font-size:.83rem;color:var(--g3);display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.7rem;line-height:1.5}
+.footer__ci a:hover{color:var(--y)}
+.footer__bottom{border-top:1px solid rgba(255,255,255,.05);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+.footer__bottom p{font-size:.75rem;color:var(--g3)}.footer__bottom a{color:var(--y)}
+
+@media(max-width:900px){
+  .contact-grid{grid-template-columns:1fr;gap:2.5rem}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav__links{display:none}.burger{display:flex}
+  .ph{padding:110px 0 50px}
+  .form-card{padding:1.6rem}
+  .footer__grid{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media(max-width:480px){
+  .footer__grid{grid-template-columns:1fr}
+  .contact-main{padding:50px 0 70px}
+}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+</style>
+</head>
 <body>
 
-<!-- ============================================================
-     NAVIGATION
-============================================================ -->
-<nav class="nav" id="mainNav">
-  <div class="container nav__inner">
-    <a href="index.html" class="nav__logo" aria-label="STPMa – Accueil">
-      <img src="logo.png" alt="STPMa" />
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html">
+      <img src="logo.png" alt="STPMa" style="height:68px;width:auto;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,205,0,.25))">
     </a>
-
-    <ul class="nav__links" role="list">
-      <li><a href="index.html"    class="nav__link">Accueil</a></li>
-      <li><a href="services.html" class="nav__link">Services</a></li>
-      <li><a href="references.html"  class="nav__link">Références</a></li>
-      <li><a href="apropos.html"  class="nav__link">À Propos</a></li>
-      <li><a href="contact.html"  class="nav__cta">Nous contacter</a></li>
-    </ul>
-
-    <button class="nav__burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav__links">
+      <a href="index.html" class="nav__link">Accueil</a>
+      <a href="services.html" class="nav__link">Services</a>
+      <a href="references.html" class="nav__link">Références</a>
+      <a href="apropos.html" class="nav__link">À Propos</a>
+      <a href="contact.html" class="nav__cta">Nous contacter</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
-
-<div class="nav__drawer" id="navDrawer" role="dialog" aria-label="Menu principal">
-  <a href="index.html"    class="nav__link">Accueil</a>
+<div class="drawer" id="drawer">
+  <a href="index.html" class="nav__link">Accueil</a>
   <a href="services.html" class="nav__link">Services</a>
-  <a href="references.html"  class="nav__link">Références</a>
-  <a href="apropos.html"  class="nav__link">À Propos</a>
-  <a href="contact.html"  class="nav__cta">Nous contacter →</a>
+  <a href="references.html" class="nav__link">Références</a>
+  <a href="apropos.html" class="nav__link">À Propos</a>
+  <a href="contact.html" class="nav__cta">Nous contacter →</a>
 </div>
 
-
-<!-- ============================================================
-     HERO CONTACT
-============================================================ -->
-<header class="contact-hero">
-  <div class="container contact-hero__inner reveal">
+<!-- ═══ PAGE HERO ═══ -->
+<header class="ph">
+  <img src="logo.png" alt="" class="ph__wm" aria-hidden="true">
+  <div class="container ph__inner reveal">
     <div class="tag">Contact</div>
-    <h1>Parlons de votre<br>prochain chantier.</h1>
-    <p>
-      Une route à marquer, un parking à sécuriser, un appel d'offres à étudier ?
-      Notre équipe technique vous répond sous 24h ouvrées.
-    </p>
+    <h1>Parlons de votre<br><span>prochain chantier.</span></h1>
+    <p>Une route à marquer, un chantier à sécuriser, un appel d'offres à étudier ? Notre équipe technique vous répond sous 24h ouvrées — partout au Maroc.</p>
   </div>
 </header>
 
-
-<!-- ============================================================
-     CONTENU PRINCIPAL — FORMULAIRE + INFOS
-============================================================ -->
+<!-- ═══ CONTENU PRINCIPAL ═══ -->
 <main class="contact-main">
   <div class="container contact-grid">
 
-    <!-- ───────── Colonne formulaire ───────── -->
-    <div class="contact-form-card reveal">
-      <h2>Demande de devis</h2>
-      <p>Remplissez ce formulaire, nous revenons vers vous rapidement.</p>
+    <!-- FORMULAIRE -->
+    <div class="reveal">
+      <div class="form-card">
+        <h2>Demande de devis</h2>
+        <p>Remplissez ce formulaire, notre équipe vous répond sous 24h ouvrées.</p>
 
-      <!--
-        ============================================================
-        INTÉGRATION FORMSPREE — GRATUIT JUSQU'À 50 ENVOIS / MOIS
-        ============================================================
-        1. Créez un compte sur https://formspree.io
-        2. Créez un nouveau formulaire, copiez l'ID fourni
-           (ressemble à : xtopqgkd)
-        3. Remplacez "VOTRE_ID_FORMSPREE" ci-dessous par cet ID
-           dans l'action="https://formspree.io/f/VOTRE_ID_FORMSPREE"
-        4. Formspree enverra chaque soumission directement
-           à l'adresse email associée à votre compte.
-        ============================================================
-      -->
-      <form
-        id="contactForm"
-        action="https://formspree.io/f/VOTRE_ID_FORMSPREE"
-        method="POST"
-      >
-        <div class="form-row">
-          <div class="form-group">
-            <label for="nom">Nom complet *</label>
-            <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
+        <!--
+          FORMSPREE : remplacer VOTRE_ID ci-dessous
+          1. Créer un compte sur formspree.io
+          2. Créer un formulaire → copier l'ID (ex: xtopqgkd)
+          3. Remplacer VOTRE_ID par cet ID
+        -->
+        <form id="contactForm" action="https://formspree.io/f/VOTRE_ID" method="POST">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Nom complet *</label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            </div>
+            <div class="form-group">
+              <label for="societe">Société / Organisme</label>
+              <input type="text" id="societe" name="societe" placeholder="Nom de l'entreprise">
+            </div>
           </div>
-          <div class="form-group">
-            <label for="societe">Société / Organisme</label>
-            <input type="text" id="societe" name="societe" placeholder="Nom de l'entreprise" />
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
+            </div>
+            <div class="form-group">
+              <label for="tel">Téléphone *</label>
+              <input type="tel" id="tel" name="telephone" placeholder="+212 6XX XXX XXX" required>
+            </div>
           </div>
-        </div>
 
-        <div class="form-row">
           <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" placeholder="vous@exemple.com" required />
+            <label for="service">Service concerné</label>
+            <select id="service" name="service">
+              <option value="">Sélectionnez un service</option>
+              <option value="Signalisation horizontale">Signalisation horizontale (marquage)</option>
+              <option value="Signalisation verticale">Signalisation verticale (panneaux)</option>
+              <option value="Glissières de sécurité">Glissières de sécurité</option>
+              <option value="Travaux routiers">Travaux routiers</option>
+              <option value="Appel d'offres">Réponse à appel d'offres</option>
+              <option value="Autre">Autre demande</option>
+            </select>
           </div>
+
           <div class="form-group">
-            <label for="telephone">Téléphone *</label>
-            <input type="tel" id="telephone" name="telephone" placeholder="06 71 51 14 98" required />
+            <label for="message">Description du projet *</label>
+            <textarea id="message" name="message"
+              placeholder="Décrivez votre projet : localisation, linéaire estimé, délais souhaités, type de voirie..." required></textarea>
           </div>
+
+          <!-- Honeypot anti-spam -->
+          <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off">
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            Envoyer ma demande →
+          </button>
+          <p class="form-note">Vos données sont utilisées uniquement pour traiter votre demande. Réponse garantie sous 24h ouvrées.</p>
+        </form>
+
+        <!-- Message succès -->
+        <div class="form-success" id="formSuccess">
+          <div class="form-success__icon">✓</div>
+          <h3>Demande envoyée !</h3>
+          <p>Merci, notre équipe vous recontactera sous 24h ouvrées.</p>
         </div>
-
-        <div class="form-group">
-          <label for="service">Service concerné</label>
-          <select id="service" name="service">
-            <option value="">Sélectionnez un service</option>
-            <option value="Signalisation horizontale">Signalisation horizontale</option>
-            <option value="Signalisation verticale">Signalisation verticale</option>
-            <option value="Dispositifs de sécurité">Dispositifs de sécurité (glissières)</option>
-            <option value="Travaux routiers">Travaux routiers</option>
-            <option value="Appel d'offres">Appel d'offres / marché public</option>
-            <option value="Autre">Autre demande</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="message">Votre message *</label>
-          <textarea id="message" name="message" placeholder="Décrivez votre projet : localisation, surface ou linéaire estimé, délais souhaités..." required></textarea>
-        </div>
-
-        <!-- Anti-spam honeypot (champ caché, ignoré par Formspree si vide) -->
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-        <button type="submit" class="btn btn-primary form-submit">
-          Envoyer ma demande →
-        </button>
-
-        <p class="form-note">
-          Vos données sont utilisées uniquement pour traiter votre demande.
-          Réponse sous 24h ouvrées.
-        </p>
-      </form>
-
-      <!-- Message de succès affiché après soumission (via JS fetch) -->
-      <div class="form-success" id="formSuccess">
-        <div class="icon">✓</div>
-        <h3>Demande envoyée avec succès</h3>
-        <p>Merci, notre équipe vous recontactera sous 24h ouvrées.</p>
       </div>
     </div>
 
-    <!-- ───────── Colonne infos + carte ───────── -->
-    <div class="reveal">
-      <div class="contact-info-list">
-        <div class="contact-info-card">
-          <div class="ico">📍</div>
+    <!-- INFOS + CARTE -->
+    <div class="reveal d2">
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-card__ico">📍</div>
           <div>
-            <h4>Adresse</h4>
-            <!-- Adresse complète à renseigner -->
-            <p>Lot Riad N° 2023, Errachidia<br>Maroc</p>
+            <div class="info-card__label">Adresse</div>
+            <div class="info-card__val">Lot Riad N° 2023<br>Errachidia, Maroc</div>
           </div>
         </div>
-
-        <div class="contact-info-card">
-          <div class="ico">📞</div>
+        <div class="info-card">
+          <div class="info-card__ico">📞</div>
           <div>
-            <h4>Téléphone</h4>
-            <a href="tel:+212671511498">+212 6 71 51 14 98</a>
+            <div class="info-card__label">Téléphone</div>
+            <div class="info-card__val"><a href="tel:+212671511498">+212 6 71 51 14 98</a></div>
           </div>
         </div>
-
-        <div class="contact-info-card">
-          <div class="ico">✉</div>
+        <div class="info-card">
+          <div class="info-card__ico">✉</div>
           <div>
-            <h4>Email</h4>
-            <a href="mailto:stpmarocains@gmail.com">stpmarocains@gmail.com</a>
+            <div class="info-card__label">Email</div>
+            <div class="info-card__val"><a href="mailto:stpmarocains@gmail.com">stpmarocains@gmail.com</a></div>
           </div>
         </div>
-
-        <div class="contact-info-card">
-          <div class="ico">🕐</div>
+        <div class="info-card">
+          <div class="info-card__ico">🕐</div>
           <div>
-            <h4>Horaires</h4>
-            <p>Lundi – Vendredi : 08h00 – 17h30<br>Samedi : 08h00 – 13h00</p>
+            <div class="info-card__label">Horaires</div>
+            <div class="info-card__val">Lundi – Vendredi : 08h00 – 17h30<br>Samedi : 08h00 – 13h00</div>
           </div>
         </div>
       </div>
 
       <!--
-        ============================================================
-        CARTE GOOGLE MAPS — IFRAME GRATUIT (sans clé API)
-        ============================================================
-        1. Allez sur Google Maps, cherchez l'adresse exacte de STPMa
-        2. Cliquez "Partager" → onglet "Intégrer une carte"
-        3. Copiez l'URL fournie et remplacez le src ci-dessous
-        ============================================================
+        CARTE GOOGLE MAPS :
+        1. Aller sur maps.google.com → chercher "Errachidia Maroc"
+        2. Cliquer "Partager" → "Intégrer une carte"
+        3. Copier l'URL src et remplacer ci-dessous
       -->
-      <div class="contact-map">
-        <span class="contact-map__label">📍 Errachidia, Maroc</span>
+      <div class="map-wrap">
+        <span class="map-label">📍 Errachidia, Maroc</span>
         <iframe
           src="https://www.google.com/maps?q=Errachidia,Maroc&output=embed"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title="Localisation STPMa"
-        ></iframe>
+          title="Localisation STPMa — Errachidia">
+        </iframe>
       </div>
 
-      <div class="urgence-banner">
-        <div class="ico">🚧</div>
+      <div class="urgence">
+        <div class="urgence__ico">🚧</div>
         <div>
           <h4>Intervention urgente ?</h4>
-          <p>Appelez directement le <a href="tel:+212671511498">+212 6 71 51 14 98</a></p>
+          <p>Appelez directement : <a href="tel:+212671511498">+212 6 71 51 14 98</a></p>
         </div>
       </div>
     </div>
@@ -1723,153 +339,95 @@
   </div>
 </main>
 
-
-<!-- ============================================================
-     FOOTER
-============================================================ -->
+<!-- ═══ FOOTER ═══ -->
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
-
-      <div class="footer__logo-wrap">
-        <img src="logo.png" alt="STPMa" />
-        <p class="footer__desc">
-          Société Travaux Polyvalents Marocains — spécialiste en travaux routiers,
-          signalisation horizontale &amp; verticale et sécurité routière — une expertise reconnue et consolidée.
-        </p>
-        <div class="footer__social">
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="Facebook">f</a>
-          <a href="#" aria-label="WhatsApp">✉</a>
-        </div>
-      </div>
-
       <div>
-        <p class="footer__col-head">Navigation</p>
+        <div class="footer__logo"><img src="logo.png" alt="STPMa"></div>
+        <p class="footer__desc">STPMa — Société Travaux Polyvalents Marocains. Qualification Secteur B &amp; Secteur X. Couverture nationale — 12 régions du Maroc.</p>
+      </div>
+      <div>
+        <div class="footer__col-title">Navigation</div>
         <ul class="footer__links">
           <li><a href="index.html">Accueil</a></li>
           <li><a href="services.html">Nos services</a></li>
-          <li><a href="references.html">Références &amp; projets</a></li>
+          <li><a href="references.html">Références</a></li>
           <li><a href="apropos.html">À propos</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
-
       <div>
-        <p class="footer__col-head">Services</p>
+        <div class="footer__col-title">Nos métiers</div>
         <ul class="footer__links">
           <li><a href="services.html#horizontal">Signalisation horizontale</a></li>
           <li><a href="services.html#verticale">Signalisation verticale</a></li>
-          <li><a href="services.html#securite">Dispositifs de sécurité</a></li>
+          <li><a href="services.html#securite">Glissières de sécurité</a></li>
           <li><a href="services.html#travaux">Travaux routiers</a></li>
         </ul>
       </div>
-
       <div>
-        <p class="footer__col-head">Contact</p>
-        <div class="footer__contact-item">
-          <span class="ico">📍</span>
-          <span>Lot Riad N° 2023, Errachidia<br>Maroc</span>
-        </div>
-        <div class="footer__contact-item">
-          <span class="ico">📞</span>
-          <span>+212 6 71 51 14 98</span>
-        </div>
-        <div class="footer__contact-item">
-          <span class="ico">✉</span>
-          <span>stpmarocains@gmail.com</span>
-        </div>
-        <div class="footer__contact-item">
-          <span class="ico">🕐</span>
-          <span>Lun – Ven : 08h00 – 17h30</span>
-        </div>
+        <div class="footer__col-title">Contact</div>
+        <div class="footer__ci">📍 <span>Lot Riad N° 2023, Errachidia, Maroc</span></div>
+        <div class="footer__ci">📞 <a href="tel:+212671511498">+212 6 71 51 14 98</a></div>
+        <div class="footer__ci">✉ <a href="mailto:stpmarocains@gmail.com">stpmarocains@gmail.com</a></div>
+        <div class="footer__ci">🕐 <span>Lun – Ven : 08h00 – 17h30</span></div>
       </div>
-
     </div>
-
     <div class="footer__bottom">
       <p>© 2026 STPMa — Société Travaux Polyvalents Marocains. Tous droits réservés.</p>
-      <p>Meknès, Maroc — <a href="mailto:stpmarocains@gmail.com" style="color:var(--yellow)">stpmarocains@gmail.com</a></p>
+      <p><a href="mailto:stpmarocains@gmail.com">stpmarocains@gmail.com</a> · Errachidia, Maroc</p>
     </div>
   </div>
 </footer>
 
-
-<!-- ============================================================
-     JAVASCRIPT
-============================================================ -->
 <script>
-  // ── Nav scroll effect ──────────────────────────────────────
-  const nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  }, { passive: true });
+// Nav burger
+const burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+burger.addEventListener('click',()=>{
+  const o=drawer.classList.toggle('open');
+  burger.classList.toggle('open',o);
+  burger.setAttribute('aria-expanded',o);
+  document.body.style.overflow=o?'hidden':'';
+});
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  drawer.classList.remove('open');burger.classList.remove('open');document.body.style.overflow='';
+}));
 
-  // ── Burger mobile menu ─────────────────────────────────────
-  const burger = document.getElementById('burgerBtn');
-  const drawer = document.getElementById('navDrawer');
+// Scroll reveal
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');obs.unobserve(x.target)}})
+},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-  burger.addEventListener('click', () => {
-    const isOpen = drawer.classList.toggle('open');
-    burger.classList.toggle('open', isOpen);
-    burger.setAttribute('aria-expanded', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
+// Formulaire AJAX Formspree
+const form=document.getElementById('contactForm');
+const success=document.getElementById('formSuccess');
+const btn=document.getElementById('submitBtn');
 
-  drawer.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      drawer.classList.remove('open');
-      burger.classList.remove('open');
-      burger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+form.addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  const orig=btn.textContent;
+  btn.textContent='Envoi en cours...';
+  btn.disabled=true;
+  try{
+    const res=await fetch(form.action,{
+      method:'POST',
+      body:new FormData(form),
+      headers:{Accept:'application/json'}
     });
-  });
-
-  // ── Scroll reveal ──────────────────────────────────────────
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-  // ── Soumission AJAX du formulaire (évite le rechargement de page) ──
-  const contactForm = document.getElementById('contactForm');
-  const formSuccess  = document.getElementById('formSuccess');
-
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const submitBtn = contactForm.querySelector('.form-submit');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Envoi en cours...';
-    submitBtn.disabled = true;
-
-    try {
-      const response = await fetch(contactForm.action, {
-        method: 'POST',
-        body: new FormData(contactForm),
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (response.ok) {
-        contactForm.style.display = 'none';
-        formSuccess.classList.add('show');
-      } else {
-        alert("Une erreur s'est produite. Veuillez réessayer ou nous appeler directement.");
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-      }
-    } catch (err) {
-      alert("Une erreur s'est produite. Veuillez réessayer ou nous appeler directement.");
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
+    if(res.ok){
+      form.style.display='none';
+      success.classList.add('show');
+    } else {
+      alert("Une erreur s'est produite. Veuillez nous appeler directement au +212 6 71 51 14 98");
+      btn.textContent=orig;btn.disabled=false;
     }
-  });
+  } catch(err){
+    alert("Erreur de connexion. Veuillez nous appeler directement au +212 6 71 51 14 98");
+    btn.textContent=orig;btn.disabled=false;
+  }
+});
 </script>
-
 </body>
 </html>

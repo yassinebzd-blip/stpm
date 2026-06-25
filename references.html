@@ -1,2004 +1,466 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Références & projets STPMa — Routes nationales, parkings, aéroports. Découvrez nos réalisations en travaux routiers et signalisation au Maroc." />
-  <title>Nos Références — STPMa | Travaux Routiers, Signalisation & Sécurité</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
-  <style>
-    /* ============================================================
-       RESET & TOKENS
-    ============================================================ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      /* ── CAT / STPMa palette officielle ── */
-      --black:         #111111;
-      --black-mid:     #1A1A1A;
-      --black-card:    #222222;
-      --black-hover:   #2A2A2A;
-      --yellow:        #FFCD00;
-      --yellow-dark:   #E0B400;
-      --yellow-light:  #FFD740;
-      --yellow-glow:   rgba(255,205,0,0.15);
-      --yellow-border: rgba(255,205,0,0.28);
-      --white:         #FFFFFF;
-      --off-white:     #F5F5F5;
-      --grey-mid:      #A6A6A6;
-      --grey-dark:     #333333;
-      --text-body:     #D0D0D0;
-      --text-muted:    #A6A6A6;
-      --border-faint:  rgba(255,255,255,0.07);
-      /* ── aliases compatibilité (sans bleu) ── */
-      --asphalt:       #111111;
-      --asphalt-mid:   #1A1A1A;
-      --asphalt-card:  #222222;
-
-      --font-display: 'Barlow Condensed', sans-serif;
-      --font-body:    'Inter', sans-serif;
-      --ease:         cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--asphalt);
-      color: var(--text-body);
-      overflow-x: hidden;
-    }
-
-    img { max-width: 100%; display: block; }
-    a   { text-decoration: none; color: inherit; }
-    ul  { list-style: none; }
-
-    /* ============================================================
-       TYPOGRAPHY HELPERS
-    ============================================================ */
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 1rem;
-    }
-    .tag::before {
-      content: '';
-      display: block;
-      width: 26px;
-      height: 2px;
-      background: var(--yellow);
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 800;
-      line-height: 1.1;
-      color: var(--white);
-      margin-bottom: 1rem;
-    }
-
-    .section-sub {
-      font-size: 0.93rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      max-width: 520px;
-    }
-
-    .accent { color: var(--yellow); }
-
-    /* ============================================================
-       LAYOUT
-    ============================================================ */
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 5%;
-    }
-
-    section { padding: 96px 0; }
-
-    /* ============================================================
-       BUTTONS
-    ============================================================ */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      padding: 0.85rem 1.8rem;
-      border-radius: 3px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.26s var(--ease);
-    }
-    .btn-primary {
-      background: var(--yellow);
-      color: var(--asphalt);
-    }
-    .btn-primary:hover {
-      background: var(--yellow-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(245,166,35,0.35);
-    }
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      border: 1.5px solid rgba(255,255,255,0.2);
-    }
-    .btn-outline:hover {
-      border-color: var(--yellow);
-      color: var(--yellow);
-    }
-
-    /* ============================================================
-       SCROLL REVEAL
-    ============================================================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-    }
-    .reveal.d1 { transition-delay: 0.10s; }
-    .reveal.d2 { transition-delay: 0.20s; }
-    .reveal.d3 { transition-delay: 0.30s; }
-    .reveal.d4 { transition-delay: 0.40s; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ============================================================
-       NAVIGATION
-    ============================================================ */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 900;
-      height: 74px;
-      background: rgba(14, 27, 45, 0.96);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--yellow-border);
-      transition: box-shadow 0.3s;
-    }
-    .nav.scrolled {
-      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
-    }
-
-    .nav__inner {
-      height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    /* ── Logo ── */
-    .nav__logo {
-      height: 64px;
-      display: flex;
-      align-items: center;
-    }
-    .nav__logo img {
-      height: 64px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    /* ── Links ── */
-    .nav__links {
-      display: flex;
-      align-items: center;
-      gap: 2.2rem;
-    }
-
-    .nav__link {
-      font-size: 0.77rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      position: relative;
-      transition: color 0.2s;
-    }
-    .nav__link::after {
-      content: '';
-      position: absolute;
-      bottom: -5px; left: 0; right: 0;
-      height: 1.5px;
-      background: var(--yellow);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.25s var(--ease);
-    }
-    .nav__link:hover,
-    .nav__link.active { color: var(--white); }
-    .nav__link:hover::after,
-    .nav__link.active::after { transform: scaleX(1); }
-
-    .nav__cta {
-      background: var(--yellow);
-      color: var(--asphalt) !important;
-      padding: 0.55rem 1.4rem;
-      border-radius: 3px;
-      font-size: 0.77rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      transition: all 0.2s;
-    }
-    .nav__cta:hover {
-      background: var(--yellow-dark);
-      transform: translateY(-1px);
-    }
-    .nav__cta::after { display: none !important; }
-
-    /* ── Burger ── */
-    .nav__burger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 6px;
-      background: none;
-      border: none;
-    }
-    .nav__burger span {
-      display: block;
-      width: 24px; height: 2px;
-      background: var(--white);
-      border-radius: 2px;
-      transition: all 0.25s;
-    }
-    .nav__burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .nav__burger.open span:nth-child(2) { opacity: 0; }
-    .nav__burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-    /* ── Mobile drawer ── */
-    .nav__drawer {
-      display: none;
-      position: fixed;
-      top: 74px; left: 0; right: 0; bottom: 0;
-      background: var(--black);
-      z-index: 899;
-      flex-direction: column;
-      padding: 2.5rem 5%;
-      gap: 0.3rem;
-    }
-    .nav__drawer.open { display: flex; }
-    .nav__drawer .nav__link {
-      font-size: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border-faint);
-      color: var(--off-white);
-    }
-    .nav__drawer .nav__cta {
-      margin-top: 1.5rem;
-      text-align: center;
-      padding: 1rem;
-      border-radius: 3px;
-    }
-
-    /* ============================================================
-       HERO
-    ============================================================ */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 74px;
-      overflow: hidden;
-    }
-
-    /* ── Background video / image ── */
-    .hero__bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENT MÉDIA — HERO BACKGROUND                         │
-    │  Type     : Vidéo MP4 (préféré) ou GIF grande résolution     │
-    │  Contenu  : Vue aérienne ou latérale d'une machine de        │
-    │             marquage routier Airless / thermoplastique        │
-    │             traçant des lignes jaunes/blanches sur une        │
-    │             autoroute. Nuit ou crépuscule recommandé pour     │
-    │             l'ambiance. Durée : 10–20 sec, loop infini.       │
-    │  Remplacer : src="assets/hero-machine-marquage.mp4"          │
-    └──────────────────────────────────────────────────────────────┘
-    */
-    .hero__video {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
-      opacity: 0.35;
-    }
-
-    /* Fallback image si la vidéo n'est pas disponible */
-    .hero__bg-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
-      opacity: 0.35;
-      /*
-        EMPLACEMENT IMAGE FALLBACK HERO :
-        Photo HD d'une autoroute marocaine en travaux de marquage.
-        Remplacer src="assets/hero-autoroute.jpg"
-      */
-    }
-
-    /* Dégradé de lisibilité sur le fond */
-    .hero__overlay {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to right, rgba(14,27,46,0.92) 45%, rgba(14,27,46,0.45) 100%),
-        linear-gradient(to top,   rgba(14,27,46,0.8)  0%,  transparent 50%);
-      z-index: 1;
-    }
-
-    .hero__content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero__eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 1.4rem;
-    }
-    .hero__eyebrow::before {
-      content: '';
-      display: block;
-      width: 30px; height: 2px;
-      background: var(--yellow);
-    }
-
-    .hero__title {
-      font-family: var(--font-display);
-      font-size: clamp(3.2rem, 7vw, 6rem);
-      font-weight: 900;
-      line-height: 0.95;
-      color: var(--white);
-      letter-spacing: 0.01em;
-      margin-bottom: 1.5rem;
-    }
-    .hero__title .line-yellow { color: var(--yellow); display: block; }
-
-    .hero__sub {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.75;
-      max-width: 500px;
-      margin-bottom: 2.8rem;
-    }
-
-    .hero__ctas {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    /* ── Stats bar ── */
-    .hero__stats {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      z-index: 2;
-      background: rgba(10,10,10,0.75);
-      backdrop-filter: blur(8px);
-      border-top: 1px solid var(--yellow-border);
-    }
-    .hero__stats-inner {
-      display: flex;
-      justify-content: space-between;
-    }
-    .stat {
-      flex: 1;
-      padding: 1.6rem 0;
-      text-align: center;
-      border-right: 1px solid var(--border-faint);
-    }
-    .stat:last-child { border-right: none; }
-    .stat__num {
-      font-family: var(--font-display);
-      font-size: 2.6rem;
-      font-weight: 900;
-      color: var(--yellow);
-      line-height: 1;
-    }
-    .stat__label {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      margin-top: 0.3rem;
-    }
-
-    /* ── Road-line animation at bottom of hero ── */
-    .hero__road {
-      position: absolute;
-      bottom: 76px; left: 0; right: 0;
-      height: 4px;
-      overflow: hidden;
-      z-index: 2;
-    }
-    .hero__road-dashes {
-      display: flex;
-      gap: 0;
-      animation: dashMove 3s linear infinite;
-    }
-    .hero__road-dash {
-      width: 60px; height: 4px;
-      background: var(--yellow);
-      margin-right: 36px;
-      opacity: 0.5;
-      flex-shrink: 0;
-      border-radius: 2px;
-    }
-    @keyframes dashMove {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-96px); }
-    }
-
-    /* ============================================================
-       SERVICES PREVIEW (section 2)
-    ============================================================ */
-    .services-preview {
-      background: var(--asphalt-mid);
-      border-top: 1px solid var(--border-faint);
-      border-bottom: 1px solid var(--border-faint);
-    }
-
-    .services-preview__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 2rem;
-      margin-bottom: 3.5rem;
-      flex-wrap: wrap;
-    }
-
-    /* Services grid : 4 cartes */
-    .services-preview__grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5px;
-      background: var(--border-faint);
-      border: 1.5px solid var(--border-faint);
-    }
-
-    .srv-card {
-      background: var(--asphalt-card);
-      padding: 2.2rem 1.8rem;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.28s var(--ease);
-      cursor: default;
-    }
-    .srv-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--yellow);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.35s var(--ease);
-    }
-    .srv-card:hover { background: #2A2A2A; }
-    .srv-card:hover::after { transform: scaleX(1); }
-
-    /* Thumbnail image pour chaque carte service */
-    .srv-card__thumb {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 2px;
-      margin-bottom: 1.5rem;
-      background: var(--asphalt-mid);
-    }
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENTS IMAGES — 4 CARTES SERVICES                     │
-    │                                                              │
-    │  Carte 1 — Signalisation Horizontale                         │
-    │  Type    : Photo statique HD                                 │
-    │  Contenu : Gros plan de lignes jaunes/blanches fraîchement   │
-    │            tracées sur bitume noir. Perspective de route.    │
-    │  Fichier : assets/srv-horizontal.jpg                         │
-    │                                                              │
-    │  Carte 2 — Signalisation Verticale                           │
-    │  Type    : Photo statique HD                                 │
-    │  Contenu : Technicien posant un panneau de signalisation      │
-    │            sur poteau, bord de route nationale.              │
-    │  Fichier : assets/srv-verticale.jpg                          │
-    │                                                              │
-    │  Carte 3 — Dispositifs de Sécurité                           │
-    │  Type    : Photo statique HD                                 │
-    │  Contenu : Glissière de sécurité métallique (GS2) posée      │
-    │            sur une voie express ou autoroute.                │
-    │  Fichier : assets/srv-glissiere.jpg                          │
-    │                                                              │
-    │  Carte 4 — Travaux Routiers                                  │
-    │  Type    : Photo statique HD                                 │
-    │  Contenu : Finisseur (machine d'enrobé) en action sur        │
-    │            chantier de terrassement / réfection routière.    │
-    │  Fichier : assets/srv-travaux.jpg                            │
-    └──────────────────────────────────────────────────────────────┘
-    */
-
-    .srv-card__icon {
-      width: 48px; height: 48px;
-      background: var(--black);
-      border: 1px solid var(--yellow-border);
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .srv-card__title {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.6rem;
-    }
-
-    .srv-card__text {
-      font-size: 0.83rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    .srv-card__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-top: 1.2rem;
-      transition: gap 0.2s;
-    }
-    .srv-card__link:hover { gap: 0.8rem; }
-
-    /* ============================================================
-       PROJET PHARE (section 3)
-    ============================================================ */
-    .flagship {
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .flagship__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      min-height: 520px;
-    }
-
-    /* Panneau image gauche */
-    .flagship__visual {
-      position: relative;
-      overflow: hidden;
-      min-height: 420px;
-    }
-
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENT MÉDIA — PROJET PHARE (section gauche)           │
-    │  Type    : GIF animé ou photo panoramique HD                 │
-    │  Contenu : Vue drone / aérienne d'une route nationale ou     │
-    │            voie express après travaux de marquage complets.  │
-    │            Lignes bien visibles, paysage marocain.           │
-    │  Fichier : assets/projet-phare.gif  (ou .jpg pour statique)  │
-    └──────────────────────────────────────────────────────────────┘
-    */
-    .flagship__img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
-      transition: transform 0.6s var(--ease);
-    }
-    .flagship__visual:hover .flagship__img {
-      transform: scale(1.04);
-    }
-
-    /* Badge projet */
-    .flagship__badge {
-      position: absolute;
-      top: 1.5rem; left: 1.5rem;
-      background: var(--yellow);
-      color: var(--asphalt);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.8rem;
-      border-radius: 2px;
-    }
-
-    /* Panneau texte droite */
-    .flagship__content {
-      padding: 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .flagship__metrics {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-      margin-top: 2.5rem;
-    }
-
-    .flagship__metric {
-      padding: 1.2rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border-faint);
-      border-radius: 3px;
-    }
-    .flagship__metric-val {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--yellow);
-    }
-    .flagship__metric-label {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-top: 0.2rem;
-    }
-
-    /* ============================================================
-       DOMAINES D'EXCELLENCE (section 4 — bandeau foncé)
-    ============================================================ */
-    .excellence {
-      background: var(--asphalt);
-      border-top: 1px solid var(--border-faint);
-    }
-
-    .excellence__header {
-      text-align: center;
-      margin-bottom: 3.5rem;
-    }
-    .excellence__header .section-sub {
-      margin: 0 auto;
-    }
-
-    .excellence__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border-faint);
-      border: 1px solid var(--border-faint);
-    }
-
-    .exc-card {
-      background: var(--asphalt-mid);
-      padding: 2.5rem 2rem;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.28s;
-    }
-    .exc-card:hover { background: var(--asphalt-card); }
-
-    /* Image thumbnail chaque domaine */
-    .exc-card__img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 2px;
-      margin-bottom: 1.6rem;
-      background: #1A1A1A;
-    }
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENTS IMAGES — 3 DOMAINES D'EXCELLENCE               │
-    │                                                              │
-    │  Carte A — Routes Nationales & Voies Express                 │
-    │  Type    : Photo HD                                          │
-    │  Contenu : Section d'autoroute marocaine avec marquage       │
-    │            horizontal impeccable, vue perspective fuyante.   │
-    │  Fichier : assets/exc-autoroute.jpg                          │
-    │                                                              │
-    │  Carte B — Parkings & Zones Industrielles                    │
-    │  Type    : Photo HD ou GIF animé                             │
-    │  Contenu : Marquage de places de parking (lignes bleues/     │
-    │            blanches, flèches, numérotation), vue aérienne.   │
-    │  Fichier : assets/exc-parking.jpg (ou .gif)                  │
-    │                                                              │
-    │  Carte C — Aéroports                                         │
-    │  Type    : Photo HD                                          │
-    │  Contenu : Piste d'aéroport avec marquage (seuil de piste,  │
-    │            axe de piste, zones de toucher). Vue depuis le    │
-    │            tablier ou aérienne.                              │
-    │  Fichier : assets/exc-aeroport.jpg                           │
-    └──────────────────────────────────────────────────────────────┘
-    */
-
-    .exc-card__label {
-      font-size: 0.67rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 0.5rem;
-    }
-
-    .exc-card__title {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.8rem;
-    }
-
-    .exc-card__text {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* ============================================================
-       PROCESSUS (section 5 — timeline horizontale)
-    ============================================================ */
-    .process {
-      background: var(--black);
-    }
-
-    .process__header {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .process__steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      position: relative;
-    }
-    /* Ligne de connexion entre étapes */
-    .process__steps::before {
-      content: '';
-      position: absolute;
-      top: 24px;
-      left: calc(12.5% + 12px);
-      right: calc(12.5% + 12px);
-      height: 2px;
-      background: var(--yellow-border);
-      z-index: 0;
-    }
-
-    .step {
-      padding: 0 1.5rem;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .step__dot {
-      width: 48px; height: 48px;
-      background: var(--black-mid);
-      border: 2px solid var(--yellow);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--yellow);
-      margin: 0 auto 1.5rem;
-    }
-
-    .step__title {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.02em;
-    }
-
-    .step__text {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ============================================================
-       ENGAGEMENTS (section 6 — bande chiffre + texte)
-    ============================================================ */
-    .engagements {
-      background: var(--asphalt-mid);
-      border-top: 1px solid var(--border-faint);
-    }
-
-    .engagements__inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .engage-list { margin-top: 2rem; }
-
-    .engage-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border-faint);
-    }
-    .engage-item:last-child { border-bottom: none; }
-
-    .engage-item__icon {
-      width: 40px; height: 40px;
-      background: var(--yellow-glow);
-      border: 1px solid var(--yellow-border);
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .engage-item__text h4 {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.2rem;
-    }
-    .engage-item__text p {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* Panneau image droite — engagements */
-    .engagements__visual {
-      position: relative;
-    }
-
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENT MÉDIA — SECTION ENGAGEMENTS                     │
-    │  Type    : GIF animé (idéal) ou photo HD                     │
-    │  Contenu : Machine de marquage routier thermoplastique       │
-    │            (ex. Nanjing Roadshine) en pleine action,         │
-    │            traçant une ligne continue sur bitume.            │
-    │            Plan serré sur la buse d'application.             │
-    │  Fichier : assets/machine-marquage.gif (ou .jpg)             │
-    └──────────────────────────────────────────────────────────────┘
-    */
-    .engagements__img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      border-radius: 3px;
-      background: var(--asphalt-card);
-    }
-
-    /* Badge superposé */
-    .engagements__badge {
-      position: absolute;
-      bottom: -1rem; left: -1rem;
-      background: var(--yellow);
-      color: var(--asphalt);
-      padding: 1.2rem 1.5rem;
-      border-radius: 3px;
-    }
-    .engagements__badge-num {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 900;
-      line-height: 1;
-    }
-    .engagements__badge-txt {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 0.2rem;
-    }
-
-    /* ============================================================
-       PARTENAIRES (section 7)
-    ============================================================ */
-    .partners {
-      background: var(--asphalt);
-      padding: 60px 0;
-      border-top: 1px solid var(--border-faint);
-    }
-
-    .partners__title {
-      text-align: center;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-    }
-
-    .partners__track {
-      display: flex;
-      gap: 4rem;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    /*
-    ┌──────────────────────────────────────────────────────────────┐
-    │  EMPLACEMENTS — LOGOS PARTENAIRES / CLIENTS                  │
-    │  Type    : Images PNG fond transparent (hauteur ~40px)       │
-    │  Contenu : Logos des maîtres d'ouvrage et partenaires        │
-    │            (Direction des Routes, ADM, ONDA, collectivités). │
-    │  Fichiers: assets/partner-1.png, partner-2.png, ...          │
-    └──────────────────────────────────────────────────────────────┘
-    */
-    .partner-logo {
-      height: 40px;
-      object-fit: contain;
-      filter: brightness(0) invert(1);
-      opacity: 0.4;
-      transition: opacity 0.25s;
-    }
-    .partner-logo:hover { opacity: 0.85; }
-
-    /* Placeholder si pas encore de logo client */
-    .partner-placeholder {
-      height: 40px;
-      min-width: 120px;
-      background: var(--border-faint);
-      border-radius: 3px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* ============================================================
-       CTA STRIP (avant footer)
-    ============================================================ */
-    .cta-strip {
-      background: var(--yellow);
-      padding: 64px 0;
-    }
-
-    .cta-strip__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .cta-strip h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      font-weight: 900;
-      color: var(--asphalt);
-      line-height: 1.1;
-    }
-
-    .cta-strip p {
-      font-size: 0.9rem;
-      color: rgba(20,20,20,0.7);
-      margin-top: 0.4rem;
-    }
-
-    .btn-dark {
-      background: var(--asphalt);
-      color: var(--yellow);
-      padding: 0.95rem 2rem;
-      border-radius: 3px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.25s;
-      white-space: nowrap;
-    }
-    .btn-dark:hover {
-      background: #000;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    }
-
-    /* ============================================================
-       FOOTER
-    ============================================================ */
-    .footer {
-      background: #0A0A0A;
-      border-top: 1px solid var(--border-faint);
-      padding: 64px 0 28px;
-    }
-
-    .footer__grid {
-      display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr 1fr;
-      gap: 3rem;
-      margin-bottom: 3rem;
-    }
-
-    .footer__logo-wrap img {
-      height: 50px;
-      object-fit: contain;
-      margin-bottom: 1.2rem;
-    }
-
-    .footer__desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-bottom: 1.5rem;
-    }
-
-    .footer__social {
-      display: flex;
-      gap: 0.7rem;
-    }
-    .footer__social a {
-      width: 34px; height: 34px;
-      background: var(--asphalt-card);
-      border: 1px solid var(--border-faint);
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      transition: all 0.2s;
-    }
-    .footer__social a:hover {
-      border-color: var(--yellow);
-      color: var(--yellow);
-    }
-
-    .footer__col-head {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--yellow);
-      margin-bottom: 1.3rem;
-    }
-
-    .footer__links li { margin-bottom: 0.55rem; }
-    .footer__links a {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      transition: color 0.2s;
-    }
-    .footer__links a:hover { color: var(--white); }
-
-    .footer__contact-item {
-      display: flex;
-      gap: 0.7rem;
-      margin-bottom: 0.65rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    .footer__contact-item .ico { color: var(--yellow); flex-shrink: 0; font-size: 0.9rem; }
-
-    .footer__bottom {
-      border-top: 1px solid var(--border-faint);
-      padding-top: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .footer__bottom p { font-size: 0.73rem; color: var(--text-muted); }
-
-    /* ============================================================
-       RESPONSIVE
-    ============================================================ */
-    @media (max-width: 1024px) {
-      .services-preview__grid { grid-template-columns: repeat(2, 1fr); }
-      .excellence__grid       { grid-template-columns: repeat(2, 1fr); }
-      .flagship__content      { padding: 2.5rem; }
-      .footer__grid           { grid-template-columns: 1fr 1fr; gap: 2rem; }
-    }
-
-    @media (max-width: 768px) {
-      .nav__links   { display: none; }
-      .nav__burger  { display: flex; }
-
-      section { padding: 65px 0; }
-
-      .hero__title { font-size: clamp(2.4rem, 10vw, 3.5rem); }
-
-      .hero__stats-inner {
-        flex-wrap: wrap;
-      }
-      .stat {
-        flex: 0 0 50%;
-        border-right: none;
-        border-bottom: 1px solid var(--border-faint);
-      }
-      .stat:nth-child(odd) { border-right: 1px solid var(--border-faint); }
-      .stat:nth-last-child(-n+2) { border-bottom: none; }
-
-      .services-preview__grid { grid-template-columns: 1fr; }
-      .flagship__grid         { grid-template-columns: 1fr; }
-      .flagship__visual       { min-height: 280px; }
-      .flagship__content      { padding: 2rem 0; }
-      .flagship__metrics      { grid-template-columns: 1fr 1fr; }
-      .excellence__grid       { grid-template-columns: 1fr; }
-      .process__steps         { grid-template-columns: 1fr 1fr; }
-      .process__steps::before { display: none; }
-      .engagements__inner     { grid-template-columns: 1fr; gap: 2.5rem; }
-      .engagements__badge     { bottom: 0.5rem; left: 0.5rem; }
-      .cta-strip__inner       { flex-direction: column; text-align: center; }
-      .footer__grid           { grid-template-columns: 1fr; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; }
-      .hero__road-dashes { animation: none; }
-    }
-
-    /* ============================================================
-       PAGE PROJETS — STYLES SPÉCIFIQUES
-    ============================================================ */
-    .proj-hero {
-      padding: 160px 0 60px;
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-      border-bottom: 1px solid var(--yellow-border);
-    }
-    .proj-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(90deg, transparent 0 38px, var(--yellow) 38px 78px);
-      opacity: 0.04;
-      pointer-events: none;
-    }
-    .proj-hero__inner { position: relative; z-index: 1; max-width: 760px; }
-    .proj-hero h1 {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      color: var(--white);
-      line-height: 1.05;
-      margin: 0.6rem 0 1rem;
-    }
-    .proj-hero p { color: var(--text-body); font-size: 1rem; line-height: 1.7; max-width: 560px; }
-
-    /* Filtres catégories */
-    .proj-filters {
-      background: var(--asphalt);
-      padding: 2.2rem 0 0;
-      border-bottom: 1px solid var(--border-faint);
-    }
-    .proj-filters__list {
-      display: flex; gap: 0.7rem; flex-wrap: wrap; padding-bottom: 2.2rem;
-    }
-    .proj-filter-btn {
-      background: var(--asphalt-card);
-      border: 1px solid var(--border-faint);
-      color: var(--steel);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      padding: 0.65rem 1.3rem;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .proj-filter-btn:hover { border-color: var(--yellow-border); color: var(--white); }
-    .proj-filter-btn.active {
-      background: var(--yellow); color: var(--asphalt); border-color: var(--yellow);
-    }
-
-    /* Grille de projets */
-    .proj-main { padding: 60px 0 100px; background: var(--asphalt); }
-    .proj-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    .proj-card {
-      background: var(--asphalt-card);
-      border: 1px solid var(--border-faint);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.25s, border-color 0.25s;
-      display: flex; flex-direction: column;
-    }
-    .proj-card[hidden] { display: none; }
-    .proj-card:hover { transform: translateY(-4px); border-color: var(--yellow-border); }
-    .proj-card__img-wrap { position: relative; aspect-ratio: 4/3; overflow: hidden; background: var(--black); }
-    .proj-card__img-wrap img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.4s;
-    }
-    .proj-card:hover .proj-card__img-wrap img { transform: scale(1.06); }
-    .proj-card__badge {
-      position: absolute; top: 0.8rem; left: 0.8rem;
-      background: rgba(15,28,46,0.92);
-      border: 1px solid var(--yellow-border);
-      color: var(--yellow);
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-      padding: 0.35rem 0.7rem; border-radius: 5px;
-    }
-    .proj-card__body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
-    .proj-card__cat {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--yellow); margin-bottom: 0.5rem;
-    }
-    .proj-card__title {
-      font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
-      color: var(--white); line-height: 1.2; margin-bottom: 0.6rem;
-    }
-    .proj-card__desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
-    .proj-card__meta { display: flex; gap: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border-faint); }
-    .proj-card__meta-item { }
-    .proj-card__meta-val { font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; color: var(--yellow); }
-    .proj-card__meta-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-
-    /* Stats strip */
-    .proj-stats {
-      background: var(--black);
-      padding: 60px 0;
-      border-top: 1px solid var(--yellow-border);
-      border-bottom: 1px solid var(--yellow-border);
-    }
-    .proj-stats__grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;
-    }
-    .proj-stats__num {
-      font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; color: var(--yellow); line-height: 1;
-    }
-    .proj-stats__label {
-      font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem;
-    }
-
-    @media (max-width: 900px) {
-      .proj-grid { grid-template-columns: repeat(2, 1fr); }
-      .proj-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
-    }
-    @media (max-width: 600px) {
-      .proj-hero { padding: 130px 0 50px; }
-      .proj-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ============================================================
-       MOT DU DIRECTEUR
-    ============================================================ */
-    .mot-dir {
-      padding: 100px 0;
-      background: var(--black-mid);
-      border-top: 1px solid var(--yellow-border);
-      border-bottom: 1px solid var(--yellow-border);
-      position: relative;
-      overflow: hidden;
-    }
-    .mot-dir::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        135deg,
-        transparent 0, transparent 40px,
-        rgba(255,205,0,0.03) 40px, rgba(255,205,0,0.03) 42px
-      );
-      pointer-events: none;
-    }
-    .mot-dir__inner {
-      display: grid;
-      grid-template-columns: 1.4fr 0.6fr;
-      gap: 4rem;
-      align-items: center;
-      position: relative; z-index: 1;
-    }
-    .mot-dir__guillemet {
-      font-family: Georgia, serif;
-      font-size: 6rem;
-      color: var(--yellow);
-      line-height: 0.6;
-      margin-bottom: 1.5rem;
-      opacity: 0.85;
-    }
-    .mot-dir__text {
-      font-size: 1rem;
-      line-height: 1.85;
-      color: var(--text-body);
-      font-style: italic;
-      border: none;
-      padding: 0;
-      margin: 0 0 2rem;
-    }
-    .mot-dir__text strong { color: var(--yellow); font-style: normal; font-weight: 600; }
-    .mot-dir__sig { display: flex; flex-direction: column; gap: 0.4rem; }
-    .mot-dir__sig-line {
-      width: 48px; height: 2px;
-      background: var(--yellow);
-      margin-bottom: 0.5rem;
-    }
-    .mot-dir__sig-name {
-      font-family: var(--font-display);
-      font-weight: 800; font-size: 1.15rem;
-      color: var(--white); letter-spacing: 0.06em;
-    }
-    .mot-dir__sig-title {
-      font-size: 0.8rem; color: var(--grey-mid);
-      text-transform: uppercase; letter-spacing: 0.1em;
-    }
-
-    /* Visuel droite */
-    .mot-dir__visual {
-      display: flex; flex-direction: column; align-items: center; gap: 2rem;
-    }
-    .mot-dir__logo-bg {
-      width: 200px; height: 200px;
-      background: var(--black-card);
-      border: 2px solid var(--yellow-border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      padding: 1.5rem;
-      box-shadow: 0 0 60px var(--yellow-glow);
-    }
-    .mot-dir__logo-img { width: 100%; height: 100%; object-fit: contain; }
-    .mot-dir__values {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; width: 100%;
-    }
-    .mot-dir__val {
-      background: var(--black-card);
-      border: 1px solid var(--border-faint);
-      border-radius: 6px;
-      padding: 0.7rem 1rem;
-      font-size: 0.82rem; font-weight: 600;
-      color: var(--white);
-      display: flex; align-items: center; gap: 0.5rem;
-      transition: border-color 0.2s;
-    }
-    .mot-dir__val:hover { border-color: var(--yellow-border); color: var(--yellow); }
-    .mot-dir__val-icon { font-size: 1rem; }
-
-    /* Logo nav — plus grand */
-    .nav__logo img {
-      height: 64px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    /* Hero logo watermark en background */
-    .hero__logo-watermark {
-      position: absolute;
-      right: -80px; top: 50%;
-      transform: translateY(-50%);
-      width: 55vw; max-width: 700px;
-      opacity: 0.06;
-      pointer-events: none;
-      filter: grayscale(1) brightness(2);
-      z-index: 1;
-    }
-
-    @media (max-width: 900px) {
-      .mot-dir__inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .mot-dir__visual { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-      .mot-dir__logo-bg { width: 140px; height: 140px; }
-    }
-    @media (max-width: 600px) {
-      .mot-dir { padding: 70px 0; }
-      .mot-dir__guillemet { font-size: 4rem; }
-      .mot-dir__text { font-size: 0.92rem; }
-    }
-
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="STPMa — Références et réalisations : routes nationales, autoroutes, parkings, aéroports. Couverture nationale 12 régions du Maroc."/>
+<title>Nos Références — STPMa | Réalisations Maroc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#111111;color:#D0D0D0;overflow-x:hidden;line-height:1.6}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+:root{
+  --y:#FFCD00;--y2:#E0B400;--y-glow:rgba(255,205,0,.14);--y-border:rgba(255,205,0,.25);
+  --black:#111111;--black2:#171717;--black3:#222222;--black4:#2A2A2A;
+  --white:#FFFFFF;--g1:#F5F5F5;--g2:#A6A6A6;--g3:#555555;
+  --font-d:'Barlow Condensed',sans-serif;--ease:cubic-bezier(.4,0,.2,1);
+}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--y)}
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 5%}
+.tag{font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--y);display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem}
+.tag::before{content:'';display:block;width:28px;height:2px;background:var(--y);flex-shrink:0}
+.btn-y{display:inline-flex;align-items:center;gap:.5rem;background:var(--y);color:var(--black);font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.9rem 2rem;border-radius:2px;transition:all .25s}
+.btn-y:hover{background:var(--y2);transform:translateY(-2px)}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.vis{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:80px;display:flex;align-items:center;background:rgba(17,17,17,.97);border-bottom:1px solid var(--y-border);backdrop-filter:blur(12px)}
+.nav__inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1200px;margin:0 auto;padding:0 5%}
+.nav__logo img{height:68px;width:auto;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,205,0,.25))}
+.nav__links{display:flex;align-items:center;gap:2.5rem}
+.nav__link{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);position:relative;transition:color .2s}
+.nav__link::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1.5px;background:var(--y);transform:scaleX(0);transition:transform .25s}
+.nav__link:hover,.nav__link.active{color:var(--white)}.nav__link:hover::after,.nav__link.active::after{transform:scaleX(1)}
+.nav__cta{background:var(--y);color:var(--black);padding:.55rem 1.4rem;border-radius:2px;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
+.nav__cta:hover{background:var(--y2)}
+.burger{display:none;flex-direction:column;gap:5px;padding:4px}
+.burger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.drawer{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;background:var(--black);z-index:999;flex-direction:column;padding:2rem 5%;gap:.5rem;overflow-y:auto}
+.drawer.open{display:flex}
+.drawer .nav__link{font-size:1.1rem;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.06);color:var(--g1)}
+.drawer .nav__cta{margin-top:1.5rem;text-align:center;padding:1rem}
+
+/* PAGE HERO */
+.ph{padding:140px 0 70px;background:var(--black2);border-bottom:3px solid var(--y);position:relative;overflow:hidden}
+.ph__wm{position:absolute;right:-3%;top:50%;transform:translateY(-50%);width:45vw;max-width:600px;opacity:.05;filter:grayscale(1) brightness(4);pointer-events:none}
+.ph__inner{position:relative;z-index:1;max-width:700px}
+.ph h1{font-family:var(--font-d);font-size:clamp(2.8rem,6vw,4.5rem);font-weight:900;color:var(--white);line-height:.95;margin:.5rem 0 1.2rem}
+.ph h1 span{color:var(--y)}
+.ph p{font-size:1rem;color:var(--g2);line-height:1.75;max-width:560px}
+
+/* STATS BAND */
+.stats-band{background:var(--black);border-bottom:1px solid rgba(255,255,255,.06);padding:2rem 0}
+.stats-band__inner{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06)}
+.stat-item{background:var(--black);padding:1.5rem 2rem;text-align:center}
+.stat-item__val{font-family:var(--font-d);font-size:2rem;font-weight:800;color:var(--y);line-height:1}
+.stat-item__label{font-size:.72rem;color:var(--g2);text-transform:uppercase;letter-spacing:.07em;margin-top:.4rem}
+
+/* FILTRES */
+.filters{background:var(--black2);border-bottom:1px solid rgba(255,255,255,.06);padding:0;position:sticky;top:80px;z-index:99}
+.filters__inner{display:flex;overflow-x:auto;scrollbar-width:none}
+.filters__inner::-webkit-scrollbar{display:none}
+.filter-btn{flex-shrink:0;padding:1.1rem 1.8rem;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g3);border-bottom:2px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap;background:none}
+.filter-btn:hover{color:var(--white)}
+.filter-btn.active{color:var(--y);border-bottom-color:var(--y)}
+
+/* NATIONAL BANNER */
+.nat-banner{background:var(--y);padding:1rem 0}
+.nat-banner__inner{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.nat-banner strong{font-family:var(--font-d);font-size:1.05rem;color:var(--black)}
+.nat-banner span{font-size:.82rem;color:rgba(0,0,0,.65);margin-left:auto}
+
+/* GRILLE PROJETS */
+.proj-section{padding:70px 0;background:var(--black)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.proj-card{background:var(--black2);border:1px solid rgba(255,255,255,.06);border-radius:4px;overflow:hidden;transition:transform .25s,border-color .25s;display:flex;flex-direction:column}
+.proj-card[hidden]{display:none}
+.proj-card:hover{transform:translateY(-4px);border-color:var(--y-border)}
+.proj-card__img{aspect-ratio:4/3;overflow:hidden;background:var(--black3);position:relative}
+.proj-card__img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.proj-card:hover .proj-card__img img{transform:scale(1.06)}
+.proj-card__badge{position:absolute;top:.7rem;left:.7rem;background:rgba(17,17,17,.92);border:1px solid var(--y-border);color:var(--y);font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .65rem;border-radius:3px}
+.proj-card__body{padding:1.3rem;flex:1;display:flex;flex-direction:column}
+.proj-card__region{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--y);margin-bottom:.4rem}
+.proj-card__title{font-family:var(--font-d);font-size:1.15rem;font-weight:700;color:var(--white);line-height:1.2;margin-bottom:.5rem}
+.proj-card__desc{font-size:.82rem;color:var(--g2);line-height:1.55;flex:1;margin-bottom:.9rem}
+.proj-card__meta{display:flex;gap:1.2rem;padding-top:.8rem;border-top:1px solid rgba(255,255,255,.05)}
+.meta-val{font-family:var(--font-d);font-size:1.1rem;font-weight:800;color:var(--y)}
+.meta-label{font-size:.65rem;color:var(--g3);text-transform:uppercase;letter-spacing:.05em}
+
+/* RÉGIONS GRID */
+.regions-section{padding:80px 0;background:var(--black2)}
+.regions-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-top:2.5rem}
+.region-card{background:var(--black3);border:1px solid rgba(255,255,255,.06);border-radius:4px;padding:.9rem 1rem;transition:border-color .2s,background .2s}
+.region-card:hover{border-color:var(--y);background:var(--black4)}
+.region-card.home{border-color:var(--y);background:var(--black4)}
+.region-card__name{font-size:.82rem;font-weight:600;color:var(--white)}
+.region-card__name.y{color:var(--y)}
+.region-card__sub{font-size:.72rem;color:var(--g3);margin-top:.15rem}
+
+/* CTA */
+.cta{background:var(--y);padding:70px 0;text-align:center}
+.cta h2{font-family:var(--font-d);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:var(--black);margin-bottom:.7rem}
+.cta p{color:rgba(0,0,0,.6);font-size:.95rem;max-width:480px;margin:0 auto 2rem}
+.btn-dark{background:var(--black);color:var(--y);padding:.9rem 2rem;border-radius:2px;font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-dark:hover{background:var(--black2);transform:translateY(-2px)}
+
+/* FOOTER */
+.footer{background:#0A0A0A;border-top:1px solid rgba(255,205,0,.12);padding:70px 0 30px}
+.footer__grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer__logo img{height:56px;object-fit:contain;margin-bottom:1rem}
+.footer__desc{font-size:.83rem;color:var(--g3);line-height:1.7}
+.footer__col-title{font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--y);margin-bottom:1.2rem}
+.footer__links li{margin-bottom:.6rem}
+.footer__links a{font-size:.83rem;color:var(--g3);transition:color .2s}.footer__links a:hover{color:var(--y)}
+.footer__ci{font-size:.83rem;color:var(--g3);display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.7rem;line-height:1.5}
+.footer__ci a:hover{color:var(--y)}
+.footer__bottom{border-top:1px solid rgba(255,255,255,.05);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+.footer__bottom p{font-size:.75rem;color:var(--g3)}
+.footer__bottom a{color:var(--y)}
+
+@media(max-width:1024px){.proj-grid{grid-template-columns:repeat(2,1fr)}.regions-grid{grid-template-columns:repeat(3,1fr)}.stats-band__inner{grid-template-columns:repeat(2,1fr)}.footer__grid{grid-template-columns:1fr 1fr;gap:2rem}}
+@media(max-width:768px){.nav__links{display:none}.burger{display:flex}.ph{padding:110px 0 50px}.proj-grid{grid-template-columns:1fr}.regions-grid{grid-template-columns:repeat(2,1fr)}.footer__grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+</style>
+</head>
 <body>
 
-<!-- ============================================================
-     NAVIGATION
-============================================================ -->
-<nav class="nav" id="mainNav">
-  <div class="container nav__inner">
-    <a href="index.html" class="nav__logo" aria-label="STPMa – Accueil">
-      <img src="logo.png" alt="STPMa" />
-    </a>
-    <ul class="nav__links" role="list">
-      <li><a href="index.html"    class="nav__link">Accueil</a></li>
-      <li><a href="services.html" class="nav__link">Services</a></li>
-      <li><a href="references.html"  class="nav__link active">Références</a></li>
-      <li><a href="apropos.html"  class="nav__link">À Propos</a></li>
-      <li><a href="contact.html"  class="nav__cta">Nous contacter</a></li>
-    </ul>
-    <button class="nav__burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html"><img src="logo.png" alt="STPMa" style="height:68px;width:auto;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,205,0,.25))"></a>
+    <div class="nav__links">
+      <a href="index.html" class="nav__link">Accueil</a>
+      <a href="services.html" class="nav__link">Services</a>
+      <a href="references.html" class="nav__link active">Références</a>
+      <a href="apropos.html" class="nav__link">À Propos</a>
+      <a href="contact.html" class="nav__cta">Nous contacter</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
-
-<div class="nav__drawer" id="navDrawer" role="dialog" aria-label="Menu principal">
-  <a href="index.html"    class="nav__link">Accueil</a>
+<div class="drawer" id="drawer">
+  <a href="index.html" class="nav__link">Accueil</a>
   <a href="services.html" class="nav__link">Services</a>
-  <a href="references.html"  class="nav__link active">Références</a>
-  <a href="apropos.html"  class="nav__link">À Propos</a>
-  <a href="contact.html"  class="nav__cta">Nous contacter →</a>
+  <a href="references.html" class="nav__link active">Références</a>
+  <a href="apropos.html" class="nav__link">À Propos</a>
+  <a href="contact.html" class="nav__cta">Nous contacter →</a>
 </div>
 
-
-<!-- ============================================================
-     HERO PROJETS
-============================================================ -->
-<header class="proj-hero">
-  <div class="container proj-hero__inner reveal">
+<!-- PAGE HERO -->
+<header class="ph">
+  <img src="logo.png" alt="" class="ph__wm" aria-hidden="true">
+  <div class="container ph__inner reveal">
     <div class="tag">Références &amp; Projets</div>
-    <h1>Des chantiers qui parlent<br>pour nous.</h1>
-    <p>
-      Routes nationales, parkings, aéroports — STPMa intervient sur des infrastructures
-      à fort enjeu de sécurité, avec la même exigence sur chaque chantier.
-    </p>
+    <h1>Des chantiers qui<br><span>parlent pour nous.</span></h1>
+    <p>Routes nationales, autoroutes, parkings, aéroports — STPMa intervient dans les 12 régions du Royaume avec la même exigence sur chaque kilomètre.</p>
   </div>
 </header>
 
-
-<!-- ============================================================
-     FILTRES
-============================================================ -->
-<section class="proj-filters">
+<!-- STATS -->
+<div class="stats-band">
   <div class="container">
-    <div class="proj-filters__list" id="filterList">
-      <button class="proj-filter-btn active" data-filter="all">Tous les projets</button>
-      <button class="proj-filter-btn" data-filter="routes">Routes Nationales &amp; Autoroutes</button>
-      <button class="proj-filter-btn" data-filter="parkings">Parkings</button>
-      <button class="proj-filter-btn" data-filter="aeroports">Aéroports</button>
-    </div>
-
-    <!-- Bandeau couverture nationale -->
-    <div style="background:var(--yellow);padding:0.9rem 0;margin-top:0;">
-      <div class="container" style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
-        <span style="font-size:1.3rem;">🇲🇦</span>
-        <strong style="font-family:var(--font-display);font-size:1.05rem;color:var(--black);letter-spacing:0.03em;">
-          Couverture nationale — STPMa intervient dans toutes les régions du Royaume du Maroc
-        </strong>
-        <span style="font-size:0.82rem;color:var(--black);opacity:0.7;margin-left:auto;">
-          12 régions · Routes nationales, autoroutes, parkings &amp; aéroports
-        </span>
-      </div>
+    <div class="stats-band__inner">
+      <div class="stat-item reveal"><div class="stat-item__val">&gt;2 000 km</div><div class="stat-item__label">Marqués (tous gironi)</div></div>
+      <div class="stat-item reveal d1"><div class="stat-item__val">12</div><div class="stat-item__label">Régions couvertes</div></div>
+      <div class="stat-item reveal d2"><div class="stat-item__val">3+</div><div class="stat-item__label">Aéroports équipés</div></div>
+      <div class="stat-item reveal d3"><div class="stat-item__val">100%</div><div class="stat-item__label">Conformité normes</div></div>
     </div>
   </div>
-</section>
+</div>
 
+<!-- FILTRES -->
+<div class="filters">
+  <div class="container filters__inner">
+    <button class="filter-btn active" data-filter="all">Tous les projets</button>
+    <button class="filter-btn" data-filter="routes">Routes Nationales &amp; Autoroutes</button>
+    <button class="filter-btn" data-filter="parkings">Parkings</button>
+    <button class="filter-btn" data-filter="aeroports">Aéroports</button>
+  </div>
+</div>
 
-<!-- ============================================================
-     GRILLE DE PROJETS
-============================================================ -->
-<main class="proj-main">
+<!-- BANNER NATIONAL -->
+<div class="nat-banner">
+  <div class="container nat-banner__inner">
+    <span>🇲🇦</span>
+    <strong>Couverture nationale — STPMa intervient dans toutes les régions du Royaume du Maroc</strong>
+    <span>12 régions · Routes nationales, autoroutes, parkings &amp; aéroports</span>
+  </div>
+</div>
+
+<!-- PROJETS -->
+<section class="proj-section">
   <div class="container">
     <div class="proj-grid" id="projGrid">
 
-      <!-- ───────── ROUTES NATIONALES ───────── -->
-      <!-- ══ RN6 — PROJET PHARE ══ -->
+      <!-- RN6 — PROJET PHARE -->
       <div class="proj-card reveal" data-cat="routes">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : vue aérienne RN6, marquage frais double giron, paysage marocain -->
-          <img src="assets/exc-autoroute.jpg" alt="Réhabilitation RN6 Meknès-Fès — STPMa" loading="lazy" />
-          <span class="proj-card__badge">Projet Phare · RN</span>
+        <div class="proj-card__img">
+          <!-- 🖼️ PHOTO : vue aérienne RN6 Meknès-Fès, marquage double sens, lumière dorée -->
+          <img src="assets/exc-autoroute.jpg" alt="Réhabilitation RN6 — STPMa">
+          <span class="proj-card__badge">★ Projet Phare · RN</span>
         </div>
         <div class="proj-card__body">
-          <div class="proj-card__cat">RN6 · Axe Meknès – Fès</div>
+          <div class="proj-card__region">RN6 · Axe Meknès – Fès</div>
           <h3 class="proj-card__title">Réhabilitation complète du marquage RN6</h3>
-          <p class="proj-card__desc">
-            Intervention sur l'intégralité de l'axe : lignes axiales continues et discontinues,
-            lignes de rive, passages piétons, flèches de sélection et signalisation directionnelle.
-            <strong>Plus de 500 km réalisés par giron (sens de circulation)</strong> — soit plus
-            de 1 000 km de marquage total, sans interruption de la circulation.
-          </p>
+          <p class="proj-card__desc">Plus de <strong style="color:var(--y)">500 km par giron</strong> (sens de circulation), soit plus de 1 000 km de marquage total. Lignes axiales, rive, passages piétons, flèches de sélection — réalisés sans interruption de la circulation avec 2 machines Airless HP.</p>
           <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">&gt;500 km</div>
-              <div class="proj-card__meta-label">Par giron</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">2 gironi</div>
-              <div class="proj-card__meta-label">Sens couverts</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">Airless HP</div>
-              <div class="proj-card__meta-label">Technologie</div>
-            </div>
+            <div><div class="meta-val">&gt;500 km</div><div class="meta-label">Par giron</div></div>
+            <div><div class="meta-val">15 j</div><div class="meta-label">Pour 85 km</div></div>
+            <div><div class="meta-val">Airless HP</div><div class="meta-label">Technologie</div></div>
           </div>
         </div>
       </div>
 
-      <div class="proj-card reveal" data-cat="routes">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : route provinciale avec marquage et glissière de sécurité visible -->
-          <img src="assets/t-gal-1.jpg" alt="Routes provinciales Khénifra" loading="lazy" />
-          <span class="proj-card__badge">Voie Express</span>
-        </div>
-        <div class="proj-card__body">
-          <div class="proj-card__cat">RP5023 &amp; RP4118 · Khénifra</div>
-          <h3 class="proj-card__title">Marquage &amp; sécurisation routes provinciales</h3>
-          <p class="proj-card__desc">
-            Marquage avec billes de verre rétroréfléchissantes pour visibilité nocturne,
-            complété par la pose de glissières sur les sections accidentogènes.
-          </p>
-          <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">62 km</div>
-              <div class="proj-card__meta-label">Linéaire</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">2</div>
-              <div class="proj-card__meta-label">Provinces</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="proj-card reveal" data-cat="routes">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : glissière métallique GS2 en virage de route nationale -->
-          <img src="assets/s-gal-1.jpg" alt="Sécurisation axe industriel Mejjat" loading="lazy" />
-          <span class="proj-card__badge">Sécurité Routière</span>
-        </div>
-        <div class="proj-card__body">
-          <div class="proj-card__cat">Zone Industrielle Mejjat · Meknès</div>
-          <h3 class="proj-card__title">Sécurisation accès zone industrielle</h3>
-          <p class="proj-card__desc">
-            Pose de glissières de sécurité, marquage de quais de chargement et
-            signalisation spécifique pour flux de poids lourds.
-          </p>
-          <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">1.8 km</div>
-              <div class="proj-card__meta-label">Glissières</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">15 j</div>
-              <div class="proj-card__meta-label">Délai</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ───────── PARKINGS ───────── -->
-      <div class="proj-card reveal" data-cat="parkings">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : parking de grande surface avec places marquées, vue aérienne ou large -->
-          <img src="assets/exc-parking.jpg" alt="Parking Mohammed V" loading="lazy" />
-          <span class="proj-card__badge">Parking</span>
-        </div>
-        <div class="proj-card__body">
-          <div class="proj-card__cat">Parking Mohammed V · Meknès</div>
-          <h3 class="proj-card__title">Tracé complet de parking grande capacité</h3>
-          <p class="proj-card__desc">
-            Marquage de places standard, PMR, zones de circulation et signalétique
-            directionnelle en résine époxy haute résistance.
-          </p>
-          <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">420</div>
-              <div class="proj-card__meta-label">Places</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">8 j</div>
-              <div class="proj-card__meta-label">Délai</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="proj-card reveal" data-cat="parkings">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : parking commercial avec marquage jaune/blanc, panneaux directionnels -->
-          <img src="assets/v-gal-2.jpg" alt="Parking centre commercial" loading="lazy" />
-          <span class="proj-card__badge">Parking</span>
-        </div>
-        <div class="proj-card__body">
-          <div class="proj-card__cat">Centre Commercial · Oujda</div>
-          <h3 class="proj-card__title">Signalisation parking &amp; flux logistique</h3>
-          <p class="proj-card__desc">
-            Étude de circulation, marquage au sol et pose de panneaux pour optimiser
-            la rotation des véhicules en zone à fort trafic.
-          </p>
-          <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">280</div>
-              <div class="proj-card__meta-label">Places</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">5 j</div>
-              <div class="proj-card__meta-label">Délai</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ───────── AÉROPORTS ───────── -->
-      <div class="proj-card reveal" data-cat="aeroports">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : piste ou voie de circulation aéroportuaire avec marquage jaune réglementaire -->
-          <img src="assets/exc-aeroport.jpg" alt="Aéroport Meknès" loading="lazy" />
-          <span class="proj-card__badge">Aéroport</span>
-        </div>
-        <div class="proj-card__body">
-          <div class="proj-card__cat">Aéroport · Meknès</div>
-          <h3 class="proj-card__title">Marquage normé OACI &amp; sécurisation accès</h3>
-          <p class="proj-card__desc">
-            Application thermoplastique conforme aux normes aéronautiques internationales,
-            sur voies de circulation et zones de stationnement avion.
-          </p>
-          <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">100%</div>
-              <div class="proj-card__meta-label">Conformité OACI</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">Nuit</div>
-              <div class="proj-card__meta-label">Intervention</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ══ COUVERTURE NATIONALE — NOUVELLES RÉGIONS ══ -->
-
-      <div class="proj-card reveal" data-cat="routes">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : route côtière, marquage blanc sur asphalte — région du Nord -->
-          <img src="assets/exc-autoroute.jpg" alt="Marquage autoroutier A4 — Tanger STPMa" loading="lazy" />
+      <!-- A4 TANGER -->
+      <div class="proj-card reveal d1" data-cat="routes">
+        <div class="proj-card__img">
+          <!-- 🖼️ PHOTO : autoroute A4 nord Maroc, double chaussée marquée -->
+          <img src="assets/exc-autoroute.jpg" alt="A4 Tanger STPMa">
           <span class="proj-card__badge">Autoroute · Nord</span>
         </div>
         <div class="proj-card__body">
-          <div class="proj-card__cat">A4 · Région Tanger-Tétouan-Al Hoceïma</div>
+          <div class="proj-card__region">A4 · Tanger-Tétouan-Al Hoceïma</div>
           <h3 class="proj-card__title">Marquage autoroutier A4 — Axe Tanger</h3>
-          <p class="proj-card__desc">
-            Signalisation horizontale complète sur voie express à deux chaussées séparées.
-            Application thermoplastique à chaud, guidage laser vert, rendement 28 km/jour.
-          </p>
+          <p class="proj-card__desc">Signalisation horizontale complète sur voie express double chaussée. Thermoplastique à chaud, guidage laser vert, rendement 28 km/jour.</p>
           <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">&gt;300 km</div>
-              <div class="proj-card__meta-label">Par giron</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">HP Airless</div>
-              <div class="proj-card__meta-label">Technologie</div>
-            </div>
+            <div><div class="meta-val">&gt;300 km</div><div class="meta-label">Par giron</div></div>
+            <div><div class="meta-val">Laser vert</div><div class="meta-label">Guidage</div></div>
           </div>
         </div>
       </div>
 
-      <div class="proj-card reveal" data-cat="routes">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : autoroute Casablanca-Rabat, double voie marquée -->
-          <img src="assets/t-gal-2.jpg" alt="RN1 Casablanca-Rabat marquage STPMa" loading="lazy" />
+      <!-- RN1 CASABLANCA-RABAT -->
+      <div class="proj-card reveal d2" data-cat="routes">
+        <div class="proj-card__img">
+          <!-- 🖼️ PHOTO : RN1 axe Casablanca-Rabat, trafic dense, marquage blanc -->
+          <img src="assets/t-gal-2.jpg" alt="RN1 Casablanca-Rabat STPMa">
           <span class="proj-card__badge">Route Nationale · Centre</span>
         </div>
         <div class="proj-card__body">
-          <div class="proj-card__cat">RN1 · Région Casablanca-Settat / Rabat-Salé</div>
+          <div class="proj-card__region">RN1 · Casablanca-Settat / Rabat-Salé</div>
           <h3 class="proj-card__title">Réhabilitation RN1 — Axe Casablanca–Rabat</h3>
-          <p class="proj-card__desc">
-            Renouvellement complet du marquage sur l'axe le plus fréquenté du Maroc.
-            Peinture acrylique à froid système Airless, double caméra de contrôle, PLC.
-          </p>
+          <p class="proj-card__desc">Renouvellement complet sur l'axe le plus fréquenté du Maroc. Airless HP, double caméra, PLC — conformité totale NM 03.3.019.</p>
           <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">&gt;400 km</div>
-              <div class="proj-card__meta-label">Par giron</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">PLC + Cam</div>
-              <div class="proj-card__meta-label">Contrôle</div>
-            </div>
+            <div><div class="meta-val">&gt;400 km</div><div class="meta-label">Par giron</div></div>
+            <div><div class="meta-val">PLC + Cam</div><div class="meta-label">Contrôle</div></div>
           </div>
         </div>
       </div>
 
+      <!-- RN8 MARRAKECH-AGADIR -->
       <div class="proj-card reveal" data-cat="routes">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : route Marrakech-Agadir, paysage Atlas ou palmeraie -->
-          <img src="assets/t-gal-1.jpg" alt="RN8 Marrakech-Agadir marquage STPMa" loading="lazy" />
+        <div class="proj-card__img">
+          <!-- 🖼️ PHOTO : RN8 Marrakech-Agadir, paysage Atlas ou anti-Atlas -->
+          <img src="assets/t-gal-1.jpg" alt="RN8 Marrakech-Agadir STPMa">
           <span class="proj-card__badge">Route Nationale · Sud</span>
         </div>
         <div class="proj-card__body">
-          <div class="proj-card__cat">RN8 · Régions Marrakech-Safi &amp; Souss-Massa</div>
+          <div class="proj-card__region">RN8 · Marrakech-Safi &amp; Souss-Massa</div>
           <h3 class="proj-card__title">Marquage RN8 — Axe Marrakech–Agadir</h3>
-          <p class="proj-card__desc">
-            Marquage horizontal sur terrain accidenté et zones montagneuses — adaptation
-            des paramètres Airless aux températures élevées du Sud marocain.
-          </p>
+          <p class="proj-card__desc">Marquage horizontal sur terrain montagneux — adaptation Airless aux températures élevées du Sud. Billes de verre classe R2 haute durabilité.</p>
           <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">&gt;260 km</div>
-              <div class="proj-card__meta-label">Par giron</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">Laser vert</div>
-              <div class="proj-card__meta-label">Guidage</div>
-            </div>
+            <div><div class="meta-val">&gt;260 km</div><div class="meta-label">Par giron</div></div>
+            <div><div class="meta-val">Airless HP</div><div class="meta-label">Système</div></div>
           </div>
         </div>
       </div>
 
-      <div class="proj-card reveal" data-cat="routes">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : route orientale Oujda, paysage steppique -->
-          <img src="assets/s-gal-2.jpg" alt="RN2 Oujda région orientale STPMa" loading="lazy" />
-          <span class="proj-card__badge">Région Orientale</span>
+      <!-- DRÂA-TAFILALET — SIÈGE -->
+      <div class="proj-card reveal d1" data-cat="routes">
+        <div class="proj-card__img">
+          <!-- 🖼️ PHOTO : route Errachidia-Ouarzazate, paysage désertique et palmiers -->
+          <img src="assets/h-gal-3.jpg" alt="Drâa-Tafilalet Errachidia STPMa">
+          <span class="proj-card__badge">★ Siège STPMa · Drâa-Tafilalet</span>
         </div>
         <div class="proj-card__body">
-          <div class="proj-card__cat">RN2 · Région de l'Oriental — Oujda</div>
-          <h3 class="proj-card__title">Signalisation &amp; sécurisation RN2 — Oriental</h3>
-          <p class="proj-card__desc">
-            Marquage routier complet et pose de glissières de sécurité GS2 sur sections
-            accidentogènes. Couverture des provinces de Oujda, Berkane et Nador.
-          </p>
+          <div class="proj-card__region">Région Drâa-Tafilalet · Errachidia</div>
+          <h3 class="proj-card__title">Marquage &amp; sécurité — Drâa-Tafilalet</h3>
+          <p class="proj-card__desc">Région d'ancrage de STPMa : routes nationales, provinciales et pistes rurales. Axes Errachidia–Ouarzazate et Errachidia–Fès.</p>
           <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">&gt;180 km</div>
-              <div class="proj-card__meta-label">Linéaire</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">GS2 + HP</div>
-              <div class="proj-card__meta-label">Équipements</div>
-            </div>
+            <div><div class="meta-val">&gt;200 km</div><div class="meta-label">Linéaire</div></div>
+            <div><div class="meta-val">Siège local</div><div class="meta-label">Réactivité 24h</div></div>
           </div>
         </div>
       </div>
 
-      <div class="proj-card reveal" data-cat="routes">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : route saharienne, marquage blanc sur fond sableux -->
-          <img src="assets/s-gal-3.jpg" alt="Routes Dakhla Laâyoune STPMa" loading="lazy" />
+      <!-- GRAND SUD -->
+      <div class="proj-card reveal d2" data-cat="routes">
+        <div class="proj-card__img">
+          <!-- 🖼️ PHOTO : route saharienne provinces du Sud, asphalte chaud, marquage blanc -->
+          <img src="assets/s-gal-3.jpg" alt="Grand Sud Maroc STPMa">
           <span class="proj-card__badge">Grand Sud · Provinces Sahariennes</span>
         </div>
         <div class="proj-card__body">
-          <div class="proj-card__cat">Régions Laâyoune-Sakia El Hamra &amp; Dakhla-Oued Ed Dahab</div>
-          <h3 class="proj-card__title">Marquage &amp; signalisation — Grand Sud marocain</h3>
-          <p class="proj-card__desc">
-            Intervention dans les provinces sahariennes : signalisation horizontale sur axes
-            stratégiques, résistance aux conditions extrêmes (chaleur, sable, UV).
-            Peinture haute durabilité, billes de verre classe R3.
-          </p>
+          <div class="proj-card__region">Laâyoune-Sakia El Hamra &amp; Dakhla</div>
+          <h3 class="proj-card__title">Marquage &amp; signalisation — Grand Sud</h3>
+          <p class="proj-card__desc">Intervention dans les provinces sahariennes sur axes stratégiques. Peinture haute durabilité résistant chaleur extreme, sable et UV. Billes classe R3.</p>
           <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">&gt;350 km</div>
-              <div class="proj-card__meta-label">Linéaire total</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">Classe R3</div>
-              <div class="proj-card__meta-label">Rétroréflexion</div>
-            </div>
+            <div><div class="meta-val">&gt;350 km</div><div class="meta-label">Linéaire</div></div>
+            <div><div class="meta-val">Classe R3</div><div class="meta-label">Rétroréflexion</div></div>
           </div>
         </div>
       </div>
 
-      <div class="proj-card reveal" data-cat="routes">
-        <div class="proj-card__img-wrap">
-          <!-- 🖼️ PHOTO : route de Drâa-Tafilalet, paysage désertique et palmiers -->
-          <img src="assets/h-gal-3.jpg" alt="Drâa Tafilalet Errachidia STPMa" loading="lazy" />
-          <span class="proj-card__badge">Région Drâa-Tafilalet</span>
+      <!-- PARKING MOHAMMED V -->
+      <div class="proj-card reveal" data-cat="parkings">
+        <div class="proj-card__img">
+          <!-- 🖼️ PHOTO : grand parking marqué, vue aérienne, places bien délimitées -->
+          <img src="assets/exc-parking.jpg" alt="Parking Mohammed V STPMa">
+          <span class="proj-card__badge">Parking</span>
         </div>
         <div class="proj-card__body">
-          <div class="proj-card__cat">Région Drâa-Tafilalet · Errachidia — Siège STPMa</div>
-          <h3 class="proj-card__title">Marquage &amp; sécurité routière — Drâa-Tafilalet</h3>
-          <p class="proj-card__desc">
-            Région d'ancrage de STPMa : interventions sur routes nationales, provinciales
-            et pistes rurales. Signalisation verticale, glissières et marquage thermoplastique
-            sur les axes Errachidia–Ouarzazate et Errachidia–Fès.
-          </p>
+          <div class="proj-card__region">Meknès</div>
+          <h3 class="proj-card__title">Parking Mohammed V — Grande capacité</h3>
+          <p class="proj-card__desc">Marquage de places standard et PMR, zones de circulation et signalétique directionnelle en résine époxy haute résistance.</p>
           <div class="proj-card__meta">
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">&gt;200 km</div>
-              <div class="proj-card__meta-label">Linéaire</div>
-            </div>
-            <div class="proj-card__meta-item">
-              <div class="proj-card__meta-val">Siège local</div>
-              <div class="proj-card__meta-label">Réactivité</div>
-            </div>
+            <div><div class="meta-val">420</div><div class="meta-label">Places tracées</div></div>
+            <div><div class="meta-val">8 j</div><div class="meta-label">Délai</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PARKING COMMERCIAL OUJDA -->
+      <div class="proj-card reveal d1" data-cat="parkings">
+        <div class="proj-card__img">
+          <!-- 🖼️ PHOTO : parking commercial, marquage jaune/blanc visible, panneaux -->
+          <img src="assets/v-gal-2.jpg" alt="Parking Oujda STPMa">
+          <span class="proj-card__badge">Parking Commercial</span>
+        </div>
+        <div class="proj-card__body">
+          <div class="proj-card__region">Oriental · Oujda</div>
+          <h3 class="proj-card__title">Parking commercial — Signalisation &amp; flux</h3>
+          <p class="proj-card__desc">Étude de circulation, marquage au sol et pose de panneaux pour optimiser la rotation véhicules en zone à fort trafic commercial.</p>
+          <div class="proj-card__meta">
+            <div><div class="meta-val">280</div><div class="meta-label">Places</div></div>
+            <div><div class="meta-val">5 j</div><div class="meta-label">Délai</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AÉROPORT MEKNÈS -->
+      <div class="proj-card reveal d2" data-cat="aeroports">
+        <div class="proj-card__img">
+          <!-- 🖼️ PHOTO : piste aéroportuaire avec marquage jaune OACI, nuit ou aube -->
+          <img src="assets/exc-aeroport.jpg" alt="Aéroport Meknès STPMa">
+          <span class="proj-card__badge">Aéroport · OACI</span>
+        </div>
+        <div class="proj-card__body">
+          <div class="proj-card__region">Aéroport · Meknès</div>
+          <h3 class="proj-card__title">Marquage normé OACI — Pistes &amp; voies de circulation</h3>
+          <p class="proj-card__desc">Application thermoplastique conforme aux normes aéronautiques internationales OACI. Voies de circulation, zones de stationnement avion, interventions de nuit.</p>
+          <div class="proj-card__meta">
+            <div><div class="meta-val">100%</div><div class="meta-label">Conformité OACI</div></div>
+            <div><div class="meta-val">Nuit</div><div class="meta-label">Intervention</div></div>
           </div>
         </div>
       </div>
 
     </div><!-- /proj-grid -->
-
   </div>
-</main>
+</section>
 
-
-<!-- ============================================================
-     BANDE STATS
-============================================================ -->
-<section class="proj-stats">
-  <div class="container proj-stats__grid">
+<!-- COUVERTURE 12 RÉGIONS -->
+<section class="regions-section">
+  <div class="container">
     <div class="reveal">
-      <div class="proj-stats__num">&gt;2 000 km</div>
-      <div class="proj-stats__label">Km marqués (tous gironi)</div>
+      <div class="tag">Présence nationale</div>
+      <h2 style="font-family:var(--font-d);font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--white);margin:.5rem 0 .5rem;line-height:1.05">STPMa — 12 régions,<br><span style="color:var(--y)">un seul engagement</span></h2>
+      <p style="font-size:.95rem;color:var(--g2);line-height:1.75">De Tanger à Dakhla, STPMa mobilise ses équipes et équipements Airless sur tout le territoire national sous 72h.</p>
     </div>
-    <div class="reveal">
-      <div class="proj-stats__num">12</div>
-      <div class="proj-stats__label">Régions du Maroc couvertes</div>
-    </div>
-    <div class="reveal">
-      <div class="proj-stats__num">3+</div>
-      <div class="proj-stats__label">Aéroports équipés</div>
-    </div>
-    <div class="reveal">
-      <div class="proj-stats__num">100%</div>
-      <div class="proj-stats__label">Territoire national</div>
+    <div class="regions-grid">
+      <div class="region-card reveal"><div class="region-card__name">Tanger-Tétouan</div><div class="region-card__sub">Al Hoceïma</div></div>
+      <div class="region-card reveal d1"><div class="region-card__name">L'Oriental</div><div class="region-card__sub">Oujda · Nador</div></div>
+      <div class="region-card reveal d2"><div class="region-card__name">Fès-Meknès</div><div class="region-card__sub">RN6 · RN4</div></div>
+      <div class="region-card reveal"><div class="region-card__name">Rabat-Salé</div><div class="region-card__sub">Kénitra · Khémisset</div></div>
+      <div class="region-card reveal d1"><div class="region-card__name">Casablanca</div><div class="region-card__sub">Settat · Berrechid</div></div>
+      <div class="region-card reveal d2"><div class="region-card__name">Marrakech-Safi</div><div class="region-card__sub">RN8 · Essaouira</div></div>
+      <div class="region-card reveal"><div class="region-card__name">Béni Mellal</div><div class="region-card__sub">Khénifra · Azilal</div></div>
+      <div class="region-card reveal d1"><div class="region-card__name">Souss-Massa</div><div class="region-card__sub">Agadir · Taroudant</div></div>
+      <div class="region-card home reveal d2"><div class="region-card__name y">★ Drâa-Tafilalet</div><div class="region-card__sub">Errachidia — Siège STPMa</div></div>
+      <div class="region-card reveal"><div class="region-card__name">Guelmim</div><div class="region-card__sub">Oued Noun</div></div>
+      <div class="region-card reveal d1"><div class="region-card__name">Laâyoune</div><div class="region-card__sub">Sakia El Hamra</div></div>
+      <div class="region-card reveal d2"><div class="region-card__name">Dakhla</div><div class="region-card__sub">Oued Ed Dahab</div></div>
     </div>
   </div>
 </section>
 
-
-<!-- ============================================================
-     CTA FINAL
-============================================================ -->
-<section style="padding: 80px 0; background: var(--asphalt); text-align: center;">
+<!-- CTA -->
+<section class="cta">
   <div class="container reveal">
-    <h2 style="font-family: var(--font-display); font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--white); margin-bottom: 1rem;">
-      Votre projet mérite le même soin.
-    </h2>
-    <p style="color: var(--text-muted); max-width: 480px; margin: 0 auto 2rem;">
-      Parlons de vos besoins en signalisation, marquage ou sécurité routière.
-    </p>
-    <a href="contact.html" class="btn btn-primary">Demander un devis →</a>
+    <h2>Votre projet mérite<br>le même soin.</h2>
+    <p>Parlons de vos besoins en signalisation, marquage ou sécurité routière. Réponse sous 24h ouvrées.</p>
+    <a href="contact.html" class="btn-dark">Demander un devis → +212 6 71 51 14 98</a>
   </div>
 </section>
 
-
-<!-- ============================================================
-     FOOTER
-============================================================ -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
-      <div class="footer__logo-wrap">
-        <img src="logo.png" alt="STPMa" />
-        <p class="footer__desc">
-          Société Travaux Polyvalents Marocains — spécialiste en travaux routiers,
-          signalisation horizontale &amp; verticale et sécurité routière — une expertise reconnue et consolidée.
-        </p>
-        <div class="footer__social">
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="Facebook">f</a>
-          <a href="#" aria-label="WhatsApp">✉</a>
-        </div>
-      </div>
-
       <div>
-        <p class="footer__col-head">Navigation</p>
+        <div class="footer__logo"><img src="logo.png" alt="STPMa"></div>
+        <p class="footer__desc">STPMa — Société Travaux Polyvalents Marocains. Qualification Secteur B &amp; Secteur X. Couverture nationale — 12 régions du Maroc.</p>
+      </div>
+      <div>
+        <div class="footer__col-title">Navigation</div>
         <ul class="footer__links">
           <li><a href="index.html">Accueil</a></li>
           <li><a href="services.html">Nos services</a></li>
-          <li><a href="references.html">Références &amp; projets</a></li>
+          <li><a href="references.html">Références</a></li>
           <li><a href="apropos.html">À propos</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
-
       <div>
-        <p class="footer__col-head">Services</p>
+        <div class="footer__col-title">Nos métiers</div>
         <ul class="footer__links">
           <li><a href="services.html#horizontal">Signalisation horizontale</a></li>
           <li><a href="services.html#verticale">Signalisation verticale</a></li>
-          <li><a href="services.html#securite">Dispositifs de sécurité</a></li>
+          <li><a href="services.html#securite">Glissières de sécurité</a></li>
           <li><a href="services.html#travaux">Travaux routiers</a></li>
         </ul>
       </div>
-
       <div>
-        <p class="footer__col-head">Contact</p>
-        <div class="footer__contact-item">
-          <span class="ico">📍</span>
-          <span>Lot Riad N° 2023, Errachidia<br>Maroc</span>
-        </div>
-        <div class="footer__contact-item">
-          <span class="ico">📞</span>
-          <span>+212 6 71 51 14 98</span>
-        </div>
-        <div class="footer__contact-item">
-          <span class="ico">✉</span>
-          <span>stpmarocains@gmail.com</span>
-        </div>
-        <div class="footer__contact-item">
-          <span class="ico">🕐</span>
-          <span>Lun – Ven : 08h00 – 17h30</span>
-        </div>
+        <div class="footer__col-title">Contact</div>
+        <div class="footer__ci">📍 <span>Lot Riad N° 2023, Errachidia, Maroc</span></div>
+        <div class="footer__ci">📞 <a href="tel:+212671511498">+212 6 71 51 14 98</a></div>
+        <div class="footer__ci">✉ <a href="mailto:stpmarocains@gmail.com">stpmarocains@gmail.com</a></div>
+        <div class="footer__ci">🕐 <span>Lun – Ven : 08h00 – 17h30</span></div>
       </div>
     </div>
-
     <div class="footer__bottom">
       <p>© 2026 STPMa — Société Travaux Polyvalents Marocains. Tous droits réservés.</p>
-      <p>Meknès, Maroc — <a href="mailto:stpmarocains@gmail.com" style="color:var(--yellow)">stpmarocains@gmail.com</a></p>
+      <p><a href="mailto:stpmarocains@gmail.com">stpmarocains@gmail.com</a> · Errachidia, Maroc</p>
     </div>
   </div>
 </footer>
 
-
-<!-- ============================================================
-     JAVASCRIPT
-============================================================ -->
 <script>
-  const nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  }, { passive: true });
-
-  const burger = document.getElementById('burgerBtn');
-  const drawer = document.getElementById('navDrawer');
-  burger.addEventListener('click', () => {
-    const isOpen = drawer.classList.toggle('open');
-    burger.classList.toggle('open', isOpen);
-    burger.setAttribute('aria-expanded', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+const burger=document.getElementById('burger'),drawer=document.getElementById('drawer');
+burger.addEventListener('click',()=>{const o=drawer.classList.toggle('open');burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':''});
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{drawer.classList.remove('open');burger.classList.remove('open');document.body.style.overflow=''}));
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');obs.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.proj-card').forEach(c=>{c.hidden=f!=='all'&&c.dataset.cat!==f});
   });
-  drawer.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      drawer.classList.remove('open');
-      burger.classList.remove('open');
-      burger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
-  });
-
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-  // ── Filtres de projets ──────────────────────────────────────
-  const filterBtns = document.querySelectorAll('.proj-filter-btn');
-  const projCards = document.querySelectorAll('.proj-card');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      projCards.forEach(card => {
-        const show = filter === 'all' || card.dataset.cat === filter;
-        card.hidden = !show;
-      });
-    });
-  });
+});
 </script>
-
 </body>
 </html>
