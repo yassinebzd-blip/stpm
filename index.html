@@ -1016,53 +1016,48 @@ const obs = new IntersectionObserver(entries => {
 }, {threshold:.1, rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// CountUp animation — نظام موثوق
+// ══ CountUp ══
 function animateCount(el) {
   if (el._counted) return;
   el._counted = true;
-  const target    = parseFloat(el.dataset.count);
-  const prefix    = el.dataset.prefix || '';
-  const suffix    = el.dataset.suffix || '';
-  const duration  = 2000;
-  const startTime = performance.now();
-  const isInt     = Number.isInteger(target);
-
-  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-
-  function step(now) {
-    const elapsed  = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const value    = target * easeOut(progress);
-    const display  = isInt ? Math.floor(value) : value.toFixed(1);
-    el.textContent = prefix + Number(display).toLocaleString('fr-FR') + suffix;
-    if (progress < 1) requestAnimationFrame(step);
+  const target   = parseFloat(el.dataset.count);
+  const prefix   = el.dataset.prefix || '';
+  const suffix   = el.dataset.suffix || '';
+  const duration = 2000;
+  const start    = performance.now();
+  const isInt    = Number.isInteger(target);
+  const ease     = t => 1 - Math.pow(1 - t, 3);
+  function tick(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const v = target * ease(p);
+    el.textContent = prefix + (isInt ? Math.floor(v).toLocaleString('fr-FR') : v.toFixed(1)) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
   }
-  requestAnimationFrame(step);
+  requestAnimationFrame(tick);
 }
 
-// Observer pour les éléments hors viewport
-const countObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      animateCount(e.target);
-      countObs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.2 });
+// Observer pour stats hors-écran
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); cntObs.unobserve(e.target); } });
+}, { threshold: 0.1 });
 
-// Lancer au chargement complet de la page
-window.addEventListener('load', () => {
+// Démarrer immédiatement sans attendre le load
+function initCounters() {
   document.querySelectorAll('[data-count]').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    const inView = rect.top < window.innerHeight && rect.bottom > 0;
-    if (inView) {
-      // Hero stats — délai pour laisser la vidéo/image se poser
-      setTimeout(() => animateCount(el), 600);
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight + 100) {
+      setTimeout(() => animateCount(el), 300);
     } else {
-      countObs.observe(el);
+      cntObs.observe(el);
     }
   });
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCounters);
+} else {
+  setTimeout(initCounters, 100);
+}
 </script>
 </body>
 </html>
