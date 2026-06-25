@@ -393,19 +393,19 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
     </div>
     <div class="hero__stats">
       <div>
-        <div class="hero__stat-num">&gt;2 000 km</div>
+        <div class="hero__stat-num" data-count="2000" data-prefix="&gt;" data-suffix=" km">0 km</div>
         <div class="hero__stat-label">Marqués (tous gironi)</div>
       </div>
       <div>
-        <div class="hero__stat-num">12</div>
+        <div class="hero__stat-num" data-count="12">0</div>
         <div class="hero__stat-label">Régions couvertes</div>
       </div>
       <div>
-        <div class="hero__stat-num">3+</div>
+        <div class="hero__stat-num" data-count="3" data-suffix="+">0</div>
         <div class="hero__stat-label">Aéroports équipés</div>
       </div>
       <div>
-        <div class="hero__stat-num">100%</div>
+        <div class="hero__stat-num" data-count="100" data-suffix="%">0</div>
         <div class="hero__stat-label">Conforme aux normes</div>
       </div>
     </div>
@@ -561,7 +561,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
         </div>
         <div class="spec-block">
           <div class="spec-block__title">Peinture à froid — Acrylique</div>
-          <div class="spec-row"><span class="spec-key">Système</span><span class="spec-val"><strong>Airless haute pression</strong> — rش هوائي بدون هواء مضغوط</span></div>
+          <div class="spec-row"><span class="spec-key">Système</span><span class="spec-val"><strong>Airless haute pression 30 MPa</strong> — pulvérisation sans air comprimé</span></div>
           <div class="spec-row"><span class="spec-key">Coloris</span><span class="spec-val">Blanc, Jaune, Rouge, Bleu</span></div>
           <div class="spec-row"><span class="spec-key">Séchage</span><span class="spec-val">15 à 30 minutes</span></div>
           <div class="spec-row"><span class="spec-key">Usage</span><span class="spec-val">Voiries urbaines, marquages temporaires</span></div>
@@ -626,109 +626,114 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
       <span>12 régions · Routes nationales, autoroutes, parkings &amp; aéroports</span>
     </div>
     <div class="refs-grid">
+
       <!-- RN6 -->
       <div class="ref-card reveal">
         <div class="ref-card__img">
           <!-- 🖼️ PHOTO : RN6 Meknès-Fès, marquage double sens, vue drone -->
           <img src="assets/exc-autoroute.jpg" alt="Réhabilitation RN6 — STPMa">
-          <span class="ref-card__badge">Projet Phare · RN</span>
+          <span class="ref-card__badge">★ Projet Phare · RN</span>
         </div>
         <div class="ref-card__body">
           <div class="ref-card__region">RN6 · Axe Meknès – Fès</div>
           <h3 class="ref-card__title">Réhabilitation marquage RN6</h3>
-          <p class="ref-card__desc">Plus de 500 km par giron (sens de circulation), soit &gt;1 000 km de marquage total. Lignes axiales, rive, passages piétons, flèches — sans interruption de la circulation.</p>
+          <p class="ref-card__desc">Plus de 500 km par giron, soit &gt;1 000 km total. Lignes axiales, rive, passages piétons, flèches — sans interruption de la circulation.</p>
           <div class="ref-card__meta">
             <div><div class="ref-meta-val">&gt;500 km</div><div class="ref-meta-label">Par giron</div></div>
-            <div><div class="ref-meta-val">15 j</div><div class="ref-meta-label">85 km en 15 jours</div></div>
+            <div><div class="ref-meta-val">15 j</div><div class="ref-meta-label">Pour 85 km</div></div>
             <div><div class="ref-meta-val">Airless HP</div><div class="ref-meta-label">Technologie</div></div>
           </div>
         </div>
       </div>
-      <!-- Tanger -->
+
+      <!-- A4 Tanger -->
       <div class="ref-card reveal d1">
         <div class="ref-card__img">
-          <!-- 🖼️ PHOTO : autoroute A4 nord Maroc -->
           <img src="assets/exc-autoroute.jpg" alt="A4 Tanger STPMa">
           <span class="ref-card__badge">Autoroute · Nord</span>
         </div>
         <div class="ref-card__body">
           <div class="ref-card__region">A4 · Tanger-Tétouan-Al Hoceïma</div>
           <h3 class="ref-card__title">Marquage autoroutier A4 — Axe Tanger</h3>
-          <p class="ref-card__desc">Signalisation horizontale complète sur voie express double chaussée. Thermoplastique à chaud, guidage laser vert, rendement 28 km/jour.</p>
+          <p class="ref-card__desc">Signalisation horizontale sur voie express double chaussée. Thermoplastique à chaud, laser vert, 28 km/jour.</p>
           <div class="ref-card__meta">
             <div><div class="ref-meta-val">&gt;300 km</div><div class="ref-meta-label">Par giron</div></div>
             <div><div class="ref-meta-val">HP Airless</div><div class="ref-meta-label">Système</div></div>
           </div>
         </div>
       </div>
-      <!-- Casablanca-Rabat -->
+
+      <!-- RN1 Casablanca-Rabat -->
       <div class="ref-card reveal d2">
         <div class="ref-card__img">
-          <!-- 🖼️ PHOTO : RN1 axe Casablanca-Rabat -->
           <img src="assets/t-gal-2.jpg" alt="RN1 Casablanca-Rabat STPMa">
           <span class="ref-card__badge">Route Nationale · Centre</span>
         </div>
         <div class="ref-card__body">
-          <div class="ref-card__region">RN1 · Casablanca-Settat / Rabat-Salé</div>
+          <div class="ref-card__region">RN1 · Casablanca – Rabat</div>
           <h3 class="ref-card__title">Réhabilitation RN1 — Axe Casablanca–Rabat</h3>
-          <p class="ref-card__desc">Renouvellement complet du marquage sur l'axe le plus fréquenté du Maroc. Peinture acrylique à froid système Airless, double caméra, PLC.</p>
+          <p class="ref-card__desc">Renouvellement complet sur l'axe le plus fréquenté du Maroc. Airless HP, double caméra, PLC.</p>
           <div class="ref-card__meta">
             <div><div class="ref-meta-val">&gt;400 km</div><div class="ref-meta-label">Par giron</div></div>
             <div><div class="ref-meta-val">PLC + Cam</div><div class="ref-meta-label">Contrôle</div></div>
           </div>
         </div>
       </div>
-      <!-- Parking -->
+
+      <!-- Glissières GS2 — Lignes autoroutières -->
       <div class="ref-card reveal">
         <div class="ref-card__img">
-          <!-- 🖼️ PHOTO : grand parking marqué, vue aérienne -->
-          <img src="assets/exc-parking.jpg" alt="Parking Mohammed V STPMa">
-          <span class="ref-card__badge">Parking</span>
+          <!-- 🖼️ PHOTO : glissière GS2 métallique posée sur route nationale, vue perspective -->
+          <img src="assets/s-gal-1.jpg" alt="Glissières de sécurité GS2 STPMa">
+          <span class="ref-card__badge">Glissières · Sécurité</span>
         </div>
         <div class="ref-card__body">
-          <div class="ref-card__region">Meknès</div>
-          <h3 class="ref-card__title">Parking Mohammed V — Grande capacité</h3>
-          <p class="ref-card__desc">Marquage de places standard et PMR, zones de circulation, signalétique directionnelle en résine époxy haute résistance.</p>
+          <div class="ref-card__region">Axes routiers nationaux — Maroc</div>
+          <h3 class="ref-card__title">Glissières de sécurité GS2 — Lignes autoroutières</h3>
+          <p class="ref-card__desc">Pose de glissières métalliques GS2 galvanisées sur plus de 30 km d'axes à fort trafic. 2 équipes simultanées — niveaux H1/H2 — conformité EN 1317.</p>
           <div class="ref-card__meta">
-            <div><div class="ref-meta-val">420</div><div class="ref-meta-label">Places tracées</div></div>
-            <div><div class="ref-meta-val">8 j</div><div class="ref-meta-label">Délai</div></div>
+            <div><div class="ref-meta-val">&gt;30 km</div><div class="ref-meta-label">Linéaire posé</div></div>
+            <div><div class="ref-meta-val">2 équipes</div><div class="ref-meta-label">Simultanées</div></div>
+            <div><div class="ref-meta-val">EN 1317</div><div class="ref-meta-label">Norme</div></div>
           </div>
         </div>
       </div>
-      <!-- Aéroport -->
+
+      <!-- Clôtures de sécurité — Autoroutes & fermes -->
       <div class="ref-card reveal d1">
         <div class="ref-card__img">
-          <!-- 🖼️ PHOTO : piste aéroportuaire avec marquage jaune OACI -->
+          <!-- 🖼️ PHOTO : clôture de sécurité le long d'une autoroute ou périmètre industriel -->
+          <img src="assets/s-gal-2.jpg" alt="Clôtures de sécurité STPMa">
+          <span class="ref-card__badge">Clôtures · Sécurité périmétrique</span>
+        </div>
+        <div class="ref-card__body">
+          <div class="ref-card__region">Autoroutes · Zones industrielles · Exploitations agricoles</div>
+          <h3 class="ref-card__title">Clôtures de sécurité — Autoroutes &amp; périmètres</h3>
+          <p class="ref-card__desc">Installation de clôtures de sécurité périmétrique le long d'autoroutes, de zones industrielles et d'exploitations agricoles (fermes). Linéaire cumulé supérieur à 30 km.</p>
+          <div class="ref-card__meta">
+            <div><div class="ref-meta-val">&gt;30 km</div><div class="ref-meta-label">Linéaire cumulé</div></div>
+            <div><div class="ref-meta-val">Multi-sites</div><div class="ref-meta-label">Zones d'intervention</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aéroport -->
+      <div class="ref-card reveal d2">
+        <div class="ref-card__img">
           <img src="assets/exc-aeroport.jpg" alt="Aéroport Meknès STPMa">
-          <span class="ref-card__badge">Aéroport</span>
+          <span class="ref-card__badge">Aéroport · OACI</span>
         </div>
         <div class="ref-card__body">
           <div class="ref-card__region">Aéroport · Meknès</div>
-          <h3 class="ref-card__title">Marquage normé OACI — Pistes & voies de circulation</h3>
-          <p class="ref-card__desc">Application thermoplastique conforme aux normes aéronautiques internationales OACI sur voies de circulation et zones de stationnement avion.</p>
+          <h3 class="ref-card__title">Marquage OACI — Pistes &amp; voies de circulation</h3>
+          <p class="ref-card__desc">Thermoplastique conforme aux normes OACI. Voies de circulation, zones de stationnement avion — intervention de nuit.</p>
           <div class="ref-card__meta">
             <div><div class="ref-meta-val">100%</div><div class="ref-meta-label">Conformité OACI</div></div>
             <div><div class="ref-meta-val">Nuit</div><div class="ref-meta-label">Intervention</div></div>
           </div>
         </div>
       </div>
-      <!-- Grand Sud -->
-      <div class="ref-card reveal d2">
-        <div class="ref-card__img">
-          <!-- 🖼️ PHOTO : route saharienne, marquage blanc -->
-          <img src="assets/s-gal-3.jpg" alt="Grand Sud Maroc STPMa">
-          <span class="ref-card__badge">Grand Sud · Provinces Sahariennes</span>
-        </div>
-        <div class="ref-card__body">
-          <div class="ref-card__region">Laâyoune-Sakia El Hamra &amp; Dakhla-Oued Ed Dahab</div>
-          <h3 class="ref-card__title">Marquage &amp; signalisation — Grand Sud</h3>
-          <p class="ref-card__desc">Intervention dans les provinces sahariennes sur axes stratégiques. Peinture haute durabilité résistant à la chaleur, sable et UV extrêmes. Billes classe R3.</p>
-          <div class="ref-card__meta">
-            <div><div class="ref-meta-val">&gt;350 km</div><div class="ref-meta-label">Linéaire</div></div>
-            <div><div class="ref-meta-val">Classe R3</div><div class="ref-meta-label">Rétroréflexion</div></div>
-          </div>
-        </div>
-      </div>
+
     </div>
     <div style="text-align:center;margin-top:2.5rem" class="reveal">
       <a href="references.html" class="btn btn-yellow">Voir tous nos projets →</a>
@@ -978,6 +983,72 @@ const obs = new IntersectionObserver(entries => {
   });
 }, {threshold:.1, rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, {passive:true});
+
+// Burger
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+burger.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+drawer.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    burger.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); }
+  });
+}, {threshold:.1, rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// CountUp animation — أرقام تعد من 0
+function animateCount(el) {
+  const target  = parseFloat(el.dataset.count);
+  const prefix  = el.dataset.prefix  || '';
+  const suffix  = el.dataset.suffix  || '';
+  const duration = 1800;
+  const fps      = 60;
+  const steps    = duration / (1000 / fps);
+  let current = 0;
+  const increment = target / steps;
+  const isInt = Number.isInteger(target);
+
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    const display = isInt ? Math.floor(current) : current.toFixed(1);
+    el.textContent = prefix + display.toLocaleString('fr-FR') + suffix;
+  }, 1000 / fps);
+}
+
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && e.target.dataset.count) {
+      animateCount(e.target);
+      countObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.6});
+
+document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
 </script>
 </body>
 </html>
