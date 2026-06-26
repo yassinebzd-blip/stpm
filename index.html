@@ -308,6 +308,40 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   .reveal{opacity:1;transform:none}
   .hero__stripe-inner{animation:none}
 }
+
+/* ══ NOTRE MÉTHODE ══ */
+.methode{padding:100px 0;background:var(--black2);border-top:1px solid rgba(255,255,255,.06)}
+.methode__header{text-align:center;max-width:700px;margin:0 auto 3.5rem}
+.methode__header h2{font-family:var(--font-d);font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--white);line-height:1.05;margin:.5rem 0}
+.methode__grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.methode__card{background:var(--black3);border-left:4px solid var(--y);border-radius:0 6px 6px 0;padding:2rem 1.8rem;display:flex;gap:1.4rem;align-items:flex-start;transition:transform .25s,background .25s;position:relative;overflow:hidden}
+.methode__card::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,205,0,.06) 0%,transparent 60%);pointer-events:none}
+.methode__card:hover{transform:translateX(4px);background:var(--black4)}
+.methode__ico{font-size:1.5rem;flex-shrink:0;width:52px;height:52px;background:var(--y-glow);border:1px solid var(--y-border);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.methode__body h3{font-family:var(--font-d);font-size:1.15rem;font-weight:700;color:var(--white);margin-bottom:.5rem}
+.methode__body p{font-size:.84rem;color:var(--g2);line-height:1.65}
+
+/* ══ NOS ENGAGEMENTS ══ */
+.engagements{padding:90px 0;background:var(--black);border-top:3px solid var(--y)}
+.engagements__header{text-align:center;max-width:700px;margin:0 auto 3.5rem}
+.engagements__header h2{font-family:var(--font-d);font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--white);line-height:1.05;margin:.5rem 0}
+.engagements__header p{color:var(--g2);font-size:.95rem;margin-top:.8rem}
+.eng-grid{display:flex;flex-direction:column;gap:0;border:1px solid rgba(255,255,255,.07);border-radius:6px;overflow:hidden;max-width:900px;margin:0 auto}
+.eng-card{display:flex;align-items:center;gap:2rem;padding:1.6rem 2rem;background:var(--black2);border-bottom:1px solid rgba(255,255,255,.06);transition:background .2s,padding-left .25s}
+.eng-card:last-child{border-bottom:none}
+.eng-card:hover{background:var(--black3);padding-left:2.4rem}
+.eng-card__ico{font-size:1.4rem;flex-shrink:0;width:50px;height:50px;background:var(--y);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.eng-card__body{flex:1}
+.eng-card h4{font-family:var(--font-d);font-weight:700;font-size:1.1rem;color:var(--white);margin-bottom:.3rem}
+.eng-card p{font-size:.84rem;color:var(--g2);line-height:1.55}
+.eng-card__arrow{color:var(--y);font-size:1.2rem;flex-shrink:0;opacity:.4;transition:opacity .2s,transform .2s}
+.eng-card:hover .eng-card__arrow{opacity:1;transform:translateX(4px)}
+@media(max-width:768px){
+  .methode__grid{grid-template-columns:1fr}
+  .methode__card{gap:1rem}
+  .eng-card{gap:1.2rem;padding:1.3rem 1.4rem}
+  .eng-card:hover{padding-left:1.6rem}
+}
 </style>
 </head>
 <body>
@@ -891,86 +925,96 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 
 
 <!-- ═══════════ NOTRE MÉTHODE ═══════════ -->
-<section class="methode section" id="methode">
+<section class="methode" id="methode">
   <div class="container">
-    <div class="s-head reveal" style="text-align:center">
+    <div class="methode__header reveal">
       <div class="tag" style="justify-content:center">Notre méthode</div>
-      <h2 style="font-family:var(--font-d);font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--white);margin:.5rem 0 .5rem;line-height:1.05">
-        De l'étude à la réception,<br>
-        <span style="color:var(--y)">un processus rigoureux</span>
-      </h2>
+      <h2>De l'étude à la réception,<br><span style="color:var(--y)">un processus rigoureux</span></h2>
     </div>
-    <div class="methode__timeline">
-      <!-- Ligne horizontale de connexion -->
-      <div class="methode__line"></div>
-      <div class="methode__steps">
+    <div class="methode__grid">
 
-        <div class="methode__step reveal">
-          <div class="methode__circle">1</div>
+      <div class="methode__card reveal">
+        <div class="methode__ico">🔍</div>
+        <div class="methode__body">
           <h3>Étude &amp; Devis</h3>
           <p>Visite terrain, relevé des linéaires, analyse des plans et établissement d'un devis détaillé adapté aux normes du maître d'ouvrage.</p>
         </div>
+      </div>
 
-        <div class="methode__step reveal d1">
-          <div class="methode__circle">2</div>
-          <h3>Préparation</h3>
-          <p>Vérification de l'état de la chaussée, nettoyage, implantation et balisage du chantier selon le plan de signalisation temporaire.</p>
+      <div class="methode__card reveal d1">
+        <div class="methode__ico">🚧</div>
+        <div class="methode__body">
+          <h3>Préparation du chantier</h3>
+          <p>Vérification de l'état de la chaussée, nettoyage, implantation et balisage selon le plan de signalisation temporaire.</p>
         </div>
+      </div>
 
-        <div class="methode__step reveal d2">
-          <div class="methode__circle">3</div>
+      <div class="methode__card reveal d2">
+        <div class="methode__ico">⚙️</div>
+        <div class="methode__body">
           <h3>Exécution</h3>
-          <p>Déploiement des équipes et des machines spécialisées. Application des matériaux de marquage avec contrôle continu des paramètres.</p>
+          <p>Déploiement des équipes et machines spécialisées. Application des matériaux avec contrôle continu des paramètres.</p>
         </div>
+      </div>
 
-        <div class="methode__step reveal d3">
-          <div class="methode__circle">4</div>
-          <h3>Réception &amp; Contrôle</h3>
+      <div class="methode__card reveal d3">
+        <div class="methode__ico">✅</div>
+        <div class="methode__body">
+          <h3>Réception &amp; Contrôle qualité</h3>
           <p>Contrôle qualité contradictoire, mesure de rétroréflectométrie, levée des réserves et remise du dossier de récolement.</p>
         </div>
-
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- ═══════════ NOS ENGAGEMENTS ═══════════ -->
 <section class="engagements" id="engagements">
-  <div class="container engagements__inner">
-    <div class="reveal">
-      <div class="tag">Nos engagements</div>
-      <h2 class="engagements__intro" style="font-family:var(--font-d);font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--white);margin:.5rem 0 1.2rem;line-height:1.05">La qualité &amp; la sécurité,<br><span style="color:var(--y)">sans compromis</span></h2>
-      <p style="font-size:.92rem;color:var(--g2);line-height:1.8">Chaque chantier STPMa est conduit avec le même niveau d'exigence, qu'il s'agisse d'une route provinciale ou d'un axe autoroutier à fort trafic.</p>
+  <div class="container">
+    <div class="engagements__header reveal">
+      <div class="tag" style="justify-content:center">Nos engagements</div>
+      <h2>La qualité &amp; la sécurité,<br><span style="color:var(--y)">sans compromis</span></h2>
+      <p>Chaque chantier STPMa est conduit avec le même niveau d'exigence, qu'il s'agisse d'une route provinciale ou d'un axe autoroutier à fort trafic.</p>
     </div>
-    <div class="engagements__list reveal d2">
-      <div class="eng-item">
-        <div class="eng-item__ico">🏆</div>
-        <div>
+    <div class="eng-grid reveal">
+
+      <div class="eng-card">
+        <div class="eng-card__ico">🏆</div>
+        <div class="eng-card__body">
           <h4>Qualification Secteur B &amp; Secteur X</h4>
-          <p>Entreprise habilitée à soumissionner aux marchés publics de l'État, des régions et des communes du Royaume du Maroc.</p>
+          <p>Habilitée aux marchés publics de l'État, des régions et des communes du Royaume du Maroc.</p>
         </div>
+        <span class="eng-card__arrow">→</span>
       </div>
-      <div class="eng-item">
-        <div class="eng-item__ico">📏</div>
-        <div>
+
+      <div class="eng-card">
+        <div class="eng-card__ico">📏</div>
+        <div class="eng-card__body">
           <h4>Conformité aux normes NM &amp; ICTAVRU</h4>
           <p>Travaux exécutés selon les instructions techniques de la DRCR et les normes marocaines en vigueur.</p>
         </div>
+        <span class="eng-card__arrow">→</span>
       </div>
-      <div class="eng-item">
-        <div class="eng-item__ico">⚡</div>
-        <div>
+
+      <div class="eng-card">
+        <div class="eng-card__ico">⚡</div>
+        <div class="eng-card__body">
           <h4>Réactivité &amp; respect des délais</h4>
-          <p>Capacité de mobilisation rapide sur l'ensemble du territoire national. Interventions d'urgence sous 72 heures.</p>
+          <p>Capacité de mobilisation rapide sur tout le territoire national. Interventions d'urgence sous 72 heures.</p>
         </div>
+        <span class="eng-card__arrow">→</span>
       </div>
-      <div class="eng-item">
-        <div class="eng-item__ico">🌍</div>
-        <div>
+
+      <div class="eng-card">
+        <div class="eng-card__ico">🌍</div>
+        <div class="eng-card__body">
           <h4>Matériaux certifiés &amp; durables</h4>
-          <p>Peintures thermoplastiques et billes de verre Classe R2 pour une durabilité et une visibilité nocturne optimales.</p>
+          <p>Peintures thermoplastiques et billes de verre Classe R2 pour durabilité et visibilité nocturne optimales.</p>
         </div>
+        <span class="eng-card__arrow">→</span>
       </div>
+
     </div>
   </div>
 </section>
