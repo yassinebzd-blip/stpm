@@ -269,6 +269,9 @@ input,select,textarea{font-family:inherit}
               placeholder="Décrivez votre projet : localisation, linéaire estimé, délais souhaités, type de voirie..." required></textarea>
           </div>
 
+          <!-- Email de réception configuré -->
+          <input type="hidden" name="_replyto" value="stpmarocains@gmail.com">
+          <input type="hidden" name="_subject" value="Nouvelle demande STPMa — Site web">
           <!-- Honeypot anti-spam -->
           <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off">
 
@@ -294,14 +297,26 @@ input,select,textarea{font-family:inherit}
           <div class="info-card__ico">📍</div>
           <div>
             <div class="info-card__label">Adresse</div>
-            <div class="info-card__val">Lot Riad N° 2023<br>Errachidia, Maroc</div>
+            <div class="info-card__val">N° 1022 Lot Riad<br>Errachidia, Maroc</div>
           </div>
         </div>
         <div class="info-card">
           <div class="info-card__ico">📞</div>
           <div>
-            <div class="info-card__label">Téléphone</div>
-            <div class="info-card__val"><a href="tel:+212671511498">+212 6 71 51 14 98</a></div>
+            <div class="info-card__label">Téléphone &amp; WhatsApp</div>
+            <div class="info-card__val">
+              <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.4rem">
+                <a href="tel:+212664845558"
+                   style="display:inline-flex;align-items:center;gap:.4rem;background:var(--y);color:var(--black);padding:.4rem 1rem;border-radius:3px;font-weight:700;font-size:.82rem;text-decoration:none">
+                  📞 Appeler
+                </a>
+                <a href="https://wa.me/212664845558" target="_blank" rel="noopener"
+                   style="display:inline-flex;align-items:center;gap:.4rem;background:#25D366;color:#fff;padding:.4rem 1rem;border-radius:3px;font-weight:700;font-size:.82rem;text-decoration:none">
+                  💬 WhatsApp
+                </a>
+              </div>
+              <span style="font-size:.85rem;color:var(--g2);margin-top:.5rem;display:block">+212 6 64 84 55 58</span>
+            </div>
           </div>
         </div>
         <div class="info-card">
@@ -340,7 +355,17 @@ input,select,textarea{font-family:inherit}
         <div class="urgence__ico">🚧</div>
         <div>
           <h4>Intervention urgente ?</h4>
-          <p>Appelez directement : <a href="tel:+212671511498">+212 6 71 51 14 98</a></p>
+          <p style="margin-bottom:.5rem">Appelez ou écrivez-nous directement :</p>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <a href="tel:+212664845558"
+               style="display:inline-flex;align-items:center;gap:.3rem;background:var(--black);color:var(--y);padding:.4rem .9rem;border-radius:3px;font-weight:700;font-size:.8rem;text-decoration:none">
+              📞 +212 6 64 84 55 58
+            </a>
+            <a href="https://wa.me/212664845558" target="_blank" rel="noopener"
+               style="display:inline-flex;align-items:center;gap:.3rem;background:#25D366;color:#fff;padding:.4rem .9rem;border-radius:3px;font-weight:700;font-size:.8rem;text-decoration:none">
+              💬 WhatsApp
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -377,8 +402,8 @@ input,select,textarea{font-family:inherit}
       </div>
       <div>
         <div class="footer__col-title">Contact</div>
-        <div class="footer__ci">📍 <span>Lot Riad N° 2023, Errachidia, Maroc</span></div>
-        <div class="footer__ci">📞 <a href="tel:+212671511498">+212 6 71 51 14 98</a></div>
+        <div class="footer__ci">📍 <span>N° 1022 Lot Riad, Errachidia, Maroc</span></div>
+        <div class="footer__ci">📞 <a href="tel:+212664845558">+212 6 64 84 55 58</a></div>
         <div class="footer__ci">✉ <a href="mailto:stpmarocains@gmail.com">stpmarocains@gmail.com</a></div>
         <div class="footer__ci">🕐 <span>Lun – Ven : 08h00 – 17h30</span></div>
       </div>
@@ -429,11 +454,11 @@ form.addEventListener('submit',async(e)=>{
       form.style.display='none';
       success.classList.add('show');
     } else {
-      alert("Une erreur s'est produite. Veuillez nous appeler directement au +212 6 71 51 14 98");
+      alert("Une erreur s'est produite. Veuillez nous appeler directement au +212 6 64 84 55 58");
       btn.textContent=orig;btn.disabled=false;
     }
   } catch(err){
-    alert("Erreur de connexion. Veuillez nous appeler directement au +212 6 71 51 14 98");
+    alert("Erreur de connexion. Veuillez nous appeler directement au +212 6 64 84 55 58");
     btn.textContent=orig;btn.disabled=false;
   }
 });
